@@ -56,4 +56,6 @@ for($i=0; $i<$field_count; $i++){
 print $field_names[$i]." : ".$field_descriptions[$i]."\n";
 }
 print "\n";
+//--- save the response into an xml file in the current directory
+echo $field_xml->saveXML("write.xml");
 ?>
