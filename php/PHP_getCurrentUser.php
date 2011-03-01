@@ -34,5 +34,6 @@ $xml = simplexml_load_string($response);
 $account_id = $xml->AccountId;
 
 print "\n".$account_id."\n\n";
+//--- save the response into an xml file in the current directory
 echo $account_id->saveXML("write.xml");
 ?>
