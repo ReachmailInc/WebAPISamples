@@ -60,5 +60,6 @@ for($i=0; $i<$mail_count; $i++){
 print $mail_names[$i]." : ".$mail_ids[$i]." : ".$delivered[$i]."\n";
 }
 print "\n";
+echo $mail_report_xml ->saveXML("reports.xml");
 ?>
 
