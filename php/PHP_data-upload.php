@@ -8,7 +8,7 @@
 //---- administrator or support@reachmail.com. For information on the API
 //---- service URL please refer to the documentation at
 //---- services.reachmail.net
-$account_key = 'account_key';
+$account_key = 'account_id';
 $username = 'username';
 $password = 'password';
 $api_service_url = 'https://services.reachmail.net/Rest/Data/';
