@@ -12,9 +12,7 @@ $password = 'password';
 $api_service_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/recipients';
 //---- For information on getting the API account id please refer to the
 //---- AdministrationService/GetCurrentUser example. For information on getting
-//---- the listid please refer to the example for
-//---- ContactServices\EnumerateLists
-
+//---- the listid please refer to the example for ContactServices\EnumerateLists
 $account_id = 'api-account-id';
 $list_id = 'list_id';
 $email = 'email';
