@@ -44,5 +44,7 @@ $mail_summary_xml = simplexml_load_string($mail_summary_response);
 //---- In this example we've provided a very basic example of accessing XML
 //---- nodes using simplexml objects.
 print_r($mail_summary_xml);
+//--- This will save the response as a seperate xml file in the current directory
+echo $mail_summary_xml->saveXML("write.xml");
 ?>
 

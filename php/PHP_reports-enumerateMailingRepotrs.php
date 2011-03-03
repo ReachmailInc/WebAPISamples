@@ -60,6 +60,7 @@ for($i=0; $i<$mail_count; $i++){
 print $mail_names[$i]." : ".$mail_ids[$i]." : ".$delivered[$i]."\n";
 }
 print "\n";
+//--- This will save the response as a seperate xml file in the current directory
 echo $mail_report_xml ->saveXML("reports.xml");
 ?>
 
