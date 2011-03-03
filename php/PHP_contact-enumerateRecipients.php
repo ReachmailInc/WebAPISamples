@@ -17,8 +17,7 @@ $api_service_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/recipi
 
 //---- The following account id and list id are API specific. Please refer to
 //---- the code samples for AdministrationService\GetCurrentUser and
-//---- ContactService\EnumerateLists for more information on getting these
-//---- values.
+//---- ContactService\EnumerateLists for more information on getting these values
 $account_id = 'api-account-id';
 $list_id = 'list-id';
 $api_service_url = $api_service_url.$account_id.'/'.$list_id;
@@ -65,5 +64,6 @@ $i++;
 }
 
 print "\n";
-
+//--- save the response into an xml file in the current directory
+echo $response_xml->saveXML("records.xml");
 ?>
