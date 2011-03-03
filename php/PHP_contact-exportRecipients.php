@@ -13,7 +13,7 @@ $password = 'password';
 $api_service_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/export/' . 'account-api-id' . 'list-id';
 //---- For information on getting the API account id please refer to the
 //---- AdministrationService/GetCurrentUser example
-$account_id = 'asi_account-id';
+$account_id = 'api_account-id';
 //---- The list id is for the list you are exporting
 //---- For information on getting the list id please refer to the
 //---- ContactService/EnumerateLists example.
