@@ -1,5 +1,5 @@
 <?php
-/---- API Service: ContactService\ImportRecipients
+//---- API Service: ContactService\ImportRecipients
 //---- This API service imports whole files into a specified list.
 //---- Setting some basic variables. If you need help determining your
 //---- account key, username or password please contact you ReachMail account
