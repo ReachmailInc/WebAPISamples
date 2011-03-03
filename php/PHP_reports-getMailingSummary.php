@@ -45,6 +45,6 @@ $mail_summary_xml = simplexml_load_string($mail_summary_response);
 //---- nodes using simplexml objects.
 print_r($mail_summary_xml);
 //--- This will save the response as a seperate xml file in the current directory
-echo $mail_summary_xml->saveXML("write.xml");
+echo $mail_summary_xml->saveXML("summary.xml");
 ?>
 
