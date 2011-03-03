@@ -17,7 +17,7 @@ $api_service_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/fields
 
 //---- For information on getting the API account id please refer to the
 //---- AdministrationService/GetCurrentUser example
-$account_id = 'account-id';
+$account_id = 'api_account-id';
 $api_service_url = $api_service_url.$account_id;
 
 //---- The header variable will be used in the cURL options.
