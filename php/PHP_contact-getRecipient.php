@@ -17,7 +17,8 @@ $api_service_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/recipi
 
 $account_id = 'api-account-id';
 $list_id = 'list_id';
-$api_service_url = $api_service_url.$account_id."/".$list_id;
+$email = 'email';
+$api_service_url = $api_service_url.$account_id."/".$list_id."/".$email;
 //---- The header variable will be used in the cURL options.
 $header = array("Content-Type: application/xml");
 //---- Intialize cURL and set the options.

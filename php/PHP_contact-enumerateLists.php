@@ -60,5 +60,7 @@ for($i=0; $i<$list_count; $i++){
 print $list_api_ids[$i]."\t:\t".$list_names[$i]."\n";
 }
 print "\n";
+//--- saves response a seperate xml file to the current directory
+echo $list_xml->saveXML("lists.xml");
 ?>
 
