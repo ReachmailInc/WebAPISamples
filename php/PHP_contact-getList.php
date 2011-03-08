@@ -39,7 +39,9 @@ curl_close($get_list_request);
 
 //---- Load the XML from the response into the simplexml parser and get the list itself
 
-$xml = simplexml_load_string($response);
+$list_xml = simplexml_load_string($response);
 
 print_r($response);
+//--- saves response a seperate xml file to the current directory
+echo $list_xml->saveXML("list.xml");
 ?>
