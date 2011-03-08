@@ -6,8 +6,7 @@
 //---- Setting some basic variables. If you need help determining your
 //---- account key, username or password please contact you ReachMail account
 //---- administrator or support@reachmail.com. For information on the API
-//---- service URL please refer to the documentation at
-//---- services.reachmail.net
+//---- service URL please refer to the documentation at services.reachmail.net
 $account_key = 'account-id';
 $username = 'username';
 $password = 'password';
@@ -45,5 +44,6 @@ curl_close($create_list_request);
 $response_xml = simplexml_load_string($create_list_response);
 $list_api_id = $response_xml->Id;
 print "\nSuccessfully created list! (ID: $list_api_id)\n\n";
-
+//--- save the response into an xml file in the current directory
+echo $list_api_id->saveXML("listID.xml");
 ?>
