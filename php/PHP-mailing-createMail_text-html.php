@@ -1,6 +1,6 @@
 <?php
 
-//---- API Service: MailingService\CreateMailing
+//---- API Service: MailingService\CreateMailing_text-html
 //---- This API service creates a mail.
 
 //---- Setting some basic variables. If you need help determining your
