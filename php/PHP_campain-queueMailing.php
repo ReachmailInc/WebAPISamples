@@ -1,4 +1,8 @@
 <?php
+//---- API Service: CampaingService/QueueMailing
+//---- This service will let you queue a mailing for send
+//---- By setting the options in the XML you can control 
+//---- when and to what list your mailing is sent to
 
 //---- Setting some basic variables. If you need help determining your
 //---- account key, username or password please contact you ReachMail account
@@ -18,7 +22,7 @@ $api_service_url = $api_service_url.$account_id."/queue";
 //---- The header variable will be used in the cURL options, the request body
 //---- is the body of the post that will be made to the API service URL
 $header = array("Content-Type: application/xml");
-$request_body = '<QueueParameters><ListIds><Id>list-id</Id></ListIds><MailingId>mail-id</MailingId><Properties><DeliveryTime>2010-07-07T09:00:00</DeliveryTime><IsTest>0</IsTest></Properties></QueueParameters>';
+$request_body = '<QueueParameters><ListIds><Id>list-id</Id></ListIds><MailingId>mail-id</MailingId><Properties><DeliveryTime>2011-03-01T12:00:00</DeliveryTime><IsTest>0</IsTest></Properties></QueueParameters>';
 
 //---- Intialize cURL, set options and make the request
 $queue_mailing_request = curl_init();
