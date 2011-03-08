@@ -1,6 +1,6 @@
 <?php
 
-//---- API Service: MailingReportService\EnumerateMailings
+//---- API Service: ReportService\EnumerateMailings
 //---- This service details all the campaign reports in an account.
 //---- Optionally a filter can be added to refine the results. In this example
 //---- we'll perfrom just a basic query to return campaigns delivered after
@@ -14,7 +14,7 @@
 $account_key = 'account-id';
 $username = 'username';
 $password = 'password';
-$api_service_url = 'https://services.reachmail.net/Rest/Reporting/Content/Mailings/v1/query/';
+$api_service_url = 'https://services.reachmail.net/Rest/Reports/v1/mailings/query/';
 
 //---- For information on getting the API account id please refer to the
 //---- AdministrationService/GetCurrentUser example
