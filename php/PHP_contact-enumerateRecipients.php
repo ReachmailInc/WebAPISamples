@@ -3,7 +3,7 @@
 //---- API Service: ContactService\EnumerateRecipients
 //---- This service can be used to get list subscribers who match specific
 //---- criteria. In this example we'll serch for users created after
-//---- 15 May, 2010.
+//---- 01 March, 2011.
 
 //---- Setting some basic variables. If you need help determining your
 //---- account key, username or password please contact you ReachMail account
@@ -26,7 +26,7 @@ $api_service_url = $api_service_url.$account_id.'/'.$list_id;
 $header = array("Content-Type: application/xml");
 
 //---- Setting the date threshold
-$date = '2011-01-25T12:00:00';
+$date = '2011-03-01T12:00:00';
 
 //---- The request body contains the XML that will be posted to the API
 //---- service URL.
