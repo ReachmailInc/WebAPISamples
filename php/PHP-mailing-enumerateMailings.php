@@ -60,5 +60,5 @@ print $mail_names[$i]." : ".$mail_ids[$i]." : ".$created[$i]."\n";
 }
 print "\n";
 //--- This will save the response as a seperate xml file in the current directory
-echo $mail_xml ->saveXML("reports.xml");
+echo $mail_xml ->saveXML("mailings.xml");
 ?>
