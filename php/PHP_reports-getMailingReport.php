@@ -11,7 +11,7 @@
 $account_key = 'account-id';
 $username = 'username';
 $password = 'password';
-$api_service_url = 'https://services.reachmail.net/Rest/Reporting/Content/Mailings/v1/Summary/';
+$api_service_url = 'https://services.reachmail.net/Rest/Reports/v1/mailings/';
 
 //---- For information on getting the API account id please refer to the
 //---- AdministrationService/GetCurrentUser example. For information on getting
