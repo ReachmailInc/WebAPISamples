@@ -8,8 +8,7 @@
 //---- Setting some basic variables. If you need help determining your
 //---- account key, username or password please contact you ReachMail account
 //---- administrator or support@reachmail.com. For information on the API
-//---- service URL please refer to the documentation at
-//---- services.reachmail.net
+//---- service URL please refer to the documentation at services.reachmail.net
 $account_key = 'account-id';
 $username = 'username';
 $password = 'password';
