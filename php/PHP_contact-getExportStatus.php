@@ -1,7 +1,7 @@
 <?php
 
 //---- API Service URL: ContactServices\GetExportStatus
-//---  This service will give you the disposition of an export.
+//---- This service will give you the disposition of an export.
 
 //---- Setting some basic variables. If you need help determining your
 //---- account key, username or password please contact you ReachMail account
@@ -19,7 +19,7 @@ $api_service_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/export
 //---- ContactServices\EnumerateLists
 
 $account_id = 'api-account-id';
-//---  You need to run the ContactService/ExportRecipients to get the export_id
+//---- Your export_id is returned from ContactService/ExportRecipients
 $export_id = 'export-id';
 $api_service_url = $api_service_url.$account_id."/".$export_id;
 
