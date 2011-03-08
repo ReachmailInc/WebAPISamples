@@ -1,16 +1,16 @@
 <?php
 //---- API Service URL: ContactService\ExportRecipients
-//----- This service will let you export a lists recipients and will return an exportID
-//--- The exportID will then be used to download the file
+//---- This service will let you export a lists recipients and will return an exportID
+//---- The exportID will then be used to download the file
+
 //---- Setting some basic variables. If you need help determining your
 //---- account key, username or password please contact you ReachMail account
 //---- administrator or support@reachmail.com. For information on the API
-//---- service URL please refer to the documentation at
-//---- services.reachmail.net
+//---- service URL please refer to the documentation at services.reachmail.net
 $account_key = 'account-id';
 $username = 'username';
 $password = 'password';
-$api_service_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/export/' . 'account-api-id' . 'list-id';
+$api_service_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/export/' ;
 //---- For information on getting the API account id please refer to the
 //---- AdministrationService/GetCurrentUser example
 $account_id = 'api_account-id';
@@ -22,8 +22,8 @@ $api_service_url = $api_service_url.$account_id.'/'.$list_id;
 //---- The header variable is used to set the content type of the request and
 //---- will be used later in the cURL options
 $header = array("Content-Type: application/xml");
-//--- The request body will vary depending on the fields in  your lists. 
-// ---- Please see https://services.reachmail.net/sdk/ for the necessary data you will need to include in your xml.
+//---- The request body will vary depending on the fields in  your lists. 
+//---- Please see https://services.reachmail.net/sdk/ for the necessary data you will need to include in your xml.
 $request_body = '<ExportParameters><ExportOptions><Format>CharacterSeperated</Format><HeaderRow>true</HeaderRow><CharacterSeperatedData><Delimiter>Comma</Delimiter></CharacterSeperatedData><FieldMapping><FieldMapping><DestinationFieldName>Email</DestinationFieldName><SourceFieldName>Email</SourceFieldName></FieldMapping></FieldMapping></ExportOptions></ExportParameters>';
 
 //---- Intialize cURL, set options and make the request
