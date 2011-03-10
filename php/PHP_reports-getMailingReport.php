@@ -8,17 +8,17 @@
 //---- administrator or support@reachmail.com. For information on the API
 //---- service URL please refer to the documentation at
 //---- services.reachmail.net
-$account_key = 'AllinboxC';
-$username = 'Seth';
-$password = '@ll1nb0xRM';
+$account_key = 'account-id';
+$username = 'username';
+$password = 'password';
 $api_service_url = 'https://services.reachmail.net/Rest/Reports/v1/mailings/';
 
 //---- For information on getting the API account id please refer to the
 //---- AdministrationService/GetCurrentUser example. For information on getting
 //---- the mailign id please refer to the example for
 //---- ReportService_EnumerateMailingReports 
-$account_id = '37c53008-c317-4459-86ee-18febe011e51';
-$mailing_id = 'ece02870-0e48-e011-9a62-001ec9b929f4';
+$account_id = 'api-account-id';
+$mailing_id = 'mail-id';
 $api_service_url = $api_service_url.$account_id."/".$mailing_id;
 
 //---- The header variable will be used in the cURL options.
