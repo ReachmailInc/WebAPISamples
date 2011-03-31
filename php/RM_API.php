@@ -45,7 +45,7 @@ Requirements: PHP 5 or higher.
     var $data_exist_url = 'https://services.reachmail.net/Rest/Data/exists/';
 	
 	class login{
-	    private $account_key;
+	        private $account_key;
 		private $username;
 		private $password;
 		
