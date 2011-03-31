@@ -10,7 +10,7 @@ Last Modified: March 31, 2011
 Requirements: PHP 5 or higher.
 */
 
-// ensure Curl extension installed
+  // ensure Curl extension installed
 	if (!extension_loaded("curl")) {
 		throw(new Exception("The Curl extension for PHP is required for ReachMail API to work."));
 }
