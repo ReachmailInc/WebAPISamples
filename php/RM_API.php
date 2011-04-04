@@ -49,7 +49,7 @@ Requirements: PHP 5 or higher.
 		    private $username;
 		    private $password;
 		
-		function($account_key = NULL, $username = NULL, $password = NULL) {
+		function _construct($account_key = NULL, $username = NULL, $password = NULL) {
 					$this->account_key = $account_key;
 					$this->username = $username;
 					$this->password = $password;		
