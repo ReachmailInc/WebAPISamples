@@ -45,7 +45,7 @@ Requirements: PHP 5 or higher.
     var $data_exist_url = 'https://services.reachmail.net/Rest/Data/exists/';
 	
 	class login{
-	        private $account_key;
+	            private $account_key;
 		    private $username;
 		    private $password;
 		
@@ -56,7 +56,7 @@ Requirements: PHP 5 or higher.
 		}	
 		
 		function getUser($account_key, $username, $password) {
-					$account_id_request = curl_init();
+		    $account_id_request = curl_init();
                     $curl_options = array(
                         CURLOPT_URL => $get_user_url,
                         CURLOPT_HEADER => false,
@@ -65,7 +65,7 @@ Requirements: PHP 5 or higher.
                     );
                     curl_setopt_array($account_id_request, $curl_options);
                     $response = curl_exec($account_id_request);
-				    $xml = simplexml_load_string($response);
+		    $xml = simplexml_load_string($response);
                     $account_id = $xml->AccountId;                   
                     echo $account_id->saveXML("user.xml");
 		}
