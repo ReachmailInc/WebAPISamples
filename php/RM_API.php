@@ -55,12 +55,13 @@ Requirements: PHP 5 or higher.
 					$this->password = $password;		
 		}	
 		
-		function getUser($account_key, $username, $password) {
+
+		function getUser() {
 		    $account_id_request = curl_init();
                     $curl_options = array(
                         CURLOPT_URL => $get_user_url,
                         CURLOPT_HEADER => false,
-                        CURLOPT_USERPWD => "$account_key\\$username:$password",
+                        CURLOPT_USERPWD => "$this->account_key\\$this->username:$this->password",
                         CURLOPT_RETURNTRANSFER => true
                     );
                     curl_setopt_array($account_id_request, $curl_options);
