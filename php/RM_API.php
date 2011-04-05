@@ -47,8 +47,8 @@ Requirements: PHP 5 or higher.
 	
 	class login{
 	           private  $account_key;
-		       private  $username;
-		       private  $password;
+		   private  $username;
+		   private  $password;
 		
 		function __construct($account_key = NULL, $username = NULL, $password = NULL) {
 					$this->account_key = $account_key;
@@ -59,18 +59,18 @@ Requirements: PHP 5 or higher.
 		function getUser() {
 		            global $get_user_url;
 		            $account_id_request = curl_init();
-                    $curl_options = array(
-                        CURLOPT_URL => $get_user_url,
-                        CURLOPT_HEADER => false,
-                        CURLOPT_USERPWD => "$this->account_key\\$this->username:$this->password",
-                        CURLOPT_RETURNTRANSFER => true
-                    );
-                    curl_setopt_array($account_id_request, $curl_options);
-                    $response = curl_exec($account_id_request);
+                            $curl_options = array(
+                                CURLOPT_URL => $get_user_url,
+                                CURLOPT_HEADER => false,
+                                CURLOPT_USERPWD => "$this->account_key\\$this->username:$this->password",
+                                CURLOPT_RETURNTRANSFER => true
+                            );
+                            curl_setopt_array($account_id_request, $curl_options);
+                            $response = curl_exec($account_id_request);
 		            $xml = simplexml_load_string($response);
-                    $account_id = $xml->AccountId;   
+                            $account_id = $xml->AccountId;   
 		            print "\n".$account_id."\n\n";					
-                    echo $account_id->saveXML("user.xml");
+                           echo $account_id->saveXML("user.xml");
 		}
 		
 		function enumerateLists($account_id, $request_body) {
