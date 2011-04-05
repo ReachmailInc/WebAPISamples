@@ -6,7 +6,7 @@ Author: ReachMail Support
 Version: 0.1.0
 Author URI: http://www.reachmail.net/support
 License: MIT License (see LICENSE) http://creativecommons.org/licenses/MIT/
-Last Modified: March 31, 2011
+Last Modified: April 5, 2011
 Requirements: PHP 5 or higher.
 */
 
@@ -45,19 +45,19 @@ Requirements: PHP 5 or higher.
    $data_exist_url = 'https://services.reachmail.net/Rest/Data/exists/';
 	
 	class login{
-	       private  $account_key;
+	           private  $account_key;
 		   private  $username;
 		   private  $password;
 		
-		function __CONSTRUCT($account_key = NULL, $username = NULL, $password = NULL) {
+		function __construct($account_key = NULL, $username = NULL, $password = NULL) {
 					$this->account_key = $account_key;
 					$this->username = $username;
 					$this->password = $password;		
 		}	
 		
 		function getUser() {
-					global $get_user_url;
-		            $account_id_request = curl_init();
+		    global $get_user_url;
+		    $account_id_request = curl_init();
                     $curl_options = array(
                         CURLOPT_URL => $get_user_url,
                         CURLOPT_HEADER => false,
@@ -66,9 +66,9 @@ Requirements: PHP 5 or higher.
                     );
                     curl_setopt_array($account_id_request, $curl_options);
                     $response = curl_exec($account_id_request);
-		            $xml = simplexml_load_string($response);
+		    $xml = simplexml_load_string($response);
                     $account_id = $xml->AccountId;   
-					print "\n".$account_id."\n\n";					
+		    print "\n".$account_id."\n\n";					
                     echo $account_id->saveXML("user.xml");
 		}
 }
