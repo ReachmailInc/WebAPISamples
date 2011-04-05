@@ -77,8 +77,7 @@ Requirements: PHP 5 or higher.
 		
 					global $header;
 					global $enumerate_lists_url;
-					$api_service_url = $enumerate_lists_url.$account_id;		
-										
+					$api_service_url = $enumerate_lists_url.$account_id;										
 					$enumerate_lists_request = curl_init();
 					$curl_options = array(
 							CURLOPT_URL => $api_service_url,
@@ -106,7 +105,44 @@ Requirements: PHP 5 or higher.
 					}
 					print "\n";
 					echo $list_xml->saveXML("lists.xml");
-}
+	}
+	
+	function enumerateMailings( $account_id, $request_body) {
+			
+					global $enumerate_mailings_url;
+					global $header;
+					$api_service_url = $enumerate_mailings_url.$account_id;										
+					$enumerate_mailings_request = curl_init();
+					$curl_options = array(
+							CURLOPT_URL => $api_service_url,
+							CURLOPT_HEADER => false,
+							CURLOPT_USERPWD => "$this->account_key\\$this->username:$this->password",
+							CURLOPT_HTTPHEADER => $header,
+							CURLOPT_POST => true,
+							CURLOPT_POSTFIELDS => $request_body,
+							CURLOPT_RETURNTRANSFER => true
+					);
+					curl_setopt_array($enumerate_mailings_request, $curl_options);
+					$enumerate_mailings_response = curl_exec($enumerate_mailings_request);
+					curl_close($enumerate_mailings_request);
+					$mail_xml = simplexml_load_string($enumerate_mailings_response);
+					$created = array();
+					$mail_names = array();
+					$mail_ids = array();
+
+					foreach($mail_xml->Mailing as $mailing){
+						$created[] = $mailing->Created;
+						$mail_names[] = $mailing->Name;
+						$mail_ids[] = $mailing->Id;
+					}
+					$mail_count = count($mail_ids);
+					print "\nFormat - Mail Name : Mail ID : Create Date\n";
+					for($i=0; $i<$mail_count; $i++){
+						print $mail_names[$i]." : ".$mail_ids[$i]." : ".$created[$i]."\n";
+					}
+					print "\n";
+					echo $mail_xml ->saveXML("mailings.xml");
+	}
 }
 	
 ?>
