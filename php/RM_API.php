@@ -20,6 +20,7 @@ Requirements: PHP 5 or higher.
    $base_url = 'https://services.reachmail.net/';
    $get_user_url =  'https://services.reachmail.net/Rest/Administration/v1/users/current';
    $queue_mailing_url = 'https://services.reachmail.net/Rest/Campaigns/v1/';
+   $header = array("Content-Type: application/xml");
   // Contact Services
    $enumerate_fields_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/query/';
    $enumerate_lists_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/query/';
@@ -46,8 +47,8 @@ Requirements: PHP 5 or higher.
 	
 	class login{
 	           private  $account_key;
-		   private  $username;
-		   private  $password;
+		       private  $username;
+		       private  $password;
 		
 		function __construct($account_key = NULL, $username = NULL, $password = NULL) {
 					$this->account_key = $account_key;
@@ -56,8 +57,8 @@ Requirements: PHP 5 or higher.
 		}	
 		
 		function getUser() {
-		    global $get_user_url;
-		    $account_id_request = curl_init();
+		            global $get_user_url;
+		            $account_id_request = curl_init();
                     $curl_options = array(
                         CURLOPT_URL => $get_user_url,
                         CURLOPT_HEADER => false,
@@ -66,11 +67,46 @@ Requirements: PHP 5 or higher.
                     );
                     curl_setopt_array($account_id_request, $curl_options);
                     $response = curl_exec($account_id_request);
-		    $xml = simplexml_load_string($response);
+		            $xml = simplexml_load_string($response);
                     $account_id = $xml->AccountId;   
-		    print "\n".$account_id."\n\n";					
+		            print "\n".$account_id."\n\n";					
                     echo $account_id->saveXML("user.xml");
 		}
+		
+		function enumerateLists($account_id) {
+		
+					global $header;
+					global $enumerate_lists_url;
+					$api_service_url = $enumerate_lists_url.$account_id;		
+					$request_body = '<ListFilter><GreaterThan>1</GreaterThan><SmallerThan>5</SmallerThan></ListFilter>';
+					$enumerate_lists_request = curl_init();
+					$curl_options = array(
+							CURLOPT_URL => $api_service_url,
+							CURLOPT_HEADER => false,
+							CURLOPT_USERPWD => "$this->account_key\\$this->username:$this->password",
+							CURLOPT_HTTPHEADER => $header,
+							CURLOPT_POST => true,
+							CURLOPT_POSTFIELDS => $request_body,
+							CURLOPT_RETURNTRANSFER => true
+							);
+					curl_setopt_array($enumerate_lists_request, $curl_options);
+					$enumerate_lists_response = curl_exec($enumerate_lists_request);
+					curl_close($enumerate_lists_request);
+					$list_xml = simplexml_load_string($enumerate_lists_response);
+					$list_names = array();
+					$list_api_ids = array();
+					foreach($list_xml->List as $list){
+									$list_names[] = $list->Name;
+									$list_api_ids[] = $list->Id;
+					}
+					$list_count = count($list_api_ids);
+					print "\nFormat - List API Id\t:\tList Name\n";
+					for($i=0; $i<$list_count; $i++){
+							print $list_api_ids[$i]."\t:\t".$list_names[$i]."\n";
+					}
+					print "\n";
+					echo $list_xml->saveXML("lists.xml");
+}
 }
 	
 ?>
