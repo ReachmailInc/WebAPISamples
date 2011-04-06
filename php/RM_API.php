@@ -16,15 +16,9 @@ More comments to explain how best to call the methods and their properties inPro
 		throw(new Exception("The Curl extension for PHP is required for ReachMail API to work."));
 }
 
-/* Define Static Variables */
-  // Administration Service
-   $base_url = 'https://services.reachmail.net/';
-   
-   $queue_mailing_url = 'https://services.reachmail.net/Rest/Campaigns/v1/';
-   
+/* Define Static Variables */  
   // Contact Services
-   $enumerate_fields_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/query/';
-   
+   $enumerate_fields_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/query/';   
    $create_list_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/';
    $get_list_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/';
    $enumerate_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/recipients/query/';
@@ -33,8 +27,7 @@ More comments to explain how best to call the methods and their properties inPro
    $import_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/import/';
    $export_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/export/';
    $get_export_status_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/export/status/';
-  //Mailing Services
-   
+  //Mailing Services   
    $get_mailing_url = 'https://services.reachmail.net//Rest/Content/Mailings/v1/';
    $delete_mailing_url = 'https://services.reachmail.net//Rest/Content/Mailings/v1/';
    $create_mailing_url = 'https://services.reachmail.net/REST/Content/Mailings/v1/';
@@ -47,9 +40,9 @@ More comments to explain how best to call the methods and their properties inPro
    $data_exist_url = 'https://services.reachmail.net/Rest/Data/exists/';
 	
 	class login{
-	       private  $account_key;
-		   private  $username;
-		   private  $password;
+	       private $account_key;
+		   private $username;
+		   private $password;		   
 		
 		function __construct($account_key = NULL, $username = NULL, $password = NULL) {
 					$this->account_key = $account_key;
@@ -76,9 +69,9 @@ More comments to explain how best to call the methods and their properties inPro
 		
 		function enumerateLists($account_id, $request_body) {
 		
-					$header = array("Content-Type: application/xml");
 					$enumerate_lists_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/query/';
-					$api_service_url = $enumerate_lists_url.$account_id;										
+					$api_service_url = $enumerate_lists_url.$account_id;
+					$header = array("Content-Type: application/xml");
 					$enumerate_lists_request = curl_init();
 					$curl_options = array(
 							CURLOPT_URL => $api_service_url,
@@ -111,9 +104,9 @@ More comments to explain how best to call the methods and their properties inPro
 	function enumerateMailings($account_id, $request_body) {
 			
 					$enumerate_mailings_url = 'https://services.reachmail.net/Rest/Content/Mailings/v1/query/';
-					$header = array("Content-Type: application/xml");
 					$api_service_url = $enumerate_mailings_url.$account_id;										
 					$enumerate_mailings_request = curl_init();
+					$header = array("Content-Type: application/xml");
 					$curl_options = array(
 							CURLOPT_URL => $api_service_url,
 							CURLOPT_HEADER => false,
@@ -144,6 +137,28 @@ More comments to explain how best to call the methods and their properties inPro
 					print "\n";
 					echo $mail_xml ->saveXML("mailings.xml");
 	}
+	
+	function queueMail($account_id, $request_body) {
+		
+					$queue_mailing_url = 'https://services.reachmail.net/Rest/Campaigns/v1/';		
+					$api_service_url = $queue_mailing_url.$account_id."/queue";
+					$header = array("Content-Type: application/xml");		
+					$queue_mailing_request = curl_init();
+					$curl_options = array(
+							CURLOPT_URL => $api_service_url,
+							CURLOPT_HEADER => false,
+							CURLOPT_USERPWD => "$this->account_key\\$this->username:$this->password",
+							CURLOPT_HTTPHEADER => $header,
+							CURLOPT_POST => true,
+							CURLOPT_POSTFIELDS => $request_body,
+							CURLOPT_RETURNTRANSFER => true
+					);
+					curl_setopt_array($queue_mailing_request, $curl_options);
+					$queue_mailing_response = curl_exec($queue_mailing_request);
+					curl_close($queue_mailing_request);
+					$mail_xml = simplexml_load_string($queue_mailing_response);
+					print_r($mail_xml);
+			}
 }
 	
 ?>
