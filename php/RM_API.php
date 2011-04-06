@@ -68,7 +68,7 @@ More comments to explain how best to call the methods and their properties inPro
                     echo $account_id->saveXML("user.xml");
 		}
 		
-			function enumerateLists($account_id, $request_body) {
+		function enumerateLists($account_id, $request_body) {
 		
 					$enumerate_lists_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/query/';
 					$api_service_url = $enumerate_lists_url.$account_id;
@@ -100,9 +100,9 @@ More comments to explain how best to call the methods and their properties inPro
 					}
 					print "\n";
 					echo $list_xml->saveXML("lists.xml");
-			}
+		}
 	
-			function enumerateMailings($account_id, $request_body) {
+		function enumerateMailings($account_id, $request_body) {
 			
 					$enumerate_mailings_url = 'https://services.reachmail.net/Rest/Content/Mailings/v1/query/';
 					$api_service_url = $enumerate_mailings_url.$account_id;										
@@ -137,9 +137,9 @@ More comments to explain how best to call the methods and their properties inPro
 					}
 					print "\n";
 					echo $mail_xml ->saveXML("mailings.xml");
-			}
+		}
 	
-			function queueMail($account_id, $request_body) {
+		function queueMail($account_id, $request_body) {
 		
 					$queue_mailing_url = 'https://services.reachmail.net/Rest/Campaigns/v1/';		
 					$api_service_url = $queue_mailing_url.$account_id."/queue";
@@ -159,7 +159,7 @@ More comments to explain how best to call the methods and their properties inPro
 					curl_close($queue_mailing_request);
 					$mail_xml = simplexml_load_string($queue_mailing_response);
 					print_r($mail_xml);
-			}
+		}
 }
 	
 ?>
