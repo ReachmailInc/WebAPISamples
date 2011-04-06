@@ -19,12 +19,12 @@ More comments to explain how best to call the methods and their properties inPro
 /* Define Static Variables */
   // Administration Service
    $base_url = 'https://services.reachmail.net/';
-   $get_user_url =  'https://services.reachmail.net/Rest/Administration/v1/users/current';
+   
    $queue_mailing_url = 'https://services.reachmail.net/Rest/Campaigns/v1/';
-   $header = array("Content-Type: application/xml");
+   
   // Contact Services
    $enumerate_fields_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/query/';
-   $enumerate_lists_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/query/';
+   
    $create_list_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/';
    $get_list_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/';
    $enumerate_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/recipients/query/';
@@ -34,7 +34,7 @@ More comments to explain how best to call the methods and their properties inPro
    $export_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/export/';
    $get_export_status_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/export/status/';
   //Mailing Services
-   $enumerate_mailings_url = 'https://services.reachmail.net/Rest/Content/Mailings/v1/query/';
+   
    $get_mailing_url = 'https://services.reachmail.net//Rest/Content/Mailings/v1/';
    $delete_mailing_url = 'https://services.reachmail.net//Rest/Content/Mailings/v1/';
    $create_mailing_url = 'https://services.reachmail.net/REST/Content/Mailings/v1/';
@@ -47,7 +47,7 @@ More comments to explain how best to call the methods and their properties inPro
    $data_exist_url = 'https://services.reachmail.net/Rest/Data/exists/';
 	
 	class login{
-	           private  $account_key;
+	       private  $account_key;
 		   private  $username;
 		   private  $password;
 		
@@ -58,26 +58,26 @@ More comments to explain how best to call the methods and their properties inPro
 		}	
 		
 		function getUser() {
-		            global $get_user_url;
+		            $get_user_url =  'https://services.reachmail.net/Rest/Administration/v1/users/current';
 		            $account_id_request = curl_init();
-                            $curl_options = array(
-                                CURLOPT_URL => $get_user_url,
-                                CURLOPT_HEADER => false,
-                                CURLOPT_USERPWD => "$this->account_key\\$this->username:$this->password",
-                                CURLOPT_RETURNTRANSFER => true
-                            );
-                            curl_setopt_array($account_id_request, $curl_options);
-                            $response = curl_exec($account_id_request);
+                    $curl_options = array(
+                            CURLOPT_URL => $get_user_url,
+                            CURLOPT_HEADER => false,
+                            CURLOPT_USERPWD => "$this->account_key\\$this->username:$this->password",
+                            CURLOPT_RETURNTRANSFER => true
+                    );
+                    curl_setopt_array($account_id_request, $curl_options);
+                    $response = curl_exec($account_id_request);
 		            $xml = simplexml_load_string($response);
-                            $account_id = $xml->AccountId;   
+                    $account_id = $xml->AccountId;   
 		            print "\n".$account_id."\n\n";					
-                           echo $account_id->saveXML("user.xml");
+                    echo $account_id->saveXML("user.xml");
 		}
 		
 		function enumerateLists($account_id, $request_body) {
 		
-					global $header;
-					global $enumerate_lists_url;
+					$header = array("Content-Type: application/xml");
+					$enumerate_lists_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/query/';
 					$api_service_url = $enumerate_lists_url.$account_id;										
 					$enumerate_lists_request = curl_init();
 					$curl_options = array(
@@ -108,10 +108,10 @@ More comments to explain how best to call the methods and their properties inPro
 					echo $list_xml->saveXML("lists.xml");
 	}
 	
-	function enumerateMailings( $account_id, $request_body) {
+	function enumerateMailings($account_id, $request_body) {
 			
-					global $enumerate_mailings_url;
-					global $header;
+					$enumerate_mailings_url = 'https://services.reachmail.net/Rest/Content/Mailings/v1/query/';
+					$header = array("Content-Type: application/xml");
 					$api_service_url = $enumerate_mailings_url.$account_id;										
 					$enumerate_mailings_request = curl_init();
 					$curl_options = array(
