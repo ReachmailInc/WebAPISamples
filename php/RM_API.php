@@ -67,6 +67,28 @@ More comments to explain how best to call the methods and their properties inPro
 					echo $account_id->saveXML("user.xml");
 		}
 		
+		function queueMail($account_id, $request_body) {
+		
+					$queue_mailing_url = 'https://services.reachmail.net/Rest/Campaigns/v1/';		
+					$api_service_url = $queue_mailing_url.$account_id."/queue";
+					$header = array("Content-Type: application/xml");		
+					$queue_mailing_request = curl_init();
+					$curl_options = array(
+							CURLOPT_URL => $api_service_url,
+							CURLOPT_HEADER => false,
+							CURLOPT_USERPWD => "$this->account_key\\$this->username:$this->password",
+							CURLOPT_HTTPHEADER => $header,
+							CURLOPT_POST => true,
+							CURLOPT_POSTFIELDS => $request_body,
+							CURLOPT_RETURNTRANSFER => true
+					);
+					curl_setopt_array($queue_mailing_request, $curl_options);
+					$queue_mailing_response = curl_exec($queue_mailing_request);
+					curl_close($queue_mailing_request);
+					$mail_xml = simplexml_load_string($queue_mailing_response);
+					print_r($mail_xml);
+		}
+		
 		function enumerateLists($account_id, $request_body) {
 		
 					$enumerate_lists_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/query/';
@@ -136,29 +158,7 @@ More comments to explain how best to call the methods and their properties inPro
 					}
 					print "\n";
 					echo $mail_xml ->saveXML("mailings.xml");
-		}
-	
-		function queueMail($account_id, $request_body) {
-		
-					$queue_mailing_url = 'https://services.reachmail.net/Rest/Campaigns/v1/';		
-					$api_service_url = $queue_mailing_url.$account_id."/queue";
-					$header = array("Content-Type: application/xml");		
-					$queue_mailing_request = curl_init();
-					$curl_options = array(
-							CURLOPT_URL => $api_service_url,
-							CURLOPT_HEADER => false,
-							CURLOPT_USERPWD => "$this->account_key\\$this->username:$this->password",
-							CURLOPT_HTTPHEADER => $header,
-							CURLOPT_POST => true,
-							CURLOPT_POSTFIELDS => $request_body,
-							CURLOPT_RETURNTRANSFER => true
-					);
-					curl_setopt_array($queue_mailing_request, $curl_options);
-					$queue_mailing_response = curl_exec($queue_mailing_request);
-					curl_close($queue_mailing_request);
-					$mail_xml = simplexml_load_string($queue_mailing_response);
-					print_r($mail_xml);
-		}
+		}			
 		
 		function enumerateRecipients($account_id, $list_id, $request_body) {	
 		
