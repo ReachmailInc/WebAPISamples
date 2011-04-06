@@ -159,6 +159,7 @@ More comments to explain how best to call the methods and their properties inPro
 					$mail_xml = simplexml_load_string($queue_mailing_response);
 					print_r($mail_xml);
 		}
+		
 		function enumerateRecipients($account_id, $list_id, $request_body) {	
 		
 					$enumerate_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/recipients/query/';
