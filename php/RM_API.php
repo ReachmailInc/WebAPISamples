@@ -8,6 +8,7 @@ Author URI: http://www.reachmail.net/support
 License: MIT License (see LICENSE) http://creativecommons.org/licenses/MIT/
 Last Modified: April 5, 2011
 Requirements: PHP 5 or higher.
+More comments to explain how best to call the methods and their properties inProgress
 */
 
   // ensure Curl extension installed
