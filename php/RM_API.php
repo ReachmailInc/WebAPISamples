@@ -52,20 +52,20 @@ More comments to explain how best to call the methods and their properties inPro
 		
 		function getUser() {
 		
-		    $get_user_url =  'https://services.reachmail.net/Rest/Administration/v1/users/current';
-		    $account_id_request = curl_init();
-                    $curl_options = array(
-                            CURLOPT_URL => $get_user_url,
-                            CURLOPT_HEADER => false,
-                            CURLOPT_USERPWD => "$this->account_key\\$this->username:$this->password",
-                            CURLOPT_RETURNTRANSFER => true
-                    );
-                    curl_setopt_array($account_id_request, $curl_options);
-                    $response = curl_exec($account_id_request);
-		    $xml = simplexml_load_string($response);
-                    $account_id = $xml->AccountId;   
-		    print "\n".$account_id."\n\n";					
-                    echo $account_id->saveXML("user.xml");
+					$get_user_url =  'https://services.reachmail.net/Rest/Administration/v1/users/current';
+					$account_id_request = curl_init();
+							$curl_options = array(
+									CURLOPT_URL => $get_user_url,
+									CURLOPT_HEADER => false,
+									CURLOPT_USERPWD => "$this->account_key\\$this->username:$this->password",
+									CURLOPT_RETURNTRANSFER => true
+							);
+							curl_setopt_array($account_id_request, $curl_options);
+							$response = curl_exec($account_id_request);
+					$xml = simplexml_load_string($response);
+							$account_id = $xml->AccountId;   
+					print "\n".$account_id."\n\n";					
+							echo $account_id->saveXML("user.xml");
 		}
 		
 		function enumerateLists($account_id, $request_body) {
