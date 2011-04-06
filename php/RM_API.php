@@ -17,7 +17,8 @@ More comments to explain how best to call the methods and their properties inPro
 }
 
 /* Define Static Variables */  
-  // Contact Services      
+  // Contact Services
+   $enumerate_fields_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/query/';   
    $create_list_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/';
    $get_list_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/';
    $enumerate_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/recipients/query/';
@@ -50,8 +51,8 @@ More comments to explain how best to call the methods and their properties inPro
 		}	
 		
 		function getUser() {
-		    $get_user_url =  'https://services.reachmail.net/Rest/Administration/v1/users/current';
-		    $account_id_request = curl_init();
+		      $get_user_url =  'https://services.reachmail.net/Rest/Administration/v1/users/current';
+		      $account_id_request = curl_init();
                     $curl_options = array(
                             CURLOPT_URL => $get_user_url,
                             CURLOPT_HEADER => false,
@@ -158,38 +159,6 @@ More comments to explain how best to call the methods and their properties inPro
 					$mail_xml = simplexml_load_string($queue_mailing_response);
 					print_r($mail_xml);
 			}
-			
-			function enumerateFields($account_id) {	
-	
-					$enumerate_fields_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/query/';
-					$api_service_url = $enumerate_fields_url.$account_id;
-					$header = array("Content-Type: application/xml");
-					$enumerate_fields_request = curl_init();
-					$curl_options = array(
-							CURLOPT_URL => $api_service_url,
-							CURLOPT_HEADER => false,
-							CURLOPT_USERPWD => "$this->account_key\\$this->username:$this->password",
-							CURLOPT_HTTPHEADER => $header,
-							CURLOPT_RETURNTRANSFER => true
-					);
-					curl_setopt_array($enumerate_fields_request, $curl_options);
-					$enumerate_fields_response = curl_exec($enumerate_fields_request);
-					curl_close($enumerate_fields_request);
-					$field_xml = simplexml_load_string($enumerate_fields_response);
-					$field_names = array();
-					$field_descriptions = array();
-					foreach($field_xml->Field as $field){
-						$field_names[] = $field->Name;
-						$field_descriptions[] = $field->Description;
-					}
-					$field_count = count($field_names);
-					print "\nFormat - Field Name : Field Description\n";
-					for($i=0; $i<$field_count; $i++){
-						print $field_names[$i]." : ".$field_descriptions[$i]."\n";
-					}
-					print "\n";
-					echo $field_xml->saveXML("fields.xml");
-	}
 }
 	
 ?>
