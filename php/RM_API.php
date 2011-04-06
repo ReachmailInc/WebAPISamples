@@ -90,13 +90,13 @@ More comments to explain how best to call the methods and their properties inPro
 					$list_names = array();
 					$list_api_ids = array();
 					foreach($list_xml->List as $list){
-									$list_names[] = $list->Name;
-									$list_api_ids[] = $list->Id;
+							$list_names[] = $list->Name;
+							$list_api_ids[] = $list->Id;
 					}
 					$list_count = count($list_api_ids);
 					print "\nFormat - List API Id\t:\tList Name\n";
 					for($i=0; $i<$list_count; $i++){
-							print $list_api_ids[$i]."\t:\t".$list_names[$i]."\n";
+						print $list_api_ids[$i]."\t:\t".$list_names[$i]."\n";
 					}
 					print "\n";
 					echo $list_xml->saveXML("lists.xml");
