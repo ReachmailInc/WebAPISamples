@@ -41,8 +41,8 @@ More comments to explain how best to call the methods and their properties inPro
 	
 	class login{
 	       private $account_key;
-		private $username;
-		private $password;		   
+	   private $username;
+	   private $password;		   
 		
 		function __construct($account_key = NULL, $username = NULL, $password = NULL) {
 					$this->account_key = $account_key;
@@ -61,9 +61,9 @@ More comments to explain how best to call the methods and their properties inPro
                     );
                     curl_setopt_array($account_id_request, $curl_options);
                     $response = curl_exec($account_id_request);
-		       $xml = simplexml_load_string($response);
+		    $xml = simplexml_load_string($response);
                     $account_id = $xml->AccountId;   
-		       print "\n".$account_id."\n\n";					
+		    print "\n".$account_id."\n\n";					
                     echo $account_id->saveXML("user.xml");
 		}
 		
