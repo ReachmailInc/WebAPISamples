@@ -21,7 +21,6 @@ More comments to explain how best to call the methods and their properties inPro
    $enumerate_fields_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/query/';   
    $create_list_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/';
    $get_list_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/';
-   $enumerate_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/recipients/query/';
    $get_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/recipients';
    $create_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/recipients/';
    $import_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/import/';
@@ -160,6 +159,34 @@ More comments to explain how best to call the methods and their properties inPro
 					$mail_xml = simplexml_load_string($queue_mailing_response);
 					print_r($mail_xml);
 		}
-}
-	
+		function enumerateRecipients($account_id, $list_id, $request_body) {	
+		
+					$enumerate_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/recipients/query/';
+					$api_service_url = $enumerate_recipients_url.$account_id.'/'.$list_id;
+					$header = array("Content-Type: application/xml");		
+					$enumerate_recipients_request = curl_init();
+					$curl_options = array(
+							CURLOPT_URL => $api_service_url,
+							CURLOPT_HEADER => false,
+							CURLOPT_USERPWD => "$this->account_key\\$this->username:$this->password",
+							CURLOPT_HTTPHEADER => $header,
+							CURLOPT_POST => true,
+							CURLOPT_POSTFIELDS => $request_body,
+							CURLOPT_RETURNTRANSFER => true
+					);
+					curl_setopt_array($enumerate_recipients_request, $curl_options);
+					$enumerate_recipients_response = curl_exec($enumerate_recipients_request);
+					curl_close($enumerate_recipients_request);
+					$response_xml = simplexml_load_string($enumerate_recipients_response);
+					$i = 0;
+					print "\n";
+					foreach($response_xml->Recipient as $recipients){
+						$email_addresses[] = $recipients->Email;
+						echo $email_addresses[$i]."\n";
+						$i++;
+					}
+					print "\n";
+					echo $response_xml->saveXML("records.xml");
+		}
+}	
 ?>
