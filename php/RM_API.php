@@ -51,8 +51,8 @@ More comments to explain how best to call the methods and their properties inPro
 		}	
 		
 		function getUser() {
-		      $get_user_url =  'https://services.reachmail.net/Rest/Administration/v1/users/current';
-		      $account_id_request = curl_init();
+		    $get_user_url =  'https://services.reachmail.net/Rest/Administration/v1/users/current';
+		    $account_id_request = curl_init();
                     $curl_options = array(
                             CURLOPT_URL => $get_user_url,
                             CURLOPT_HEADER => false,
