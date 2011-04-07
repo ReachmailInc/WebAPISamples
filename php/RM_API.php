@@ -47,13 +47,13 @@ $getUser->rm_getUser();
 					$response = curl_exec($account_id_request);
 					$xml = simplexml_load_string($response);
 					$account_id = $xml->AccountId;   
-					print "\n".$account_id."\n\n";					
+					print "\n" . $account_id . "\n\n";					
 					echo $account_id->saveXML("user.xml");
 		}
 		
 		function rm_queueMail($account_id, $request_body) {
 					$queue_mailing_url = 'https://services.reachmail.net/Rest/Campaigns/v1/';		
-					$api_service_url = $queue_mailing_url.$account_id."/queue";
+					$api_service_url = $queue_mailing_url . $account_id . "/queue";
 					$header = array("Content-Type: application/xml");		
 					$queue_mailing_request = curl_init();
 					$curl_options = array(
@@ -75,7 +75,7 @@ $getUser->rm_getUser();
 		
 		function rm_enumerateLists($account_id, $request_body) {		
 					$enumerate_lists_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/query/';
-					$api_service_url = $enumerate_lists_url.$account_id;
+					$api_service_url = $enumerate_lists_url . $account_id;
 					$header = array("Content-Type: application/xml");
 					$enumerate_lists_request = curl_init();
 					$curl_options = array(
@@ -100,7 +100,7 @@ $getUser->rm_getUser();
 					$list_count = count($list_api_ids);
 					print "\nFormat - List API Id\t:\tList Name\n";
 					for($i=0; $i<$list_count; $i++){
-						print $list_api_ids[$i]."\t:\t".$list_names[$i]."\n";
+						print $list_api_ids[$i] . "\t:\t" . $list_names[$i] . "\n";
 					}
 					print "\n";
 					echo $list_xml->saveXML("lists.xml");
@@ -131,7 +131,7 @@ $getUser->rm_getUser();
 		
 		function rm_importRecipients($account_id, $list_id, $request_body) {	
 					$import_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/import/';
-					$api_service_url = $import_recipients_url.$account_id.'/'.$list_id;
+					$api_service_url = $import_recipients_url . $account_id . '/' . $list_id;
 					$header = array("Content-Type: application/xml");		
 					$create_recipients_request = curl_init();
 					$curl_options = array(
@@ -155,7 +155,7 @@ $getUser->rm_getUser();
 		
 		function rm_enumerateRecipients($account_id, $list_id, $request_body) {			
 					$enumerate_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/recipients/query/';
-					$api_service_url = $enumerate_recipients_url.$account_id.'/'.$list_id;
+					$api_service_url = $enumerate_recipients_url . $account_id . '/' . $list_id;
 					$header = array("Content-Type: application/xml");		
 					$enumerate_recipients_request = curl_init();
 					$curl_options = array(
@@ -175,7 +175,7 @@ $getUser->rm_getUser();
 					print "\n";
 					foreach($response_xml->Recipient as $recipients){
 						$email_addresses[] = $recipients->Email;
-						echo $email_addresses[$i]."\n";
+						echo $email_addresses[$i] . "\n";
 						$i++;
 					}
 					print "\n";
@@ -184,7 +184,7 @@ $getUser->rm_getUser();
 		
 		function rm_enumerateMailings($account_id, $request_body) {			
 					$enumerate_mailings_url = 'https://services.reachmail.net/Rest/Content/Mailings/v1/query/';
-					$api_service_url = $enumerate_mailings_url.$account_id;										
+					$api_service_url = $enumerate_mailings_url . $account_id;										
 					$enumerate_mailings_request = curl_init();
 					$header = array("Content-Type: application/xml");
 					$curl_options = array(
@@ -211,7 +211,7 @@ $getUser->rm_getUser();
 					$mail_count = count($mail_ids);
 					print "\nFormat - Mail Name : Mail ID : Create Date\n";
 					for($i=0; $i<$mail_count; $i++){
-						print $mail_names[$i]." : ".$mail_ids[$i]." : ".$created[$i]."\n";
+						print $mail_names[$i] . " : " . $mail_ids[$i] . " : " . $created[$i] . "\n";
 					}
 					print "\n";
 					echo $mail_xml ->saveXML("mailings.xml");
