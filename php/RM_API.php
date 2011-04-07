@@ -28,7 +28,13 @@ $login = new login('ACME','admin','1234ABC');
 					$this->username = $username;
 					$this->password = $password;		
 		}	
-		
+/*
+The getUser method returns your accounts API ID. This ID is a requirement
+for most other services. The way you access is it to create a new login/getUser 
+instance. It is called thus:
+$getUser = new login('ACME','admin','1234ABC');
+$getUser->getUser();
+*/		
 		function getUser() {		
 					$get_user_url =  'https://services.reachmail.net/Rest/Administration/v1/users/current';
 					$account_id_request = curl_init();
