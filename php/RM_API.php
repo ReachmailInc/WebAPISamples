@@ -29,7 +29,7 @@ $login = new RM_Login('ACME','admin','1234ABC');
 		}	
 /*
 The rm_getUser method returns your accounts API ID. This ID is a requirement
-for most other services. The way you access is it to instantiate a new RM_Login/rm_getUser 
+for most other services. The way you access is it to instantiate a new RM_Login::rm_getUser 
 object. It is called thus:
 $getUser = new RM_Login('ACME','admin','1234ABC');
 $getUser->rm_getUser();
