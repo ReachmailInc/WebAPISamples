@@ -8,13 +8,12 @@ Author URI: http://www.reachmail.net/support
 License: MIT License (see LICENSE) http://creativecommons.org/licenses/MIT/
 Last Modified: April 5, 2011
 Requirements: PHP 5 or higher.
-More comments to explain how best to call the methods and their properties inProgress
 */
 
-  // ensure Curl extension installed
+/* Ensure Curl Installed */
 	if (!extension_loaded("curl")) {
 		throw(new Exception("The Curl extension for PHP is required for ReachMail API to work."));
-}
+	}
 	
 	class login{
 	       private $account_key;
@@ -27,8 +26,7 @@ More comments to explain how best to call the methods and their properties inPro
 					$this->password = $password;		
 		}	
 		
-		function getUser() {
-		
+		function getUser() {		
 					$get_user_url =  'https://services.reachmail.net/Rest/Administration/v1/users/current';
 					$account_id_request = curl_init();
 					$curl_options = array(
@@ -46,7 +44,6 @@ More comments to explain how best to call the methods and their properties inPro
 		}
 		
 		function queueMail($account_id, $request_body) {
-		
 					$queue_mailing_url = 'https://services.reachmail.net/Rest/Campaigns/v1/';		
 					$api_service_url = $queue_mailing_url.$account_id."/queue";
 					$header = array("Content-Type: application/xml");		
@@ -68,8 +65,7 @@ More comments to explain how best to call the methods and their properties inPro
 					echo $mail_xml->saveXML("queueId.xml");
 		}
 		
-		function enumerateLists($account_id, $request_body) {
-		
+		function enumerateLists($account_id, $request_body) {		
 					$enumerate_lists_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/query/';
 					$api_service_url = $enumerate_lists_url.$account_id;
 					$header = array("Content-Type: application/xml");
@@ -102,8 +98,7 @@ More comments to explain how best to call the methods and their properties inPro
 					echo $list_xml->saveXML("lists.xml");
 		}
 		
-		function createList($account_id, $request_body){
-	
+		function createList($account_id, $request_body){	
 					$create_list_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/';
 					$api_service_url = $create_list_url.$account_id;
 					$header = array("Content-Type: application/xml");					
@@ -126,8 +121,7 @@ More comments to explain how best to call the methods and their properties inPro
 					echo $list_api_id->saveXML("listId.xml");
 		}
 		
-		function enumerateMailings($account_id, $request_body) {
-			
+		function enumerateMailings($account_id, $request_body) {			
 					$enumerate_mailings_url = 'https://services.reachmail.net/Rest/Content/Mailings/v1/query/';
 					$api_service_url = $enumerate_mailings_url.$account_id;										
 					$enumerate_mailings_request = curl_init();
@@ -163,8 +157,7 @@ More comments to explain how best to call the methods and their properties inPro
 					echo $mail_xml ->saveXML("mailings.xml");
 		}			
 		
-		function enumerateRecipients($account_id, $list_id, $request_body) {	
-		
+		function enumerateRecipients($account_id, $list_id, $request_body) {			
 					$enumerate_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/recipients/query/';
 					$api_service_url = $enumerate_recipients_url.$account_id.'/'.$list_id;
 					$header = array("Content-Type: application/xml");		
