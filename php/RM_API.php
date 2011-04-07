@@ -13,12 +13,12 @@ Requirements: PHP 5 or higher.
 		throw(new Exception("The Curl extension for PHP is required for ReachMail API to work."));
 	}
 /* 
-The login class is a requirement to access ALL the ReachMail API services. 
+The RM_Login class is a requirement to access ALL the ReachMail API services. 
 This class holds the tokens for use in creating new instances and accessing 
 the associated service methods. It is called thus:
-$login = new Login('ACME','admin','1234ABC'); 
+$login = new RM_Login('ACME','admin','1234ABC'); 
 */	
-	class Login{
+	class RM_Login{
 	       private $account_key;
 	       private $username;
 	       private $password;		   
@@ -29,13 +29,13 @@ $login = new Login('ACME','admin','1234ABC');
 					$this->password = $password;		
 		}	
 /*
-The getUser method returns your accounts API ID. This ID is a requirement
-for most other services. The way you access is it to create a new login/getUser 
+The rm_getUser method returns your accounts API ID. This ID is a requirement
+for most other services. The way you access is it to create a new RM_Login/rm_getUser 
 instance. It is called thus:
-$getUser = new Login('ACME','admin','1234ABC');
-$getUser->getUser();
+$getUser = new RM_Login('ACME','admin','1234ABC');
+$getUser->rm_getUser();
 */		
-		function getUser() {		
+		function rm_getUser() {		
 					$get_user_url =  'https://services.reachmail.net/Rest/Administration/v1/users/current';
 					$account_id_request = curl_init();
 					$curl_options = array(
@@ -52,7 +52,7 @@ $getUser->getUser();
 					echo $account_id->saveXML("user.xml");
 		}
 		
-		function queueMail($account_id, $request_body) {
+		function rm_queueMail($account_id, $request_body) {
 					$queue_mailing_url = 'https://services.reachmail.net/Rest/Campaigns/v1/';		
 					$api_service_url = $queue_mailing_url.$account_id."/queue";
 					$header = array("Content-Type: application/xml");		
@@ -74,7 +74,7 @@ $getUser->getUser();
 					echo $mail_xml->saveXML("queueId.xml");
 		}
 		
-		function enumerateLists($account_id, $request_body) {		
+		function rm_enumerateLists($account_id, $request_body) {		
 					$enumerate_lists_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/query/';
 					$api_service_url = $enumerate_lists_url.$account_id;
 					$header = array("Content-Type: application/xml");
@@ -107,7 +107,7 @@ $getUser->getUser();
 					echo $list_xml->saveXML("lists.xml");
 		}
 		
-		function createList($account_id, $request_body){	
+		function rm_createList($account_id, $request_body){	
 					$create_list_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/';
 					$api_service_url = $create_list_url.$account_id;
 					$header = array("Content-Type: application/xml");					
@@ -130,7 +130,7 @@ $getUser->getUser();
 					echo $list_api_id->saveXML("listId.xml");
 		}
 		
-		function importRecipients($account_id, $list_id, $request_body) {	
+		function rm_importRecipients($account_id, $list_id, $request_body) {	
 					$import_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/import/';
 					$api_service_url = $import_recipients_url.$account_id.'/'.$list_id;
 					$header = array("Content-Type: application/xml");		
@@ -153,7 +153,7 @@ $getUser->getUser();
 							print_r($create_recipients_response);
 					}
 		}	
-		function enumerateRecipients($account_id, $list_id, $request_body) {			
+		function rm_enumerateRecipients($account_id, $list_id, $request_body) {			
 					$enumerate_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/recipients/query/';
 					$api_service_url = $enumerate_recipients_url.$account_id.'/'.$list_id;
 					$header = array("Content-Type: application/xml");		
@@ -182,7 +182,7 @@ $getUser->getUser();
 					echo $response_xml->saveXML("recipients.xml");
 		}
 		
-		function enumerateMailings($account_id, $request_body) {			
+		function rm_enumerateMailings($account_id, $request_body) {			
 					$enumerate_mailings_url = 'https://services.reachmail.net/Rest/Content/Mailings/v1/query/';
 					$api_service_url = $enumerate_mailings_url.$account_id;										
 					$enumerate_mailings_request = curl_init();
