@@ -122,7 +122,31 @@ More comments to explain how best to call the methods and their properties inPro
 					print "\n";
 					echo $list_xml->saveXML("lists.xml");
 		}
+		
+		function createList($account_id, $request_body){
 	
+					$create_list_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/';
+					$api_service_url = $create_list_url.$account_id;
+					$header = array("Content-Type: application/xml");					
+					$create_list_request = curl_init();
+					$curl_options = array(
+							CURLOPT_URL => $api_service_url,
+							CURLOPT_HEADER => false,
+							CURLOPT_USERPWD => "$this->account_key\\$this->username:$this->password",
+							CURLOPT_HTTPHEADER => $header,
+							CURLOPT_POST => true,
+							CURLOPT_POSTFIELDS => $request_body,
+							CURLOPT_RETURNTRANSFER => true
+					);
+					curl_setopt_array($create_list_request, $curl_options);
+					$create_list_response = curl_exec($create_list_request);
+					curl_close($create_list_request);
+					$response_xml = simplexml_load_string($create_list_response);
+					$list_api_id = $response_xml->Id;
+					print "\nSuccessfully created list! (ID: $list_api_id)\n\n";
+					echo $list_api_id->saveXML("listID.xml");
+		}
+		
 		function enumerateMailings($account_id, $request_body) {
 			
 					$enumerate_mailings_url = 'https://services.reachmail.net/Rest/Content/Mailings/v1/query/';
