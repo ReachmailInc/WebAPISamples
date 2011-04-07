@@ -124,6 +124,58 @@ $login = new login('ACME','admin','1234ABC');
 					echo $list_api_id->saveXML("listId.xml");
 		}
 		
+		function importRecipients($account_id, $list_id, $request_body) {	
+					$import_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/import/';
+					$api_service_url = $import_recipients_url.$account_id.'/'.$list_id;
+					$header = array("Content-Type: application/xml");		
+					$create_recipients_request = curl_init();
+					$curl_options = array(
+							CURLOPT_URL => $api_service_url,
+							CURLOPT_HEADER => false,
+							CURLOPT_USERPWD => "$this->account_key\\$this->username:$this->password",
+							CURLOPT_HTTPHEADER => $header,
+							CURLOPT_POST => true,
+							CURLOPT_POSTFIELDS => $request_body,
+							CURLOPT_RETURNTRANSFER => true
+					);
+					curl_setopt_array($create_recipients_request, $curl_options);
+					$create_recipients_response = curl_exec($create_recipients_request);
+					curl_close($create_recipients_request);
+					if($create_recipients_response == "1"){
+							print "\nSuccessfully added $email to $list_id\n\n";
+					} else {
+							print_r($create_recipients_response);
+					}
+		}	
+		function enumerateRecipients($account_id, $list_id, $request_body) {			
+					$enumerate_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/recipients/query/';
+					$api_service_url = $enumerate_recipients_url.$account_id.'/'.$list_id;
+					$header = array("Content-Type: application/xml");		
+					$enumerate_recipients_request = curl_init();
+					$curl_options = array(
+							CURLOPT_URL => $api_service_url,
+							CURLOPT_HEADER => false,
+							CURLOPT_USERPWD => "$this->account_key\\$this->username:$this->password",
+							CURLOPT_HTTPHEADER => $header,
+							CURLOPT_POST => true,
+							CURLOPT_POSTFIELDS => $request_body,
+							CURLOPT_RETURNTRANSFER => true
+					);
+					curl_setopt_array($enumerate_recipients_request, $curl_options);
+					$enumerate_recipients_response = curl_exec($enumerate_recipients_request);
+					curl_close($enumerate_recipients_request);
+					$response_xml = simplexml_load_string($enumerate_recipients_response);
+					$i = 0;
+					print "\n";
+					foreach($response_xml->Recipient as $recipients){
+						$email_addresses[] = $recipients->Email;
+						echo $email_addresses[$i]."\n";
+						$i++;
+					}
+					print "\n";
+					echo $response_xml->saveXML("recipients.xml");
+		}
+		
 		function enumerateMailings($account_id, $request_body) {			
 					$enumerate_mailings_url = 'https://services.reachmail.net/Rest/Content/Mailings/v1/query/';
 					$api_service_url = $enumerate_mailings_url.$account_id;										
@@ -158,35 +210,6 @@ $login = new login('ACME','admin','1234ABC');
 					}
 					print "\n";
 					echo $mail_xml ->saveXML("mailings.xml");
-		}			
-		
-		function enumerateRecipients($account_id, $list_id, $request_body) {			
-					$enumerate_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/recipients/query/';
-					$api_service_url = $enumerate_recipients_url.$account_id.'/'.$list_id;
-					$header = array("Content-Type: application/xml");		
-					$enumerate_recipients_request = curl_init();
-					$curl_options = array(
-							CURLOPT_URL => $api_service_url,
-							CURLOPT_HEADER => false,
-							CURLOPT_USERPWD => "$this->account_key\\$this->username:$this->password",
-							CURLOPT_HTTPHEADER => $header,
-							CURLOPT_POST => true,
-							CURLOPT_POSTFIELDS => $request_body,
-							CURLOPT_RETURNTRANSFER => true
-					);
-					curl_setopt_array($enumerate_recipients_request, $curl_options);
-					$enumerate_recipients_response = curl_exec($enumerate_recipients_request);
-					curl_close($enumerate_recipients_request);
-					$response_xml = simplexml_load_string($enumerate_recipients_response);
-					$i = 0;
-					print "\n";
-					foreach($response_xml->Recipient as $recipients){
-						$email_addresses[] = $recipients->Email;
-						echo $email_addresses[$i]."\n";
-						$i++;
-					}
-					print "\n";
-					echo $response_xml->saveXML("recipients.xml");
-		}
-}	
+		}							
+	}	
 ?>
