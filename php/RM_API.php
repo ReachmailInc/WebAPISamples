@@ -3,14 +3,14 @@
 Name: ReachMail API Library
 Description: Provides a variety of functions to interact with and extend the ReachMail API.
 Author: ReachMail Support
-Version: 0.1.0
+Version: 0.1
 Author URI: http://www.reachmail.net/support
 Requirements: PHP 5 or higher.
 */
 
 //Ensure Curl Installed
 	if (!extension_loaded("curl")) {
-		throw(new Exception("The Curl extension for PHP is required for ReachMail API to work."));
+		throw(new Exception("The cURL extension for PHP is required for ReachMail API to work."));
 	}
 /* 
 The RM_Login class is a requirement to access ALL the ReachMail API services. 
