@@ -14,8 +14,7 @@ Requirements: PHP 5 or higher.
 	}
 /* 
 The RM_Login class is a requirement to access ALL the ReachMail API services. 
-This class holds the tokens for use in creating new instances and accessing 
-the associated service methods. It is called thus:
+This class holds the tokens for use in creating new objects. It is called thus:
 $login = new RM_Login('ACME','admin','1234ABC'); 
 */	
 	class RM_Login{
@@ -30,8 +29,8 @@ $login = new RM_Login('ACME','admin','1234ABC');
 		}	
 /*
 The rm_getUser method returns your accounts API ID. This ID is a requirement
-for most other services. The way you access is it to create a new RM_Login/rm_getUser 
-instance. It is called thus:
+for most other services. The way you access is it to instanciate a new RM_Login/rm_getUser 
+object. It is called thus:
 $getUser = new RM_Login('ACME','admin','1234ABC');
 $getUser->rm_getUser();
 */		
