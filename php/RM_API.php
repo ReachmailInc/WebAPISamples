@@ -15,28 +15,6 @@ More comments to explain how best to call the methods and their properties inPro
 	if (!extension_loaded("curl")) {
 		throw(new Exception("The Curl extension for PHP is required for ReachMail API to work."));
 }
-
-/* Define Static Variables */  
-  // Contact Services
-   $enumerate_fields_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/query/';   
-   $create_list_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/';
-   $get_list_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/';
-   $get_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/recipients';
-   $create_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/recipients/';
-   $import_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/import/';
-   $export_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/export/';
-   $get_export_status_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/export/status/';
-  //Mailing Services   
-   $get_mailing_url = 'https://services.reachmail.net//Rest/Content/Mailings/v1/';
-   $delete_mailing_url = 'https://services.reachmail.net//Rest/Content/Mailings/v1/';
-   $create_mailing_url = 'https://services.reachmail.net/REST/Content/Mailings/v1/';
-  //Report Services
-   $enumerate_mailing_reports_url = 'https://services.reachmail.net/Rest/Reports/v1/mailings/query/';
-   $get_mailing_report_url = 'https://services.reachmail.net/Rest/Reports/v1/mailings/';
-   $get_mailing_report_summary_url = 'https://services.reachmail.net/Rest/Reporting/Content/Mailings/v1/Summary/';
-  //Data Services
-   $data_upload_url = 'https://services.reachmail.net/Rest/Data/';
-   $data_exist_url = 'https://services.reachmail.net/Rest/Data/exists/';
 	
 	class login{
 	       private $account_key;
@@ -87,6 +65,7 @@ More comments to explain how best to call the methods and their properties inPro
 					curl_close($queue_mailing_request);
 					$mail_xml = simplexml_load_string($queue_mailing_response);
 					print_r($mail_xml);
+					echo $mail_xml->saveXML("queueId.xml");
 		}
 		
 		function enumerateLists($account_id, $request_body) {
@@ -144,7 +123,7 @@ More comments to explain how best to call the methods and their properties inPro
 					$response_xml = simplexml_load_string($create_list_response);
 					$list_api_id = $response_xml->Id;
 					print "\nSuccessfully created list! (ID: $list_api_id)\n\n";
-					echo $list_api_id->saveXML("listID.xml");
+					echo $list_api_id->saveXML("listId.xml");
 		}
 		
 		function enumerateMailings($account_id, $request_body) {
@@ -211,7 +190,7 @@ More comments to explain how best to call the methods and their properties inPro
 						$i++;
 					}
 					print "\n";
-					echo $response_xml->saveXML("records.xml");
+					echo $response_xml->saveXML("recipients.xml");
 		}
 }	
 ?>
