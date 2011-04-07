@@ -16,9 +16,9 @@ Requirements: PHP 5 or higher.
 The login class is a requirement to access ALL the ReachMail API services. 
 This class holds the tokens for use in creating new instances and accessing 
 the associated service methods. It is called thus:
-$login = new login('ACME','admin','1234ABC'); 
+$login = new Login('ACME','admin','1234ABC'); 
 */	
-	class login{
+	class Login{
 	       private $account_key;
 	       private $username;
 	       private $password;		   
@@ -32,7 +32,7 @@ $login = new login('ACME','admin','1234ABC');
 The getUser method returns your accounts API ID. This ID is a requirement
 for most other services. The way you access is it to create a new login/getUser 
 instance. It is called thus:
-$getUser = new login('ACME','admin','1234ABC');
+$getUser = new Login('ACME','admin','1234ABC');
 $getUser->getUser();
 */		
 		function getUser() {		
