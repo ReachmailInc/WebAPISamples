@@ -10,11 +10,12 @@ Last Modified: April 5, 2011
 Requirements: PHP 5 or higher.
 */
 
-/* Ensure Curl Installed */
+//Ensure Curl Installed
 	if (!extension_loaded("curl")) {
 		throw(new Exception("The Curl extension for PHP is required for ReachMail API to work."));
 	}
-	
+/* The login class is a requirement to access ALL the ReachMail API services. This class holds the tokens for use in creating new instances and accessing the associated service methods. It is called thus:
+$login = new login('ACME','admin','1234ABC'); */	
 	class login{
 	       private $account_key;
 	       private $username;
