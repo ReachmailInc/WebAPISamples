@@ -18,14 +18,14 @@ This class holds the tokens for use in creating new objects. It is called thus:
 $login = new RM_Login('ACME','admin','1234ABC'); 
 */	
 	class RM_Login{
-	       private $account_key;
-	       private $username;
-	       private $password;		   
+	       private $_account_key;
+	       private $_username;
+	       private $_password;		   
 		
-		function __construct($account_key = NULL, $username = NULL, $password = NULL) {
-					$this->account_key = $account_key;
-					$this->username = $username;
-					$this->password = $password;		
+		function __construct($_account_key = NULL, $_username = NULL, $_password = NULL) {
+					$this->_account_key = $_account_key;
+					$this->_username = $_username;
+					$this->_password = $_password;		
 		}	
 /*
 The rm_getUser method returns your accounts API ID. This ID is a requirement
@@ -40,7 +40,7 @@ $getUser->rm_getUser();
 					$curl_options = array(
 							CURLOPT_URL => $get_user_url,
 							CURLOPT_HEADER => false,
-							CURLOPT_USERPWD => "$this->account_key\\$this->username:$this->password",
+							CURLOPT_USERPWD => "$this->_account_key\\$this->_username:$this->_password",
 							CURLOPT_RETURNTRANSFER => true
 					);
 					curl_setopt_array($account_id_request, $curl_options);
@@ -59,7 +59,7 @@ $getUser->rm_getUser();
 					$curl_options = array(
 							CURLOPT_URL => $api_service_url,
 							CURLOPT_HEADER => false,
-							CURLOPT_USERPWD => "$this->account_key\\$this->username:$this->password",
+							CURLOPT_USERPWD => "$this->_account_key\\$this->_username:$this->_password",
 							CURLOPT_HTTPHEADER => $header,
 							CURLOPT_POST => true,
 							CURLOPT_POSTFIELDS => $request_body,
@@ -81,7 +81,7 @@ $getUser->rm_getUser();
 					$curl_options = array(
 							CURLOPT_URL => $api_service_url,
 							CURLOPT_HEADER => false,
-							CURLOPT_USERPWD => "$this->account_key\\$this->username:$this->password",
+							CURLOPT_USERPWD => "$this->_account_key\\$this->_username:$this->_password",
 							CURLOPT_HTTPHEADER => $header,
 							CURLOPT_POST => true,
 							CURLOPT_POSTFIELDS => $request_body,
@@ -114,7 +114,7 @@ $getUser->rm_getUser();
 					$curl_options = array(
 							CURLOPT_URL => $api_service_url,
 							CURLOPT_HEADER => false,
-							CURLOPT_USERPWD => "$this->account_key\\$this->username:$this->password",
+							CURLOPT_USERPWD => "$this->_account_key\\$this->_username:$this->_password",
 							CURLOPT_HTTPHEADER => $header,
 							CURLOPT_POST => true,
 							CURLOPT_POSTFIELDS => $request_body,
@@ -137,7 +137,7 @@ $getUser->rm_getUser();
 					$curl_options = array(
 							CURLOPT_URL => $api_service_url,
 							CURLOPT_HEADER => false,
-							CURLOPT_USERPWD => "$this->account_key\\$this->username:$this->password",
+							CURLOPT_USERPWD => "$this->_account_key\\$this->_username:$this->_password",
 							CURLOPT_HTTPHEADER => $header,
 							CURLOPT_POST => true,
 							CURLOPT_POSTFIELDS => $request_body,
@@ -160,7 +160,7 @@ $getUser->rm_getUser();
 					$curl_options = array(
 							CURLOPT_URL => $api_service_url,
 							CURLOPT_HEADER => false,
-							CURLOPT_USERPWD => "$this->account_key\\$this->username:$this->password",
+							CURLOPT_USERPWD => "$this->_account_key\\$this->_username:$this->_password",
 							CURLOPT_HTTPHEADER => $header,
 							CURLOPT_POST => true,
 							CURLOPT_POSTFIELDS => $request_body,
@@ -189,7 +189,7 @@ $getUser->rm_getUser();
 					$curl_options = array(
 							CURLOPT_URL => $api_service_url,
 							CURLOPT_HEADER => false,
-							CURLOPT_USERPWD => "$this->account_key\\$this->username:$this->password",
+							CURLOPT_USERPWD => "$this->_account_key\\$this->_username:$this->_password",
 							CURLOPT_HTTPHEADER => $header,
 							CURLOPT_POST => true,
 							CURLOPT_POSTFIELDS => $request_body,
@@ -202,7 +202,6 @@ $getUser->rm_getUser();
 					$created = array();
 					$mail_names = array();
 					$mail_ids = array();
-
 					foreach($mail_xml->Mailing as $mailing){
 						$created[] = $mailing->Created;
 						$mail_names[] = $mailing->Name;
