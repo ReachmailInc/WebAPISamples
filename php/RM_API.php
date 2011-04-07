@@ -5,8 +5,6 @@ Description: Provides a variety of functions to interact with and extend the Rea
 Author: ReachMail Support
 Version: 0.1.0
 Author URI: http://www.reachmail.net/support
-License: MIT License (see LICENSE) http://creativecommons.org/licenses/MIT/
-Last Modified: April 5, 2011
 Requirements: PHP 5 or higher.
 */
 
