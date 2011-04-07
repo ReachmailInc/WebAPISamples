@@ -152,6 +152,7 @@ $getUser->rm_getUser();
 							print_r($create_recipients_response);
 					}
 		}	
+		
 		function rm_enumerateRecipients($account_id, $list_id, $request_body) {			
 					$enumerate_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/recipients/query/';
 					$api_service_url = $enumerate_recipients_url.$account_id.'/'.$list_id;
