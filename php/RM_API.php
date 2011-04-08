@@ -309,7 +309,13 @@ $exportRecipients->rm_exportRecipients($account_id, $list_id, $request_body);
 					}
 		}		
 /*
-Enumerate Mailings
+Enumerate Mailings gives the mail_id and other requested mail properties 
+of all mailings that meet the $request_body request requirements. The 
+$request_body is submitted in xml format as deliniated here, 
+https://services.reachmail.net/sdk/. Response is in both the standard 
+output and as mailings.xml.
+$enumerateMailings = new RM_Login('ACME','admin','1234ABC');
+$enumerateMailings->rm_enumerateMailings($account_id, $request_body);
 */		
 		function rm_enumerateMailings($account_id, $request_body) {			
 					$enumerate_mailings_url = 'https://services.reachmail.net/Rest/Content/Mailings/v1/query/';
