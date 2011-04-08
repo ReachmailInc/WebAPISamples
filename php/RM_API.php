@@ -76,6 +76,9 @@ $queueMail->rm_queueMail($account_id, $request_body);
 					print_r($mail_xml);
 					echo $mail_xml->saveXML("queueId.xml");
 		}
+/*
+Enumerate Lists
+*/
 		
 		function rm_enumerateLists($account_id, $request_body) {		
 					$enumerate_lists_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/query/';
