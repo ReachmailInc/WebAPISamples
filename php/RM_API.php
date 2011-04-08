@@ -12,7 +12,7 @@ Requirements: PHP 5 or higher.
 		throw(new Exception("The cURL extension for PHP is required for ReachMail API to work."));
 	}
 /* 
-The RM_Login class is required to access ALL of the ReachMail API services. 
+Login class is required to access ALL of the ReachMail API services. 
 This class holds the tokens for use in creating new objects.
 $login = new RM_Login('ACME','admin','1234ABC'); 
 */	
@@ -27,7 +27,7 @@ $login = new RM_Login('ACME','admin','1234ABC');
 					$this->_password = $_password;		
 		}	
 /*
-The rm_getUser method returns your accounts API ID. This ID is a requirement
+Get User method returns your accounts API ID. This ID is a requirement
 for most other services. To instantiate a new RM_Login::rm_getUser object:
 $getUser = new RM_Login('ACME','admin','1234ABC');
 $getUser->rm_getUser();
@@ -48,7 +48,13 @@ $getUser->rm_getUser();
 					print "\n" . $account_id . "\n\n";					
 					echo $account_id->saveXML("user.xml");
 		}
-		
+/*
+Queue Mailing to schedule and send a mailing. Both the mail_id and 
+list_id as well as all other mailing properties are required to be formatted 
+in xml as the $request_body:
+$queueMail = new RM_Login('ACME','admin','1234ABC');
+$queueMail->rm_queueMail($account_id, $request_body);
+*/		
 		function rm_queueMail($account_id, $request_body) {
 					$queue_mailing_url = 'https://services.reachmail.net/Rest/Campaigns/v1/';		
 					$api_service_url = $queue_mailing_url . $account_id . "/queue";
