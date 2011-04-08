@@ -253,6 +253,37 @@ Create Recipient
 					} else {
 						print_r($create_recipients_response);
 					}
+		}	
+/*
+Export Recipients will export the specified list for subsequent download.
+The $request_body will vary depending on the fields in your lists, the 
+required xml is deliniated here,  https://services.reachmail.net/sdk/.
+Response is the export_id required for download in the standard output.
+$exportRecipients = new RM_Login('ACME','admin','1234ABC');
+$exportRecipients->rm_exportRecipients($account_id, $list_id, $request_body);
+*/	
+		function rm_exportRecipients($account_id, $list_id, $request_body) {	
+					$export_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/export/' ;
+					$api_service_url = $export_recipients_url . $account_id . '/' . $list_id;
+					$header = array("Content-Type: application/xml");	
+					$export_recipients_request = curl_init();
+					$curl_options = array(
+							CURLOPT_URL => $api_service_url,
+							CURLOPT_HEADER => false,
+							CURLOPT_USERPWD => "$this->_account_key\\$this->_username:$this->_password",
+							CURLOPT_HTTPHEADER => $header,
+							CURLOPT_POST => true,
+							CURLOPT_POSTFIELDS => $request_body,
+							CURLOPT_RETURNTRANSFER => true
+							);
+					curl_setopt_array($export_recipients_request, $curl_options);
+					$export_recipients_response = curl_exec($export_recipients_request);
+					curl_close($export_recipients_request);
+					if($export_recipients_response == "1"){
+							print "\nSuccessfully exported listID" . $list_id . "\n\n";
+					} else {
+							print_r($export_recipients_response);
+					}
 		}		
 /*
 Enumerate Mailings
