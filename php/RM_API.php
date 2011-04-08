@@ -248,7 +248,11 @@ $enumerateRecipients->rm_enumerateRecipients($account_id, $list_id, $request_bod
 					echo $response_xml->saveXML("recipients.xml");
 		}
 /*
-Create Recipient
+Create Recipient adds records to a list. The fields and their 
+values are set up in the $request_body xml, which is delineated
+here, https://services.reachmail.net/sdk/.
+$createRecipients = new RM_Login('ACME','admin','1234ABC');
+$createRecipients->rm_createRecipients($account_id, $list_id, $request_body); 
 */		
 		function rm_createRecipient($account_id, $list_id, $request_body) {	
 					$create_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/recipients/';
