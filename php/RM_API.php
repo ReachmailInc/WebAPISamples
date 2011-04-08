@@ -121,7 +121,12 @@ $enumerateLists->rm_enumerateLists($account_id, $request_body);
 					echo $list_xml->saveXML("lists.xml");
 		}
 /*
-Create List
+Create List sets up an empty list with the fields formatted in 
+the $request_body. The $request_body is submitted in xml format 
+as deliniated here, https://services.reachmail.net/sdk/. Response 
+is the new list_id in both the standard output and as listId.xml.
+$createList = new RM_Login('ACME','admin','1234ABC');
+$createList->rm_createList($account_id, $request_body);
 */		
 		function rm_createList($account_id, $request_body){	
 					$create_list_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/';
@@ -146,7 +151,11 @@ Create List
 					echo $list_api_id->saveXML("listId.xml");
 		}
 /*
-Upload Data
+Upload Data prepares a file for import into a list. The $file 
+must be a comma sepperated list. Returns the data_id to the 
+standard output which is required for importing into a list.
+$uploadData = new RM_Login('ACME','admin','1234ABC');
+$uploadData->rm_uploadData($file);
 */		
 		function rm_uploadData($file) {	
 					$upload_data_url = 'https://services.reachmail.net/Rest/Data/';
