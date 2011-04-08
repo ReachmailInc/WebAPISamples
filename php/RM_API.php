@@ -81,8 +81,7 @@ $queueMail->rm_queueMail($account_id, $request_body);
 		}
 /*
 Enumerate Lists
-*/
-		
+*/		
 		function rm_enumerateLists($account_id, $request_body) {		
 					$enumerate_lists_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/query/';
 					$api_service_url = $enumerate_lists_url . $account_id;
