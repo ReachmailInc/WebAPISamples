@@ -12,8 +12,8 @@ Requirements: PHP 5 or higher.
 		throw(new Exception("The cURL extension for PHP is required for ReachMail API to work."));
 	}
 /* 
-The RM_Login class is a requirement to access ALL the ReachMail API services. 
-This class holds the tokens for use in creating new objects. It is called thus:
+The RM_Login class is required to access ALL of the ReachMail API services. 
+This class holds the tokens for use in creating new objects.
 $login = new RM_Login('ACME','admin','1234ABC'); 
 */	
 	class RM_Login{
@@ -28,8 +28,7 @@ $login = new RM_Login('ACME','admin','1234ABC');
 		}	
 /*
 The rm_getUser method returns your accounts API ID. This ID is a requirement
-for most other services. The way you access is it to instantiate a new RM_Login::rm_getUser 
-object. It is called thus:
+for most other services. To instantiate a new RM_Login::rm_getUser object:
 $getUser = new RM_Login('ACME','admin','1234ABC');
 $getUser->rm_getUser();
 */		
