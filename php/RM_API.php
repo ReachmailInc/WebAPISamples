@@ -115,7 +115,9 @@ Enumerate Lists
 					print "\n";
 					echo $list_xml->saveXML("lists.xml");
 		}
-		
+/*
+Create List
+*/		
 		function rm_createList($account_id, $request_body){	
 					$create_list_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/';
 					$api_service_url = $create_list_url.$account_id;
@@ -138,7 +140,35 @@ Enumerate Lists
 					print "\nSuccessfully created list! (ID: $list_api_id)\n\n";
 					echo $list_api_id->saveXML("listId.xml");
 		}
-		
+/*
+Upload Data
+*/		
+		function rm_uploadData($file) {	
+					$upload_data_url = 'https://services.reachmail.net/Rest/Data/';
+					$header = array("Content-Type: application/xml");
+					$fp = fopen($file,'r');
+					$request_body = $fp;
+					$upload_file_request = curl_init();
+					$curl_options = array(
+							CURLOPT_URL => $upload_data_url,
+							CURLOPT_HEADER => false,
+							CURLOPT_USERPWD => "$this->_account_key\\$this->_username:$this->_password",
+							CURLOPT_HTTPHEADER => $header,
+							CURLOPT_FOLLOWLOCATION => true,
+							CURLOPT_POST => true,
+							CURLOPT_POSTFIELDS => $request_body,
+							CURLOPT_RETURNTRANSFER => true
+							);
+					curl_setopt_array($upload_file_request, $curl_options);
+					$upload_file_response = curl_exec($upload_file_request);
+					curl_close($upload_file_request);
+					$xml = simplexml_load_string($upload_file_response);
+					$upload_id = $xml->Id;
+					print "\nYour file has been successfully uploaded!\nYour upload id: $upload_id\n\n";
+		}
+/*
+Import Recipients
+*/		
 		function rm_importRecipients($account_id, $list_id, $request_body) {	
 					$import_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/import/';
 					$api_service_url = $import_recipients_url . $account_id . '/' . $list_id;
@@ -162,7 +192,9 @@ Enumerate Lists
 							print_r($create_recipients_response);
 					}
 		}	
-		
+/*
+Enumerate Recipients
+*/		
 		function rm_enumerateRecipients($account_id, $list_id, $request_body) {			
 					$enumerate_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/recipients/query/';
 					$api_service_url = $enumerate_recipients_url . $account_id . '/' . $list_id;
@@ -191,7 +223,9 @@ Enumerate Lists
 					print "\n";
 					echo $response_xml->saveXML("recipients.xml");
 		}
-		
+/*
+Enumerate Mailings
+*/		
 		function rm_enumerateMailings($account_id, $request_body) {			
 					$enumerate_mailings_url = 'https://services.reachmail.net/Rest/Content/Mailings/v1/query/';
 					$api_service_url = $enumerate_mailings_url . $account_id;										
