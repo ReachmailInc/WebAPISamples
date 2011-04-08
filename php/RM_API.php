@@ -28,9 +28,11 @@ $login = new RM_Login('ACME','admin','1234ABC');
 		}	
 /*
 Get User method returns your accounts API ID. This ID is a requirement
-for most other services. To instantiate a new RM_Login::rm_getUser object:
+for most other services. Response is the account_id in both the standard 
+output and as user.xml.
 $getUser = new RM_Login('ACME','admin','1234ABC');
 $getUser->rm_getUser();
+
 */		
 		function rm_getUser() {		
 					$get_user_url =  'https://services.reachmail.net/Rest/Administration/v1/users/current';
@@ -51,7 +53,8 @@ $getUser->rm_getUser();
 /*
 Queue Mailing to schedule and send a mailing. Both the mail_id and 
 list_id as well as all other mailing properties are required to be formatted 
-in xml as the $request_body:
+in xml as the $request_body. Response is the queue_id  in both the 
+standard output and as queueId.xml.
 $queueMail = new RM_Login('ACME','admin','1234ABC');
 $queueMail->rm_queueMail($account_id, $request_body);
 */		
