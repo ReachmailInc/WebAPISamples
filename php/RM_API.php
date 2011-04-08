@@ -27,7 +27,7 @@ $login = new RM_Login('ACME','admin','1234ABC');
 					$this->_password = $_password;		
 		}	
 /*
-Get User method returns your accounts API ID. This ID is a requirement
+Get User returns your accounts API ID. This ID is a requirement
 for most other services. Response is the account_id in both the standard 
 output and as user.xml.
 $getUser = new RM_Login('ACME','admin','1234ABC');
@@ -152,7 +152,7 @@ $createList->rm_createList($account_id, $request_body);
 		}
 /*
 Upload Data prepares a file for import into a list. The $file 
-must be a comma sepperated list. Returns the data_id to the 
+must be a comma seperated list. Returns the data_id to the 
 standard output which is required for importing into a list.
 $uploadData = new RM_Login('ACME','admin','1234ABC');
 $uploadData->rm_uploadData($file);
