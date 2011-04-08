@@ -223,6 +223,32 @@ Enumerate Recipients
 					echo $response_xml->saveXML("recipients.xml");
 		}
 /*
+Create Recipients
+*/		
+		function rm_createRecipient($account_id, $list_id, $request_body) {	
+					$create_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/recipients/';
+					$api_service_url = $create_recipients_url . $account_id . '/' . $list_id;
+					$header = array("Content-Type: application/xml");
+					$create_recipients_request = curl_init();
+					$curl_options = array(
+							CURLOPT_URL => $api_service_url,
+							CURLOPT_HEADER => false,
+							CURLOPT_USERPWD => "$this->_account_key\\$this->_username:$this->_password",
+							CURLOPT_HTTPHEADER => $header,
+							CURLOPT_POST => true,
+							CURLOPT_POSTFIELDS => $request_body,
+							CURLOPT_RETURNTRANSFER => true
+					);
+					curl_setopt_array($create_recipients_request, $curl_options);
+					$create_recipients_response = curl_exec($create_recipients_request);
+					curl_close($create_recipients_request);
+					if($create_recipients_response == "1"){
+						print "\nSuccessfully added $email to $list_id\n\n";
+					} else {
+						print_r($create_recipients_response);
+					}
+		}		
+/*
 Enumerate Mailings
 */		
 		function rm_enumerateMailings($account_id, $request_body) {			
