@@ -181,7 +181,12 @@ $uploadData->rm_uploadData($file);
 					print "\nYour file has been successfully uploaded!\nYour upload id: $upload_id\n\n";
 		}
 /*
-Import Recipients
+Import Recipients placed the uploaded data into the list itself.
+The data_id is required in xml format which is deliniated here, 
+https://services.reachmail.net/sdk/. Returns a import_id in the 
+standard output.
+$importRecipients = new RM_Login('ACME','admin','1234ABC');
+$importRecipients->rm_importRecipients($account_id, $list_id, $request_body);
 */		
 		function rm_importRecipients($account_id, $list_id, $request_body) {	
 					$import_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/import/';
