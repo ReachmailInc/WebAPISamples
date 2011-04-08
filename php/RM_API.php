@@ -2,9 +2,8 @@
 /*
 Name: ReachMail API Library
 Description: Provides a variety of functions to interact with and extend the ReachMail API.
-Author: ReachMail Support
-Version: 0.1
 Author URI: http://www.reachmail.net/support
+Version: 0.1
 Requirements: PHP 5 or higher.
 */
 
