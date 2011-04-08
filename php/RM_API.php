@@ -86,7 +86,7 @@ $request_body is submitted in xml format as deliniated here,
 https://services.reachmail.net/sdk/. Response is in both the standard 
 output and as lists.xml.
 $enumerateLists = new RM_Login('ACME','admin','1234ABC');
-$enumerateLists->rm_numerateLists($account_id, $request_body);
+$enumerateLists->rm_enumerateLists($account_id, $request_body);
 */		
 		function rm_enumerateLists($account_id, $request_body) {		
 					$enumerate_lists_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/query/';
