@@ -32,7 +32,6 @@ for most other services. Response is the account_id in both the standard
 output and as user.xml.
 $getUser = new RM_Login('ACME','admin','1234ABC');
 $getUser->rm_getUser();
-
 */		
 		function rm_getUser() {		
 					$get_user_url =  'https://services.reachmail.net/Rest/Administration/v1/users/current';
@@ -80,7 +79,13 @@ $queueMail->rm_queueMail($account_id, $request_body);
 					echo $mail_xml->saveXML("queueId.xml");
 		}
 /*
-Enumerate Lists
+Enumerate Lists gives the list_id and other requested list properties 
+of all list that meet the $request_body request requirements. The 
+$request_body is submitted in xml format as deliniated here, 
+https://services.reachmail.net/sdk/. Response is in both the standard 
+output and as lists.xml.
+$enumerateLists = new RM_Login('ACME','admin','1234ABC');
+$enumerateLists->rm_numerateLists($account_id, $request_body);
 */		
 		function rm_enumerateLists($account_id, $request_body) {		
 					$enumerate_lists_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/query/';
@@ -119,7 +124,7 @@ Create List
 */		
 		function rm_createList($account_id, $request_body){	
 					$create_list_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/';
-					$api_service_url = $create_list_url.$account_id;
+					$api_service_url = $create_list_url . $account_id;
 					$header = array("Content-Type: application/xml");					
 					$create_list_request = curl_init();
 					$curl_options = array(
@@ -223,7 +228,7 @@ Enumerate Recipients
 					echo $response_xml->saveXML("recipients.xml");
 		}
 /*
-Create Recipients
+Create Recipient
 */		
 		function rm_createRecipient($account_id, $list_id, $request_body) {	
 					$create_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/recipients/';
