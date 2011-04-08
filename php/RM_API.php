@@ -51,10 +51,10 @@ $getUser->rm_getUser();
 					echo $account_id->saveXML("user.xml");
 		}
 /*
-Queue Mailing to schedule and send a mailing. Both the mail_id and 
-list_id as well as all other mailing properties are required to be formatted 
-in xml as the $request_body. Response is the queue_id  in both the 
-standard output and as queueId.xml.
+Queue Mailing to schedule and send a mailing. Both the mail_id 
+and list_id as well as all other mailing properties are required to be 
+formatted  in xml as the $request_body. Response is the queue_id 
+in both the standard output and as queueId.xml.
 $queueMail = new RM_Login('ACME','admin','1234ABC');
 $queueMail->rm_queueMail($account_id, $request_body);
 */		
