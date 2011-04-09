@@ -12,7 +12,7 @@ Requirements: PHP 5 or higher.
 		throw(new Exception("The cURL extension for PHP is required for ReachMail API to work."));
 	}
 /* 
-Login class is required to access ALL of the ReachMail API services. 
+RM_API class is required to access ALL of the ReachMail API services. 
 This class holds the tokens for use in creating new objects.
 $login = new RM_API('ACME','admin','1234ABC'); 
 */	
