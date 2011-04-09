@@ -14,9 +14,9 @@ Requirements: PHP 5 or higher.
 /* 
 Login class is required to access ALL of the ReachMail API services. 
 This class holds the tokens for use in creating new objects.
-$login = new RM_Login('ACME','admin','1234ABC'); 
+$login = new RM_API('ACME','admin','1234ABC'); 
 */	
-	class RM_Login{
+	class RM_API{
 	       private $_account_key;
 	       private $_username;
 	       private $_password;		   
@@ -30,7 +30,7 @@ $login = new RM_Login('ACME','admin','1234ABC');
 Get User returns your accounts API ID. This ID is a requirement
 for most other services. Response is the account_id in both the standard 
 output and as user.xml.
-$getUser = new RM_Login('ACME','admin','1234ABC');
+$getUser = new RM_API('ACME','admin','1234ABC');
 $getUser->rm_getUser();
 */		
 		function rm_getUser() {		
@@ -55,7 +55,7 @@ and list_id, as well as all other mailing properties are required
 to be formatted in xml as the $request_body as deliniated here, 
 https://services.reachmail.net/sdk/. Response is the queue_id 
 in both the standard output and as queueId.xml.
-$queueMail = new RM_Login('ACME','admin','1234ABC');
+$queueMail = new RM_API('ACME','admin','1234ABC');
 $queueMail->rm_queueMail($account_id, $request_body);
 */		
 		function rm_queueMail($account_id, $request_body) {
@@ -85,7 +85,7 @@ of all list that meet the $request_body request requirements. The
 $request_body is submitted in xml format as deliniated here, 
 https://services.reachmail.net/sdk/. Response is in both the standard 
 output and as lists.xml.
-$enumerateLists = new RM_Login('ACME','admin','1234ABC');
+$enumerateLists = new RM_API('ACME','admin','1234ABC');
 $enumerateLists->rm_enumerateLists($account_id, $request_body);
 */		
 		function rm_enumerateLists($account_id, $request_body) {		
@@ -125,7 +125,7 @@ Create List sets up an empty list with the fields formatted in
 the $request_body. The $request_body is submitted in xml format 
 as deliniated here, https://services.reachmail.net/sdk/. Response 
 is the new list_id in both the standard output and as listId.xml.
-$createList = new RM_Login('ACME','admin','1234ABC');
+$createList = new RM_API('ACME','admin','1234ABC');
 $createList->rm_createList($account_id, $request_body);
 */		
 		function rm_createList($account_id, $request_body){	
@@ -154,7 +154,7 @@ $createList->rm_createList($account_id, $request_body);
 Upload Data prepares a file for import into a list. The $file 
 must be a comma seperated list. Returns the data_id to the 
 standard output which is required for importing into a list.
-$uploadData = new RM_Login('ACME','admin','1234ABC');
+$uploadData = new RM_API('ACME','admin','1234ABC');
 $uploadData->rm_uploadData($file);
 */		
 		function rm_uploadData($file) {	
@@ -185,7 +185,7 @@ Import Recipients placed the uploaded data into the list itself.
 The data_id is required in xml format which is deliniated here, 
 https://services.reachmail.net/sdk/. Returns a import_id in the 
 standard output.
-$importRecipients = new RM_Login('ACME','admin','1234ABC');
+$importRecipients = new RM_API('ACME','admin','1234ABC');
 $importRecipients->rm_importRecipients($account_id, $list_id, $request_body);
 */		
 		function rm_importRecipients($account_id, $list_id, $request_body) {	
@@ -216,7 +216,7 @@ Enumerate Recipients returns all records in a list as requested
 in the $request_body. The $request_body must be formatted in xml
 as delineated here, https://services.reachmail.net/sdk/. Returned
 both in the standard output and as recipients.xml.
-$enumerateRecipients = new RM_Login('ACME','admin','1234ABC');
+$enumerateRecipients = new RM_API('ACME','admin','1234ABC');
 $enumerateRecipients->rm_enumerateRecipients($account_id, $list_id, $request_body);
 */		
 		function rm_enumerateRecipients($account_id, $list_id, $request_body) {			
@@ -251,7 +251,7 @@ $enumerateRecipients->rm_enumerateRecipients($account_id, $list_id, $request_bod
 Create Recipient adds records to a list. The fields and their 
 values are set up in the $request_body xml, which is delineated
 here, https://services.reachmail.net/sdk/.
-$createRecipients = new RM_Login('ACME','admin','1234ABC');
+$createRecipients = new RM_API('ACME','admin','1234ABC');
 $createRecipients->rm_createRecipients($account_id, $list_id, $request_body); 
 */		
 		function rm_createRecipient($account_id, $list_id, $request_body) {	
@@ -282,7 +282,7 @@ Export Recipients will export the specified list for subsequent download.
 The $request_body will vary depending on the fields in your lists, the 
 required xml is deliniated here,  https://services.reachmail.net/sdk/.
 Response is the export_id required for download in the standard output.
-$exportRecipients = new RM_Login('ACME','admin','1234ABC');
+$exportRecipients = new RM_API('ACME','admin','1234ABC');
 $exportRecipients->rm_exportRecipients($account_id, $list_id, $request_body);
 */	
 		function rm_exportRecipients($account_id, $list_id, $request_body) {	
@@ -314,7 +314,7 @@ of all mailings that meet the $request_body request requirements. The
 $request_body is submitted in xml format as deliniated here, 
 https://services.reachmail.net/sdk/. Response is in both the standard 
 output and as mailings.xml.
-$enumerateMailings = new RM_Login('ACME','admin','1234ABC');
+$enumerateMailings = new RM_API('ACME','admin','1234ABC');
 $enumerateMailings->rm_enumerateMailings($account_id, $request_body);
 */		
 		function rm_enumerateMailings($account_id, $request_body) {			
