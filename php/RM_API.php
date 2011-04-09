@@ -14,7 +14,7 @@ Requirements: PHP 5 or higher.
 /* 
 RM_API class is required to access ALL of the ReachMail API services. 
 This class holds the tokens for use in creating new objects.
-$login = new RM_API('ACME','admin','1234ABC'); 
+$object = new RM_API('ACME','admin','1234ABC'); 
 */	
 	class RM_API{
 	       private $_account_key;
