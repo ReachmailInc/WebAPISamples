@@ -446,7 +446,12 @@ $createMail->rm_createMail($account_id, $request_body);
 					print_r($xml);
 	    }		
 /*
-Enumerate Mailing Reports
+Enumerate Mailing Reports returns all the mailing reports requested 
+in the $request_body. Returns results in the standard output as well 
+as in reports.xml. The $request_body must be in xml as deliniated here:
+https://services.reachmail.net/sdk/.
+$enumerateMailingReports = new RM_API('ACME','admin','1234ABC');
+$enumerateMailingReports->rm_enumerateMailingReports($account_id, $request_body);
 */		
 		function rm_enumerateMailingReports($account_id, $request_body) {	
 					$enumerate_mailings_report_url = 'https://services.reachmail.net/Rest/Reports/v1/mailings/query/';
@@ -481,6 +486,6 @@ Enumerate Mailing Reports
 					}
 					print "\n";
 					echo $mail_report_xml ->saveXML("reports.xml");
-	}
+	    }
 	}	
 ?>
