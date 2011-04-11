@@ -151,9 +151,10 @@ $createList->rm_createList($account_id, $request_body);
 					echo $list_api_id->saveXML("listId.xml");
 		}
 /*
-Upload Data prepares a file for import into a list. The $file 
-must be a comma seperated list. Returns the data_id to the 
-standard output which is required for importing into a list.
+Upload Data prepares a file for import into a list and is 
+used with Import Rescipients. The $file must be a comma 
+seperated list. Returns the data_id to the standard output 
+which is required for importing into a list.
 $uploadData = new RM_API('ACME','admin','1234ABC');
 $uploadData->rm_uploadData($file);
 */		
@@ -309,7 +310,11 @@ $exportRecipients->rm_exportRecipients($account_id, $list_id, $request_body);
 					}
 		}
 /*
-Download Data
+Download Data is used with Export Recipients and downloads a file you have 
+exported. It requires the export_id and returns the records in the standard
+output and as "list.xml".
+$downloadData = new RM_API('ACME','admin','1234ABC');
+$downloadData->rm_downloadData($export_id);
 */
 		function rm_downloadData($export_id) {
 					$download_data_url = 'https://services.reachmail.net/Rest/Data/';
@@ -324,7 +329,6 @@ Download Data
 							CURLOPT_RETURNTRANSFER => true
 							);
 					curl_setopt_array($download_data_request, $curl_options);
-
 					$response = curl_exec($download_data_request);
 					curl_close($download_data_request);
 					$list_xml = simplexml_load_string($response);
