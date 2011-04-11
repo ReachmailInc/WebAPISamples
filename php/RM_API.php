@@ -487,5 +487,27 @@ $enumerateMailingReports->rm_enumerateMailingReports($account_id, $request_body)
 					print "\n";
 					echo $mail_report_xml ->saveXML("reports.xml");
 	    }
+/*
+Get Mailing Report Summary
+*/		
+		function rm_getMailingSummary($account_id, $mailing_id) {	
+					$mailing_summary_url = 'https://services.reachmail.net/Rest/Reporting/Content/Mailings/v1/Summary/';		
+					$api_service_url = $mailing_summary_url . $account_id . "/" . $mailing_id;
+					$header = array("Content-Type: application/xml");
+					$mail_summary_request = curl_init();
+					$curl_options = array(
+							CURLOPT_URL => $api_service_url,
+							CURLOPT_HEADER => false,
+							CURLOPT_USERPWD => "$this->_account_key\\$this->_username:$this->_password",
+							CURLOPT_HTTPHEADER => $header,
+							CURLOPT_RETURNTRANSFER => true
+					);
+					curl_setopt_array($mail_summary_request, $curl_options);
+					$mail_summary_response = curl_exec($mail_summary_request);
+					curl_close($mail_summary_request);
+					$mail_summary_xml = simplexml_load_string($mail_summary_response);
+					print_r($mail_summary_xml);
+					echo $mail_summary_xml->saveXML("summary.xml");
+	    }
 	}	
 ?>
