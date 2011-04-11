@@ -539,6 +539,6 @@ Get Mailing Report
 					$data = $mail_report_response;
 					fwrite($handle, $data);
 					fclose($handle);
-	}
+	    }
 	}	
 ?>
