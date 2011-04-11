@@ -350,6 +350,35 @@ $enumerateMailings->rm_enumerateMailings($account_id, $request_body);
 					}
 					print "\n";
 					echo $mail_xml ->saveXML("mailings.xml");
-		}							
+		}
+/*
+Create Mail (HTML/Text) creates a multi-part mailing in the account. The 
+$request_body is submitted in xml format as deliniated here, 
+https://services.reachmail.net/sdk/. Be sure to use "<![CDATA[HTML]]>". 
+Response in the standard output returns the new mailings Id.
+$createMail = new RM_API('ACME','admin','1234ABC');
+$createMail->rm_createMail($account_id, $request_body);
+*/
+		function rm_createMail($account_id, $request_body) {
+					$create_mail_url = 'https://services.reachmail.net/REST/Content/Mailings/v1/';
+					$api_service_url = $create_mail_url . $account_id;
+					$header = array("Content-Type: application/xml");
+					$create_mail_request = curl_init();
+					$curl_options = array(
+							CURLOPT_URL => $api_service_url,
+							CURLOPT_HEADER => false,
+							CURLOPT_USERPWD => "$this->_account_key\\$this->_username:$this->_password",
+							CURLOPT_HTTPHEADER => $header,
+							CURLOPT_POST => true,
+							CURLOPT_POSTFIELDS => $request_body,
+							CURLOPT_RETURNTRANSFER => true
+					);
+					curl_setopt_array($create_mail_request, $curl_options);
+					$create_mail_response = curl_exec($create_mail_request);
+					curl_close($create_mail_request);
+					$xml = simplexml_load_string($create_mail_response);
+					$mail_id = $xml->Id;
+					print_r($xml);
+	    }
 	}	
 ?>
