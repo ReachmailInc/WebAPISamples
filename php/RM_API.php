@@ -509,5 +509,36 @@ Get Mailing Report Summary
 					print_r($mail_summary_xml);
 					echo $mail_summary_xml->saveXML("summary.xml");
 	    }
+/*
+Get Mailing Report
+*/		
+		function rm_getMailingReport($account_id, $mailing_id) {	
+					$mailing_report_url = 'https://services.reachmail.net/Rest/Reports/v1/mailings/';
+					$api_service_url = $mailing_report_url . $account_id . "/" . $mailing_id;
+					$header = array("Content-Type: application/xml");
+					$mail_report_request = curl_init();
+					$curl_options = array(
+							CURLOPT_URL => $api_service_url,
+							CURLOPT_HEADER => false,
+							CURLOPT_USERPWD => "$this->_account_key\\$this->_username:$this->_password",
+							CURLOPT_HTTPHEADER => $header,
+							CURLOPT_RETURNTRANSFER => true
+					);
+					curl_setopt_array($mail_report_request, $curl_options);
+					$mail_report_response = curl_exec($mail_report_request);
+					curl_close($mail_report_request);
+					$mail_report_xml = simplexml_load_string($mail_report_response);
+					print_r($mail_report_xml);
+					$my_file = 'styledReport.xml';
+					$handle = fopen($my_file, 'w') or die('Cannot open file:  ' . $my_file);
+					$data = '<?xml version="1.0"?><?xml-stylesheet type="text/xsl" href="styles.xsl"?>';
+					fwrite($handle, $data);
+					fclose($handle);
+					$my_file = 'styledReport.xml';
+					$handle = fopen($my_file, 'a') or die('Cannot open file:  ' . $my_file);
+					$data = $mail_report_response;
+					fwrite($handle, $data);
+					fclose($handle);
+	}
 	}	
 ?>
