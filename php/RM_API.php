@@ -444,6 +444,43 @@ $createMail->rm_createMail($account_id, $request_body);
 					$xml = simplexml_load_string($create_mail_response);
 					$mail_id = $xml->Id;
 					print_r($xml);
-	    }
+	    }		
+/*
+Enumerate Mailing Reports
+*/		
+		function rm_enumerateMailingReports($account_id, $request_body) {	
+					$enumerate_mailings_report_url = 'https://services.reachmail.net/Rest/Reports/v1/mailings/query/';
+					$api_service_url = $enumerate_mailings_report_url . $account_id;
+					$header = array("Content-Type: application/xml");		
+					$enumerate_mailings_report_request = curl_init();
+					$curl_options = array(
+							CURLOPT_URL => $api_service_url,
+							CURLOPT_HEADER => false,
+							CURLOPT_USERPWD => "$this->_account_key\\$this->_username:$this->_password",
+							CURLOPT_HTTPHEADER => $header,
+							CURLOPT_POST => true,
+							CURLOPT_POSTFIELDS => $request_body,
+							CURLOPT_RETURNTRANSFER => true
+					);
+					curl_setopt_array($enumerate_mailings_report_request, $curl_options);
+					$enumerate_mailings_report_response = curl_exec($enumerate_mailings_report_request);
+					curl_close($enumerate_mailings_report_request);
+					$mail_report_xml = simplexml_load_string($enumerate_mailings_report_response);
+					$delivered = array();
+					$mail_names = array();
+					$mail_ids = array();
+					foreach($mail_report_xml->Mailing as $mailing){
+						$delivered[] = $mailing->DeliveredDate;
+						$mail_names[] = $mailing->Name;
+						$mail_ids[] = $mailing->Id;
+					}
+					$mail_count = count($mail_ids);
+					print "\nFormat - Mail Name : Mail ID : Delivered Date\n";
+					for($i=0; $i<$mail_count; $i++){
+						print $mail_names[$i] . " : " . $mail_ids[$i] . " : " . $delivered[$i] . "\n";
+					}
+					print "\n";
+					echo $mail_report_xml ->saveXML("reports.xml");
+	}
 	}	
 ?>
