@@ -7,7 +7,7 @@ Version: 0.1
 Requirements: PHP 5 or higher.
 */
 
-//Ensure Curl Installed
+  //Ensure Curl Installed
 	if (!extension_loaded("curl")) {
 		throw(new Exception("The cURL extension for PHP is required for ReachMail API to work."));
 	}
@@ -27,8 +27,8 @@ $object = new RM_API('ACME','admin','1234ABC');
 					$this->_password = $_password;		
 		}	
 /*
-Get User returns your accounts API ID. This ID is a requirement
-for most other services. Response is the account_id in both the standard 
+Get User returns your accounts API ID. This ID is a requirement for 
+most other services. Response is the account_id in both the standard 
 output and as user.xml.
 $getUser = new RM_API('ACME','admin','1234ABC');
 $getUser->rm_getUser();
@@ -151,10 +151,10 @@ $createList->rm_createList($account_id, $request_body);
 					echo $list_api_id->saveXML("listId.xml");
 		}
 /*
-Upload Data prepares a file for import into a list and is 
-used with Import Recipients. The $file must be a comma 
-seperated list. Returns the data_id to the standard output 
-which is required for importing into a list.
+Upload Data prepares a file for import into a list and is used with 
+Import Recipients. The $file must be a comma seperated list. Returns 
+the data_id to the standard output which is required for importing 
+into a list.
 $uploadData = new RM_API('ACME','admin','1234ABC');
 $uploadData->rm_uploadData($file);
 */		
@@ -183,9 +183,9 @@ $uploadData->rm_uploadData($file);
 		}
 /*
 Import Recipients places the uploaded data into the list itself.
-The data_id from the Upload Data is required in xml format as 
-deliniated here, https://services.reachmail.net/sdk/. Returns an 
-import_id to the standard output.
+The list_id to import into is required. As well, thedata_id from 
+the Upload Data is required in xml format as deliniated here, https://services.reachmail.net/sdk/. Returns an import_id to the 
+standard output.
 $importRecipients = new RM_API('ACME','admin','1234ABC');
 $importRecipients->rm_importRecipients($account_id, $list_id, $request_body);
 */		
