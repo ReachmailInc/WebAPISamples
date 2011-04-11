@@ -444,7 +444,7 @@ $createMail->rm_createMail($account_id, $request_body);
 					$xml = simplexml_load_string($create_mail_response);
 					$mail_id = $xml->Id;
 					print_r($xml);
-	    }		
+	        }		
 /*
 Enumerate Mailing Reports returns all the mailing reports requested 
 in the $request_body. Returns results in the standard output as well 
@@ -486,7 +486,7 @@ $enumerateMailingReports->rm_enumerateMailingReports($account_id, $request_body)
 					}
 					print "\n";
 					echo $mail_report_xml ->saveXML("reports.xml");
-	    }
+			}
 /*
 Get Mailing Report Summary
 */		
@@ -508,7 +508,7 @@ Get Mailing Report Summary
 					$mail_summary_xml = simplexml_load_string($mail_summary_response);
 					print_r($mail_summary_xml);
 					echo $mail_summary_xml->saveXML("summary.xml");
-	    }
+			}
 /*
 Get Mailing Report
 */		
@@ -539,6 +539,6 @@ Get Mailing Report
 					$data = $mail_report_response;
 					fwrite($handle, $data);
 					fclose($handle);
-	    }
+			}
 	}	
 ?>
