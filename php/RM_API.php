@@ -115,7 +115,7 @@ $enumerateFields->rm_enumerateFields($account_id);
 					}
 					print "\n";
 					echo $field_xml->saveXML("fields.xml");
-	}
+	    }
 /*
 Enumerate Lists gives the list_id and other requested list properties 
 of all list that meet the $request_body request requirements. The 
@@ -486,7 +486,7 @@ $enumerateMailingReports->rm_enumerateMailingReports($account_id, $request_body)
 					}
 					print "\n";
 					echo $mail_report_xml ->saveXML("reports.xml");
-			}
+		}
 /*
 Get Mailing Report Summary
 */		
@@ -508,7 +508,7 @@ Get Mailing Report Summary
 					$mail_summary_xml = simplexml_load_string($mail_summary_response);
 					print_r($mail_summary_xml);
 					echo $mail_summary_xml->saveXML("summary.xml");
-			}
+		}
 /*
 Get Mailing Report
 */		
@@ -539,6 +539,6 @@ Get Mailing Report
 					$data = $mail_report_response;
 					fwrite($handle, $data);
 					fclose($handle);
-			}
+		}
 	}	
 ?>
