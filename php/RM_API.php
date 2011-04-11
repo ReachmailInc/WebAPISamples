@@ -80,6 +80,43 @@ $queueMail->rm_queueMail($account_id, $request_body);
 					echo $mail_xml->saveXML("queueId.xml");
 		}
 /*
+Enumerate Fields returns a list of ALL available list fields 
+for the account. Returns a list of all fields in both the 
+standard output and as fields.xml.
+$enumerateFields = new RM_API('ACME','admin','1234ABC');
+$enumerateFields->rm_enumerateFields($account_id);
+*/		
+		function rm_enumerateFields($account_id) {		
+					$enumerate_fields_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/fields/';
+					$api_service_url = $enumerate_fields_url . $account_id;
+					$header = array("Content-Type: application/xml");
+					$enumerate_fields_request = curl_init();
+					$curl_options = array(
+							CURLOPT_URL => $api_service_url,
+							CURLOPT_HEADER => false,
+							CURLOPT_USERPWD => "$this->_account_key\\$this->_username:$this->_password",
+							CURLOPT_HTTPHEADER => $header,
+							CURLOPT_RETURNTRANSFER => true
+					);
+					curl_setopt_array($enumerate_fields_request, $curl_options);
+					$enumerate_fields_response = curl_exec($enumerate_fields_request);
+					curl_close($enumerate_fields_request);
+					$field_xml = simplexml_load_string($enumerate_fields_response);
+					$field_names = array();
+					$field_descriptions = array();
+					foreach($field_xml->Field as $field){
+						$field_names[] = $field->Name;
+						$field_descriptions[] = $field->Description;
+					}
+					$field_count = count($field_names);
+					print "\nFormat - Field Name : Field Description\n";
+					for($i=0; $i<$field_count; $i++){
+						print $field_names[$i]." : ".$field_descriptions[$i]."\n";
+					}
+					print "\n";
+					echo $field_xml->saveXML("fields.xml");
+	}
+/*
 Enumerate Lists gives the list_id and other requested list properties 
 of all list that meet the $request_body request requirements. The 
 $request_body is submitted in xml format as deliniated here, 
@@ -184,7 +221,8 @@ $uploadData->rm_uploadData($file);
 /*
 Import Recipients places the uploaded data into the list itself.
 The list_id to import into is required. As well, thedata_id from 
-the Upload Data is required in xml format as deliniated here, https://services.reachmail.net/sdk/. Returns an import_id to the 
+the Upload Data is required in xml format as deliniated here, 
+https://services.reachmail.net/sdk/. Returns an import_id to the 
 standard output.
 $importRecipients = new RM_API('ACME','admin','1234ABC');
 $importRecipients->rm_importRecipients($account_id, $list_id, $request_body);
