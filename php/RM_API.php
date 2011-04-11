@@ -488,7 +488,11 @@ $enumerateMailingReports->rm_enumerateMailingReports($account_id, $request_body)
 					echo $mail_report_xml ->saveXML("reports.xml");
 		}
 /*
-Get Mailing Report Summary
+Get Mailing Report Summary returns a summary of a specific mailings report.
+All that is needed is a mailing_id and the account_id. Reply is in the standard
+output and as summary.xml.
+$mailingReportSummary = new RM_API('ACME','admin','1234ABC');
+$mailingReportSummary->rm_getMailingSummary($account_id, $mailing_id);
 */		
 		function rm_getMailingSummary($account_id, $mailing_id) {	
 					$mailing_summary_url = 'https://services.reachmail.net/Rest/Reporting/Content/Mailings/v1/Summary/';		
@@ -510,7 +514,11 @@ Get Mailing Report Summary
 					echo $mail_summary_xml->saveXML("summary.xml");
 		}
 /*
-Get Mailing Report
+Get Mailing Report returns a detailed mailing reoprt. All that is needed 
+is a mailing_id and the account_id. Reply is in the standard output and 
+as a xslt styledReport.xml.
+$mailingReport= new RM_API('ACME','admin','1234ABC');
+$mailingReport->rm_getMailingReport($account_id, $mailing_id);
 */		
 		function rm_getMailingReport($account_id, $mailing_id) {	
 					$mailing_report_url = 'https://services.reachmail.net/Rest/Reports/v1/mailings/';
