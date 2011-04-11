@@ -307,6 +307,29 @@ $exportRecipients->rm_exportRecipients($account_id, $list_id, $request_body);
 					} else {
 							print_r($export_recipients_response);
 					}
+		}
+/*
+Download Data
+*/
+		function rm_downloadData($export_id) {
+			$download_data_url = 'https://services.reachmail.net/Rest/Data/';
+			$api_service_url = $download_data_url . $export_id;
+			$header = array("Content-Type: application/xml");
+			$download_data_request = curl_init();
+			$curl_options = array(
+					CURLOPT_URL => $api_service_url,
+					CURLOPT_HEADER => false,
+					CURLOPT_USERPWD => "$this->_account_key\\$this->_username:$this->_password",
+					CURLOPT_HTTPHEADER => $header,
+					CURLOPT_RETURNTRANSFER => true
+					);
+			curl_setopt_array($download_data_request, $curl_options);
+
+			$response = curl_exec($download_data_request);
+			curl_close($download_data_request);
+			$list_xml = simplexml_load_string($response);
+			print_r($response);
+			echo $list_xml->saveXML("list.xml");
 		}		
 /*
 Enumerate Mailings gives the mail_id and other requested mail properties 
