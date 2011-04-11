@@ -152,7 +152,7 @@ $createList->rm_createList($account_id, $request_body);
 		}
 /*
 Upload Data prepares a file for import into a list and is 
-used with Import Rescipients. The $file must be a comma 
+used with Import Recipients. The $file must be a comma 
 seperated list. Returns the data_id to the standard output 
 which is required for importing into a list.
 $uploadData = new RM_API('ACME','admin','1234ABC');
@@ -182,10 +182,10 @@ $uploadData->rm_uploadData($file);
 					print "\nYour file has been successfully uploaded!\nYour upload id: $upload_id\n\n";
 		}
 /*
-Import Recipients placed the uploaded data into the list itself.
-The data_id is required in xml format which is deliniated here, 
-https://services.reachmail.net/sdk/. Returns a import_id in the 
-standard output.
+Import Recipients places the uploaded data into the list itself.
+The data_id from the Upload Data is required in xml format as 
+deliniated here, https://services.reachmail.net/sdk/. Returns an 
+import_id to the standard output.
 $importRecipients = new RM_API('ACME','admin','1234ABC');
 $importRecipients->rm_importRecipients($account_id, $list_id, $request_body);
 */		
@@ -249,7 +249,7 @@ $enumerateRecipients->rm_enumerateRecipients($account_id, $list_id, $request_bod
 					echo $response_xml->saveXML("recipients.xml");
 		}
 /*
-Create Recipient adds records to a list. The fields and their 
+Create Recipient adds a record to a list. The fields and their 
 values are set up in the $request_body xml, which is delineated
 here, https://services.reachmail.net/sdk/.
 $createRecipients = new RM_API('ACME','admin','1234ABC');
@@ -279,7 +279,7 @@ $createRecipients->rm_createRecipients($account_id, $list_id, $request_body);
 					}
 		}	
 /*
-Export Recipients will export the specified list for subsequent download.
+Export Recipients will export a specified list for subsequent download.
 The $request_body will vary depending on the fields in your lists, the 
 required xml is deliniated here,  https://services.reachmail.net/sdk/.
 Response is the export_id required for download in the standard output.
