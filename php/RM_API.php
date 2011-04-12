@@ -64,7 +64,7 @@ Requirements: PHP 5 or higher.
  * $queueMail = new RM_API('ACME','admin','1234ABC');
  * $queueMail->rm_queueMail($account_id, $request_body);
  *
- * @param string $account_id  The id returned from the Get User Service.
+ * @param string $account_id  The id returned from the Get User service.
  * @param string $reuest_body The mail_id, list_id and other mailing properties in xml.
  * 
  * @return string The queue_id in both the standard output and as queueId.xml.
@@ -90,12 +90,16 @@ Requirements: PHP 5 or higher.
 					print_r($mail_xml);
 					echo $mail_xml->saveXML("queueId.xml");
 		}
-/*
-Enumerate Fields returns a list of ALL available list fields 
-for the account. Returns a list of all fields in both the 
-standard output and as fields.xml.
-$enumerateFields = new RM_API('ACME','admin','1234ABC');
-$enumerateFields->rm_enumerateFields($account_id);
+/**
+ * Enumerate Fields returns a list of ALL available list fields 
+for the account.
+ * 
+ * $enumerateFields = new RM_API('ACME','admin','1234ABC');
+ * $enumerateFields->rm_enumerateFields($account_id);
+ *
+ * @param string $account_id The id returned from the Get User service.
+ *
+ * @return  string A list of all fields in both the standard output and as fields.xml.
 */		
 		function rm_enumerateFields($account_id) {		
 					$enumerate_fields_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/fields/';
