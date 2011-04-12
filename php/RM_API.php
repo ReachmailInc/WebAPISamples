@@ -91,8 +91,7 @@ Requirements: PHP 5 or higher.
 					echo $mail_xml->saveXML("queueId.xml");
 		}
 /**
- * Enumerate Fields returns a list of ALL available list fields 
-for the account.
+ * Enumerate Fields returns a list of ALL available list fields for the account.
  * 
  * $enumerateFields = new RM_API('ACME','admin','1234ABC');
  * $enumerateFields->rm_enumerateFields($account_id);
