@@ -11,10 +11,15 @@ Requirements: PHP 5 or higher.
 	if (!extension_loaded("curl")) {
 		throw(new Exception("The cURL extension for PHP is required for ReachMail API to work."));
 	}
-/* 
-RM_API class is required to access ALL of the ReachMail API services. 
-This class holds the tokens for use in creating new objects.
-$object = new RM_API('ACME','admin','1234ABC'); 
+/** 
+ * RM_API class is required to access ALL of the ReachMail API services.
+ *
+ * This class holds the tokens for use in creating new objects.
+ * $object = new RM_API('ACME','admin','1234ABC');
+ *  
+ * @param string $_account_key The ReachMail login account key.
+ * @param string $_username    The accounts login username.
+ * @param srring &_password    The accounts login password. 
 */	
 	class RM_API{
 	       private $_account_key;
@@ -26,12 +31,14 @@ $object = new RM_API('ACME','admin','1234ABC');
 					$this->_username = $_username;
 					$this->_password = $_password;		
 		}	
-/*
-Get User returns your accounts API ID. This ID is a requirement for 
-most other services. Response is the account_id in both the standard 
-output and as user.xml.
-$getUser = new RM_API('ACME','admin','1234ABC');
-$getUser->rm_getUser();
+/**
+ * Get User returns your accounts API ID. 
+ *
+ * This ID is a requirement for most other services.
+ * $getUser = new RM_API('ACME','admin','1234ABC'); 
+ * $getUser->rm_getUser();
+ * 
+ * @return string The account_id in both the standard output and as user.xml. 
 */		
 		function rm_getUser() {		
 					$get_user_url =  'https://services.reachmail.net/Rest/Administration/v1/users/current';
@@ -49,14 +56,18 @@ $getUser->rm_getUser();
 					print "\n" . $account_id . "\n\n";					
 					echo $account_id->saveXML("user.xml");
 		}
-/*
-Queue Mailing to schedule and send a mailing. Both the mail_id 
-and list_id, as well as all other mailing properties are required 
-to be formatted in xml as the $request_body as deliniated here, 
-https://services.reachmail.net/sdk/. Response is the queue_id 
-in both the standard output and as queueId.xml.
-$queueMail = new RM_API('ACME','admin','1234ABC');
-$queueMail->rm_queueMail($account_id, $request_body);
+/**
+ * Queue Mailing to schedule and send a mailing. 
+ *
+ * Both the mail_id and list_id, as well as all other mailing properties are required 
+ * to be formatted in xml as the $request_body as deliniated here, https://services.reachmail.net/sdk/.
+ * $queueMail = new RM_API('ACME','admin','1234ABC');
+ * $queueMail->rm_queueMail($account_id, $request_body);
+ *
+ * @param string $account_id  The id returned from the Gert User Service.
+ * @param string $reuest_body The mail_id, list_id and other mailing properties in xml.
+ * 
+ * @return string The queue_id in both the standard output and as queueId.xml.
 */		
 		function rm_queueMail($account_id, $request_body) {
 					$queue_mailing_url = 'https://services.reachmail.net/Rest/Campaigns/v1/';		
