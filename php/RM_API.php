@@ -174,13 +174,17 @@ Requirements: PHP 5 or higher.
 					print "\n";
 					echo $list_xml->saveXML("lists.xml");
 		}
-/*
-Create List sets up an empty list with the fields formatted in 
-the $request_body. The $request_body is submitted in xml format 
-as deliniated here, https://services.reachmail.net/sdk/. Response 
-is the new list_id in both the standard output and as listId.xml.
-$createList = new RM_API('ACME','admin','1234ABC');
-$createList->rm_createList($account_id, $request_body);
+/**
+ * Create List sets up an empty list with the fields formatted in  the $request_body. 
+ *
+ * The $request_body is submitted in xml format as deliniated here, https://services.reachmail.net/sdk/. 
+ * $createList = new RM_API('ACME','admin','1234ABC');
+ * $createList->rm_createList($account_id, $request_body);
+ * 
+ * @param string $account_id The id returned from the Get User service.
+ * @param string $reuest_body The list fields and other properties in xml.
+ *
+ * @return string The new list_id in both the standard output and as listId.xml.
 */		
 		function rm_createList($account_id, $request_body){	
 					$create_list_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/';
