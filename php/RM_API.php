@@ -219,7 +219,7 @@ $uploadData->rm_uploadData($file);
 		function rm_uploadData($file) {	
 					$upload_data_url = 'https://services.reachmail.net/Rest/Data/';
 					$header = array("Content-Type: application/xml");
-					$fp = fopen($file,'r');
+					$fp = fopen($file,'r') or die('Cannot open file:  ' . $file);
 					$request_body = $fp;
 					$upload_file_request = curl_init();
 					$curl_options = array(
