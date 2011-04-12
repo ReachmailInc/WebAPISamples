@@ -98,7 +98,7 @@ Requirements: PHP 5 or higher.
  *
  * @param string $account_id The id returned from the Get User service.
  *
- * @return  string A list of all fields in both the standard output and as fields.xml.
+ * @return string A list of all fields in both the standard output and as fields.xml.
 */		
 		function rm_enumerateFields($account_id) {		
 					$enumerate_fields_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/fields/';
@@ -130,14 +130,17 @@ Requirements: PHP 5 or higher.
 					print "\n";
 					echo $field_xml->saveXML("fields.xml");
 	        }
-/*
-Enumerate Lists gives the list_id and other requested list properties 
-of all list that meet the $request_body request requirements. The 
-$request_body is submitted in xml format as deliniated here, 
-https://services.reachmail.net/sdk/. Response is in both the standard 
-output and as lists.xml.
-$enumerateLists = new RM_API('ACME','admin','1234ABC');
-$enumerateLists->rm_enumerateLists($account_id, $request_body);
+/**
+ * Enumerate Lists gives the list_id and other requested list properties of all list that meet the $request_body request requirements. 
+ *
+ * The $request_body is submitted in xml format as deliniated here, https://services.reachmail.net/sdk/. 
+ * $enumerateLists = new RM_API('ACME','admin','1234ABC');
+ * $enumerateLists->rm_enumerateLists($account_id, $request_body);
+ *
+ * @param string $account_id The id returned from the Get User service.
+ * @param string $reuest_body The list_id and other mailing properties in xml.
+ *
+ * @return string A list of list-is's and other requested data in both standard output and as lists.xml.
 */		
 		function rm_enumerateLists($account_id, $request_body) {		
 					$enumerate_lists_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/query/';
