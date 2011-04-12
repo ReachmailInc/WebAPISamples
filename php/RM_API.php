@@ -64,7 +64,7 @@ Requirements: PHP 5 or higher.
  * $queueMail = new RM_API('ACME','admin','1234ABC');
  * $queueMail->rm_queueMail($account_id, $request_body);
  *
- * @param string $account_id  The id returned from the Gert User Service.
+ * @param string $account_id  The id returned from the Get User Service.
  * @param string $reuest_body The mail_id, list_id and other mailing properties in xml.
  * 
  * @return string The queue_id in both the standard output and as queueId.xml.
