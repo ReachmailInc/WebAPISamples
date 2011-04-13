@@ -535,6 +535,7 @@ Requirements: PHP 5 or higher.
 					echo $mail_report_xml ->saveXML("reports.xml");
 		}
 /*
+
 Get Mailing Report Summary returns a summary of a specific mailings report.
 All that is needed is a mailing_id and the account_id. Reply is in the standard
 output and as summary.xml.
