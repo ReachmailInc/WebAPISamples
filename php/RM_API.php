@@ -353,13 +353,17 @@ Requirements: PHP 5 or higher.
 						print_r($create_recipients_response);
 					}
 		}	
-/*
-Export Recipients will export a specified list for subsequent download.
-The $request_body will vary depending on the fields in your lists, the 
-required xml is deliniated here,  https://services.reachmail.net/sdk/.
-Response is the export_id required for download in the standard output.
-$exportRecipients = new RM_API('ACME','admin','1234ABC');
-$exportRecipients->rm_exportRecipients($account_id, $list_id, $request_body);
+/**
+ * Export Recipients will export a specified list for subsequent download.
+ *
+ * $exportRecipients = new RM_API('ACME','admin','1234ABC');
+ * $exportRecipients->rm_exportRecipients($account_id, $list_id, $request_body);
+ *
+ * @param string $account_id The account_id returned from the Get User service.
+ * @param string $list_id The list which is to be exported.
+ * @param string $request_body will vary depending on the fields in your lists must be in xml.
+ *
+ * @return string The export_id required for download in the standard output.
 */	
 		function rm_exportRecipients($account_id, $list_id, $request_body) {	
 					$export_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/export/' ;
