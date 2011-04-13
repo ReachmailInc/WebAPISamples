@@ -217,7 +217,7 @@ Requirements: PHP 5 or higher.
 		function rm_uploadData($file) {	
 					$upload_data_url = 'https://services.reachmail.net/Rest/Data/';
 					$header = array("Content-Type: application/xml");
-					$fp = fopen($file,'r') or die('Cannot open file:  ' . $file);
+					$fp = file_get_contents($file);
 					$request_body = $fp;
 					$upload_file_request = curl_init();
 					$curl_options = array(
