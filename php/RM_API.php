@@ -96,7 +96,7 @@ Requirements: PHP 5 or higher.
  * $enumerateFields = new RM_API('ACME','admin','1234ABC');
  * $enumerateFields->rm_enumerateFields($account_id);
  *
- * @param string $account_id The id returned from the Get User service.
+ * @param string $account_id The account_id returned from the Get User service.
  *
  * @return string A list of all fields in both the standard output and as fields.xml.
 */		
