@@ -59,7 +59,7 @@ Requirements: PHP 5 or higher.
 /**
  * Queue Mailing to schedule and send a mailing. 
  *
- * Both the mail_id and list_id, as well as all other mailing properties are required 
+ * Both the mail_id and list_id, as well as all other mailing properties are required.
  * to be formatted in xml as the $request_body as deliniated here, https://services.reachmail.net/sdk/.
  * $queueMail = new RM_API('ACME','admin','1234ABC');
  * $queueMail->rm_queueMail($account_id, $request_body);
