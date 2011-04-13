@@ -64,7 +64,7 @@ Requirements: PHP 5 or higher.
  * $queueMail = new RM_API('ACME','admin','1234ABC');
  * $queueMail->rm_queueMail($account_id, $request_body);
  *
- * @param string $account_id  The id returned from the Get User service.
+ * @param string $account_id  The account_id returned from the Get User service.
  * @param string $reuest_body The mail_id, list_id and other mailing properties in xml.
  * 
  * @return string The queue_id in both the standard output and as queueId.xml.
@@ -137,7 +137,7 @@ Requirements: PHP 5 or higher.
  * $enumerateLists = new RM_API('ACME','admin','1234ABC');
  * $enumerateLists->rm_enumerateLists($account_id, $request_body);
  *
- * @param string $account_id The id returned from the Get User service.
+ * @param string $account_id The account_id returned from the Get User service.
  * @param string $reuest_body The list_id and other mailing properties in xml.
  *
  * @return string A list of list-is's and other requested data in both standard output and as lists.xml.
@@ -181,7 +181,7 @@ Requirements: PHP 5 or higher.
  * $createList = new RM_API('ACME','admin','1234ABC');
  * $createList->rm_createList($account_id, $request_body);
  * 
- * @param string $account_id The id returned from the Get User service.
+ * @param string $account_id The account_id returned from the Get User service.
  * @param string $reuest_body The list fields and other properties in xml.
  *
  * @return string The new list_id in both the standard output and as listId.xml.
@@ -216,7 +216,7 @@ Requirements: PHP 5 or higher.
  *
  * @param string $file must be a path to a comma seperated list with open permissions.
  *
- * @return string the data_id to the standard output.
+ * @return string The data_id to the standard output.
 */		
 		function rm_uploadData($file) {	
 					$upload_data_url = 'https://services.reachmail.net/Rest/Data/';
@@ -241,14 +241,18 @@ Requirements: PHP 5 or higher.
 					$upload_id = $xml->Id;
 					print "\nYour file has been successfully uploaded!\nYour upload id: $upload_id\n\n";
 		}
-/*
-Import Recipients places the uploaded data into the list itself.
-The list_id to import into is required. As well, thedata_id from 
-the Upload Data is required in xml format as deliniated here, 
-https://services.reachmail.net/sdk/. Returns an import_id to the 
-standard output.
-$importRecipients = new RM_API('ACME','admin','1234ABC');
-$importRecipients->rm_importRecipients($account_id, $list_id, $request_body);
+/**
+ * Import Recipients places the uploaded data into the list itself.
+ *
+ * The data_id from the Upload Data is required in xml format as deliniated here, https://services.reachmail.net/sdk/.
+ * $importRecipients = new RM_API('ACME','admin','1234ABC');
+ * $importRecipients->rm_importRecipients($account_id, $list_id, $request_body);
+ *
+ * @param string $account_id The account_id returned from the Get User service.
+ * @param string $list_id The list to which the uploaded data will be inported.
+ * @param string $request_body The data_id and other list properties in xml.
+ *
+ * @return string The import_id in the standard output.
 */		
 		function rm_importRecipients($account_id, $list_id, $request_body) {	
 					$import_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/import/';
