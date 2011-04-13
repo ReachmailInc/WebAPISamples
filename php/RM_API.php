@@ -208,13 +208,15 @@ Requirements: PHP 5 or higher.
 					print "\nSuccessfully created list! (ID: $list_api_id)\n\n";
 					echo $list_api_id->saveXML("listId.xml");
 		}
-/*
-Upload Data prepares a file for import into a list and is used with 
-Import Recipients. The $file must be a comma seperated list. Returns 
-the data_id to the standard output which is required for importing 
-into a list.
-$uploadData = new RM_API('ACME','admin','1234ABC');
-$uploadData->rm_uploadData($file);
+/**
+ * Upload Data prepares a file for import into a list and is used with Import Recipients.
+ * 
+ * $uploadData = new RM_API('ACME','admin','1234ABC');
+ * $uploadData->rm_uploadData($file);
+ *
+ * @param string $file must be a path to a comma seperated list with open permissions.
+ *
+ * @return string the data_id to the standard output.
 */		
 		function rm_uploadData($file) {	
 					$upload_data_url = 'https://services.reachmail.net/Rest/Data/';
