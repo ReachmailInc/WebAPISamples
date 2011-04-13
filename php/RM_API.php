@@ -59,13 +59,11 @@ Requirements: PHP 5 or higher.
 /**
  * Queue Mailing to schedule and send a mailing. 
  *
- * Both the mail_id and list_id, as well as all other mailing properties are required.
- * to be formatted in xml as the $request_body as deliniated here, https://services.reachmail.net/sdk/.
  * $queueMail = new RM_API('ACME','admin','1234ABC');
  * $queueMail->rm_queueMail($account_id, $request_body);
  *
  * @param string $account_id  The account_id returned from the Get User service.
- * @param string $reuest_body The mail_id, list_id and other mailing properties in xml.
+ * @param string $reuest_body In xml and containg parameters delinietad here https://services.reachmail.net/sdk/.
  * 
  * @return string The queue_id in both the standard output and as queueId.xml.
 */		
@@ -131,14 +129,13 @@ Requirements: PHP 5 or higher.
 					echo $field_xml->saveXML("fields.xml");
 	        }
 /**
- * Enumerate Lists gives the list_id and other requested list properties of all list that meet the $request_body request requirements. 
- *
- * The $request_body is submitted in xml format as deliniated here, https://services.reachmail.net/sdk/. 
+ * Enumerate Lists gives the list_id and other requested list properties of list that meet the request requirements. 
+ * 
  * $enumerateLists = new RM_API('ACME','admin','1234ABC');
  * $enumerateLists->rm_enumerateLists($account_id, $request_body);
  *
  * @param string $account_id The account_id returned from the Get User service.
- * @param string $reuest_body The list_id and other mailing properties in xml.
+ * @param string $reuest_body In xml and containg parameters delinietad here https://services.reachmail.net/sdk/.
  *
  * @return string A list of list-is's and other requested data in both standard output and as lists.xml.
 */		
@@ -175,14 +172,13 @@ Requirements: PHP 5 or higher.
 					echo $list_xml->saveXML("lists.xml");
 		}
 /**
- * Create List sets up an empty list with the fields formatted in  the $request_body. 
+ * Create List sets up an empty list with the fields formatted in the $request_body. 
  *
- * The $request_body is submitted in xml format as deliniated here, https://services.reachmail.net/sdk/. 
  * $createList = new RM_API('ACME','admin','1234ABC');
  * $createList->rm_createList($account_id, $request_body);
  * 
  * @param string $account_id The account_id returned from the Get User service.
- * @param string $reuest_body The list fields and other properties in xml.
+ * @param string $reuest_body In xml and containg parameters delinietad here https://services.reachmail.net/sdk/.
  *
  * @return string The new list_id in both the standard output and as listId.xml.
 */		
@@ -244,13 +240,12 @@ Requirements: PHP 5 or higher.
 /**
  * Import Recipients places the uploaded data into the list itself.
  *
- * The data_id from the Upload Data is required in xml format as deliniated here, https://services.reachmail.net/sdk/.
  * $importRecipients = new RM_API('ACME','admin','1234ABC');
  * $importRecipients->rm_importRecipients($account_id, $list_id, $request_body);
  *
  * @param string $account_id The account_id returned from the Get User service.
  * @param string $list_id The list to which the uploaded data will be inported.
- * @param string $request_body The data_id and other list properties in xml.
+ * @param string $request_body In xml and containg parameters delinietad here https://services.reachmail.net/sdk/.
  *
  * @return string The import_id in the standard output.
 */		
@@ -280,13 +275,12 @@ Requirements: PHP 5 or higher.
 /**
  * Enumerate Recipients returns all records in a list that meet the request parameters.
  * 
- * The request parameters are in xma as delineated here, https://services.reachmail.net/sdk/.
  * $enumerateRecipients = new RM_API('ACME','admin','1234ABC');
  * $enumerateRecipients->rm_enumerateRecipients($account_id, $list_id, $request_body);
  *
  * @param string $account_id The account_id returned from the Get User service.
  * @param string $list_id The list which is being enumerated.
- * @param string $request_body The request parametersin xml.
+ * @param string $request_body In xml and containg parameters delinietad here https://services.reachmail.net/sdk/.
  *
  * @return string The enumerated records in the standard output and as recipients.xml.
 */		
@@ -326,7 +320,7 @@ Requirements: PHP 5 or higher.
  *
  * @param string $account_id The account_id returned from the Get User service.
  * @param string $list_id The list to which the record is being added.
- * @param string $request_body The records fields and values in xml.
+ * @param string $request_body In xml and containg parameters delinietad here https://services.reachmail.net/sdk/.
  *
  * @return string The added records values and the list_id in the standard output.
 */		
@@ -361,7 +355,7 @@ Requirements: PHP 5 or higher.
  *
  * @param string $account_id The account_id returned from the Get User service.
  * @param string $list_id The list which is to be exported.
- * @param string $request_body will vary depending on the fields in your lists must be in xml.
+ * @param string $request_body In xml and containg parameters delinietad here https://services.reachmail.net/sdk/.
  *
  * @return string The export_id required for download in the standard output.
 */	
@@ -424,7 +418,7 @@ Requirements: PHP 5 or higher.
  * $enumerateMailings->rm_enumerateMailings($account_id, $request_body);
  *
  * @param string $account_id The account_id returned from the Get User service.
- * @param string $request_body Sets the request parameters for which mailings are enumerated.
+ * @param string $request_body In xml and containg parameters delinietad here https://services.reachmail.net/sdk/.
  *
  * @return string Lists the mail_is's and other requested data in both standard output and as mailings.xml.
 */		
@@ -465,12 +459,12 @@ Requirements: PHP 5 or higher.
 /**
  * Create Mail (HTML/Text) creates a multi-part mailing in the account.
  *
- * The mailings HTML and Text content will be part of the $request_body as delineated here, https://services.reachmail.net/sdk/.
+ * The mailings HTML and Text content as the $request_body, use <![CDATA[HTML Goes Here]]>.
  * $createMail = new RM_API('ACME','admin','1234ABC');
  * $createMail->rm_createMail($account_id, $request_body);
  *
  * @param string $account_id The account_id returned from the Get User service.
- * @param string $request_body In xml and containing both HTML and Text content. Use <![CDATA[HTML Goes Here]]>.
+ * @param string $request_body In xml and containg parameters delinietad here https://services.reachmail.net/sdk/.
  *
  * @return string The new mailings mail_id in the standard output.
 */
@@ -495,13 +489,16 @@ Requirements: PHP 5 or higher.
 					$mail_id = $xml->Id;
 					print_r($xml);
 	        }		
-/*
-Enumerate Mailing Reports returns all the mailing reports requested 
-in the $request_body. Returns results in the standard output as well 
-as in reports.xml. The $request_body must be in xml as deliniated here:
-https://services.reachmail.net/sdk/.
-$enumerateMailingReports = new RM_API('ACME','admin','1234ABC');
-$enumerateMailingReports->rm_enumerateMailingReports($account_id, $request_body);
+/**
+ * Enumerate Mailing Reports returns all the mailing reports that meet the requested parameters.
+ *
+ * $enumerateMailingReports = new RM_API('ACME','admin','1234ABC');
+ * $enumerateMailingReports->rm_enumerateMailingReports($account_id, $request_body);
+ *
+ * @param string $account_id The account_id returned from the Get User service.
+ * @param string $request_body In xml and containg parameters delinietad here https://services.reachmail.net/sdk/.
+ *
+ * @return string Returns the mail_id of mailing reports meeting specified parameters.
 */		
 		function rm_enumerateMailingReports($account_id, $request_body) {	
 					$enumerate_mailings_report_url = 'https://services.reachmail.net/Rest/Reports/v1/mailings/query/';
