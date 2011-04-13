@@ -426,12 +426,7 @@ Requirements: PHP 5 or higher.
  * @param string $account_id The account_id returned from the Get User service.
  * @param string $request_body Sets the request parameters for which mailings are enumerated.
  *
- *
-$request_body is submitted in xml format as deliniated here, 
-https://services.reachmail.net/sdk/. Response is in both the standard 
-output and as mailings.xml.
-
-
+ * @return string Lists the mail_is's and other requested data in both standard output and as mailings.xml.
 */		
 		function rm_enumerateMailings($account_id, $request_body) {			
 					$enumerate_mailings_url = 'https://services.reachmail.net/Rest/Content/Mailings/v1/query/';
