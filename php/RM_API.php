@@ -462,13 +462,17 @@ Requirements: PHP 5 or higher.
 					print "\n";
 					echo $mail_xml ->saveXML("mailings.xml");
 		}
-/*
-Create Mail (HTML/Text) creates a multi-part mailing in the account. The 
-$request_body is submitted in xml format as deliniated here, 
-https://services.reachmail.net/sdk/. Be sure to use "<![CDATA[HTML]]>". 
-Response in the standard output returns the new mailings Id.
-$createMail = new RM_API('ACME','admin','1234ABC');
-$createMail->rm_createMail($account_id, $request_body);
+/**
+ * Create Mail (HTML/Text) creates a multi-part mailing in the account.
+ *
+ * The mailings HTML and Text content will be part of the $request_body as delineated here, https://services.reachmail.net/sdk/.
+ * $createMail = new RM_API('ACME','admin','1234ABC');
+ * $createMail->rm_createMail($account_id, $request_body);
+ *
+ * @param string $account_id The account_id returned from the Get User service.
+ * @param string $request_body In xml and containing both HTML and Text content. Use <![CDATA[HTML Goes Here]]>.
+ *
+ * @return string The new mailings mail_id in the standard output.
 */
 		function rm_createMail($account_id, $request_body) {
 					$create_mail_url = 'https://services.reachmail.net/REST/Content/Mailings/v1/';
