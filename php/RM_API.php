@@ -534,12 +534,16 @@ Requirements: PHP 5 or higher.
 					print "\n";
 					echo $mail_report_xml ->saveXML("reports.xml");
 		}
-/*
-Get Mailing Report Summary returns a summary of a specific mailings report.
-All that is needed is a mailing_id and the account_id. Reply is in the standard
-output and as summary.xml.
-$mailingReportSummary = new RM_API('ACME','admin','1234ABC');
-$mailingReportSummary->rm_getMailingSummary($account_id, $mailing_id);
+/**
+ * Get Mailing Report Summary returns a summary of a specific mailing report.
+ *
+ * $mailingReportSummary = new RM_API('ACME','admin','1234ABC');
+ * $mailingReportSummary->rm_getMailingSummary($account_id, $mailing_id);
+ *
+ * @param string $account_id The account_id returned from the Get User service.
+ * @param string $mailing_id The id of the mailin summarized in the report summary.
+ *
+ * @return string Returns report summary in the standard output and as summary.xml.
 */		
 		function rm_getMailingSummary($account_id, $mailing_id) {	
 					$mailing_summary_url = 'https://services.reachmail.net/Rest/Reporting/Content/Mailings/v1/Summary/';		
@@ -560,12 +564,16 @@ $mailingReportSummary->rm_getMailingSummary($account_id, $mailing_id);
 					print_r($mail_summary_xml);
 					echo $mail_summary_xml->saveXML("summary.xml");
 		}
-/*
-Get Mailing Report returns a detailed mailing reoprt. All that is needed 
-is a mailing_id and the account_id. Reply is in the standard output and 
-as a xslt styledReport.xml.
-$mailingReport= new RM_API('ACME','admin','1234ABC');
-$mailingReport->rm_getMailingReport($account_id, $mailing_id);
+/**
+ * Get Mailing Report returns a detailed mailing reoprt.
+ *
+ * $mailingReport= new RM_API('ACME','admin','1234ABC');
+ * $mailingReport->rm_getMailingReport($account_id, $mailing_id);
+ *
+ * @param string $account_id The account_id returned from the Get User service.
+ * @param string $mailing_id The id of the mailin to generate the report.
+ *
+ * @return string Returns report in the standard output and as an xslt styledReport.xml.
 */		
 		function rm_getMailingReport($account_id, $mailing_id) {	
 					$mailing_report_url = 'https://services.reachmail.net/Rest/Reports/v1/mailings/';
