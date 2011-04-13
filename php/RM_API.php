@@ -388,12 +388,15 @@ Requirements: PHP 5 or higher.
 							print_r($export_recipients_response);
 					}
 		}
-/*
-Download Data is used with Export Recipients and downloads a file you have 
-exported. It requires the export_id and returns the records in the standard
-output and as "list.xml".
-$downloadData = new RM_API('ACME','admin','1234ABC');
-$downloadData->rm_downloadData($export_id);
+/**
+ * Download Data is used with Export Recipients and downloads a file you have exported.
+ *
+ * $downloadData = new RM_API('ACME','admin','1234ABC');
+ * $downloadData->rm_downloadData($export_id);
+ *
+ * @param string $export_id From Export Recipients service.
+ *
+ * @return string The exported records in the standard output and as "list.xml".
 */
 		function rm_downloadData($export_id) {
 					$download_data_url = 'https://services.reachmail.net/Rest/Data/';
