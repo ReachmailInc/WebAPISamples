@@ -277,13 +277,18 @@ Requirements: PHP 5 or higher.
 							print_r($create_recipients_response);
 					}
 		}	
-/*
-Enumerate Recipients returns all records in a list as requested 
-in the $request_body. The $request_body must be formatted in xml
-as delineated here, https://services.reachmail.net/sdk/. Returned
-both in the standard output and as recipients.xml.
-$enumerateRecipients = new RM_API('ACME','admin','1234ABC');
-$enumerateRecipients->rm_enumerateRecipients($account_id, $list_id, $request_body);
+/**
+ * Enumerate Recipients returns all records in a list that meet the request parameters.
+ * 
+ * The request parameters are in xma as delineated here, https://services.reachmail.net/sdk/.
+ * $enumerateRecipients = new RM_API('ACME','admin','1234ABC');
+ * $enumerateRecipients->rm_enumerateRecipients($account_id, $list_id, $request_body);
+ *
+ * @param string $account_id The account_id returned from the Get User service.
+ * @param string $list_id The list which is being enumerated.
+ * @param string $request_body The request parametersin xml.
+ *
+ * @return string The enumerated records in the standard output and as recipients.xml.
 */		
 		function rm_enumerateRecipients($account_id, $list_id, $request_body) {			
 					$enumerate_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/recipients/query/';
