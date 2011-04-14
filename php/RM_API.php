@@ -287,17 +287,34 @@ Requirements: PHP 5 or higher.
 */
 		
 	function rm_listFromFile($account_id, $file) {
-				$request_body = "<ListProperties><Fields><Field>Email</Field><Field>FullName</Field></Fields><Name>API-TestList</Name></ListProperties>";
-				$createList = new RM_API($this->_account_key, $this->_username, $this->_password);
-				$createList->rm_createList($account_id, $request_body);
-				$list_id = simplexml_load_string(file_get_contents('listId.xml'));								
-				$uploadFile = new RM_API($this->_account_key, $this->_username, $this->_password);
-				$uploadFile->rm_uploadData($file);
-				$data_id = simplexml_load_string(file_get_contents('uploadId.xml'));				
-				$request_body = "<Parameters><DataId>$data_id</DataId><FieldMappings><FieldMapping><DestinationFieldName>Email</DestinationFieldName><SourceFieldPosition>1</SourceFieldPosition></FieldMapping><FieldMapping><DestinationFieldName>FullName</DestinationFieldName><SourceFieldPosition>2</SourceFieldPosition></FieldMapping></FieldMappings><ImportOptions><CharacterSeperatedOptions><Delimiter>Comma</Delimiter></CharacterSeperatedOptions><Format>CharacterSeperated</Format></ImportOptions></Parameters>";
-				$importRecipients = new RM_API($this->_account_key, $this->_username, $this->_password);
-				$importRecipients->rm_importRecipients($account_id, $list_id, $request_body);
-}		
+						$request_body = "<ListProperties><Fields><Field>Email</Field><Field>FullName</Field></Fields><Name>API-TestList</Name></ListProperties>";
+						$create_list_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/';
+						$api_service_url = $create_list_url . $account_id;
+						$header = array("Content-Type: application/xml");					
+						$create_list_request = curl_init();
+						$curl_options = array(
+								CURLOPT_URL => $api_service_url,
+								CURLOPT_HEADER => false,
+								CURLOPT_USERPWD => "$this->_account_key\\$this->_username:$this->_password",
+								CURLOPT_HTTPHEADER => $header,
+								CURLOPT_POST => true,
+								CURLOPT_POSTFIELDS => $request_body,
+								CURLOPT_RETURNTRANSFER => true
+						);
+						curl_setopt_array($create_list_request, $curl_options);
+						$create_list_response = curl_exec($create_list_request);
+						curl_close($create_list_request);
+						$response_xml = simplexml_load_string($create_list_response);
+						$list_api_id = $response_xml->Id;
+						echo $list_api_id->saveXML("listId.xml");
+			            $list_id = simplexml_load_string(file_get_contents('listId.xml'));								
+						$uploadFile = new RM_API($this->_account_key, $this->_username, $this->_password);
+						$uploadFile->rm_uploadData($file);
+						$data_id = simplexml_load_string(file_get_contents('uploadId.xml'));				
+						$request_body = "<Parameters><DataId>$data_id</DataId><FieldMappings><FieldMapping><DestinationFieldName>Email</DestinationFieldName><SourceFieldPosition>1</SourceFieldPosition></FieldMapping><FieldMapping><DestinationFieldName>FullName</DestinationFieldName><SourceFieldPosition>2</SourceFieldPosition></FieldMapping></FieldMappings><ImportOptions><CharacterSeperatedOptions><Delimiter>Comma</Delimiter></CharacterSeperatedOptions><Format>CharacterSeperated</Format></ImportOptions></Parameters>";
+						$importRecipients = new RM_API($this->_account_key, $this->_username, $this->_password);
+						$importRecipients->rm_importRecipients($account_id, $list_id, $request_body);
+	}		
 /**
  * Enumerate Recipients returns all records in a list that meet the request parameters.
  * 
