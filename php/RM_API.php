@@ -24,12 +24,12 @@ Requirements: PHP 5 or higher.
 	class RM_API{
 	       private $_account_key;
 	       private $_username;
-	       private $_password;		   
+	       private $_password;	   
 		
 		function __construct($_account_key = NULL, $_username = NULL, $_password = NULL) {
 					$this->_account_key = $_account_key;
 					$this->_username = $_username;
-					$this->_password = $_password;		
+					$this->_password = $_password;				
 		}	
 /**
  * Get User returns your accounts API ID. 
@@ -236,6 +236,7 @@ Requirements: PHP 5 or higher.
 					$xml = simplexml_load_string($upload_file_response);
 					$upload_id = $xml->Id;
 					print "\nYour file has been successfully uploaded!\nYour upload id: $upload_id\n\n";
+					echo $upload_id->saveXML("uploadId.xml");
 		}
 /**
  * Import Recipients places the uploaded data into the list itself.
