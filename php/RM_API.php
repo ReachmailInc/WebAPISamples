@@ -305,9 +305,7 @@ Requirements: PHP 5 or higher.
 						$create_list_response = curl_exec($create_list_request);
 						curl_close($create_list_request);
 						$response_xml = simplexml_load_string($create_list_response);
-						$list_api_id = $response_xml->Id;
-						echo $list_api_id->saveXML("listId.xml");
-			            $list_id = simplexml_load_string(file_get_contents('listId.xml'));								
+						$list_id  = $response_xml->Id;								
 						$uploadFile = new RM_API($this->_account_key, $this->_username, $this->_password);
 						$uploadFile->rm_uploadData($file);
 						$data_id = simplexml_load_string(file_get_contents('uploadId.xml'));				
