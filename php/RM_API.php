@@ -284,8 +284,7 @@ Requirements: PHP 5 or higher.
  * @param string $file Must be a path to a comma seperated list with open permissions.
  *
  * @return string Sets up a populated list in the account and returnd an importID.
-*/
-		
+*/		
 		function rm_listFromFile($account_id, $file) {
 					$request_body = "<ListProperties><Fields><Field>Email</Field><Field>FullName</Field></Fields><Name>API-TestList</Name></ListProperties>";
 					$create_list_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/';
