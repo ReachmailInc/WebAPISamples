@@ -312,7 +312,36 @@ Requirements: PHP 5 or higher.
 						$request_body = "<Parameters><DataId>$data_id</DataId><FieldMappings><FieldMapping><DestinationFieldName>Email</DestinationFieldName><SourceFieldPosition>1</SourceFieldPosition></FieldMapping><FieldMapping><DestinationFieldName>FullName</DestinationFieldName><SourceFieldPosition>2</SourceFieldPosition></FieldMapping></FieldMappings><ImportOptions><CharacterSeperatedOptions><Delimiter>Comma</Delimiter></CharacterSeperatedOptions><Format>CharacterSeperated</Format></ImportOptions></Parameters>";
 						$importRecipients = new RM_API($this->_account_key, $this->_username, $this->_password);
 						$importRecipients->rm_importRecipients($account_id, $list_id, $request_body);
-	}		
+	}
+/*
+Add Records Via Import
+*/	
+	function rm_addViaImport($file, $account_id, $list_id) {	
+						$upload_data_url = 'https://services.reachmail.net/Rest/Data/';
+						$header = array("Content-Type: application/xml");
+						$fp = file_get_contents($file);
+						$request_body = $fp;
+						$upload_file_request = curl_init();
+						$curl_options = array(
+								CURLOPT_URL => $upload_data_url,
+								CURLOPT_HEADER => false,
+								CURLOPT_USERPWD => "$this->_account_key\\$this->_username:$this->_password",
+								CURLOPT_HTTPHEADER => $header,
+								CURLOPT_FOLLOWLOCATION => true,
+								CURLOPT_POST => true,
+								CURLOPT_POSTFIELDS => $request_body,
+								CURLOPT_RETURNTRANSFER => true
+								);
+						curl_setopt_array($upload_file_request, $curl_options);
+						$upload_file_response = curl_exec($upload_file_request);
+						curl_close($upload_file_request);
+						$xml = simplexml_load_string($upload_file_response);
+						$data_id = $xml->Id;
+						$request_body = "<Parameters><DataId>$data_id</DataId><FieldMappings><FieldMapping><DestinationFieldName>Email</DestinationFieldName><SourceFieldPosition>1</SourceFieldPosition></FieldMapping><FieldMapping><DestinationFieldName>FullName</DestinationFieldName><SourceFieldPosition>2</SourceFieldPosition></FieldMapping></FieldMappings><ImportOptions><CharacterSeperatedOptions><Delimiter>Comma</Delimiter></CharacterSeperatedOptions><Format>CharacterSeperated</Format></ImportOptions></Parameters>";
+						print "\nYour file has been successfully uploaded!\nYour upload id: $data_id\n\n";					
+						$importRecipients = new RM_API($this->_account_key\\$this->_username:$this->_password);
+						$importRecipients->rm_importRecipients($account_id, $list_id, $request_body);
+	}
 /**
  * Enumerate Recipients returns all records in a list that meet the request parameters.
  * 
