@@ -348,7 +348,7 @@ Requirements: PHP 5 or higher.
 					$data_id = $xml->Id;
 					$request_body = "<Parameters><DataId>$data_id</DataId><FieldMappings><FieldMapping><DestinationFieldName>Email</DestinationFieldName><SourceFieldPosition>1</SourceFieldPosition></FieldMapping><FieldMapping><DestinationFieldName>FullName</DestinationFieldName><SourceFieldPosition>2</SourceFieldPosition></FieldMapping></FieldMappings><ImportOptions><CharacterSeperatedOptions><Delimiter>Comma</Delimiter></CharacterSeperatedOptions><Format>CharacterSeperated</Format></ImportOptions></Parameters>";
 					print "\nYour file has been successfully uploaded!\nYour upload id: $data_id\n\n";					
-					$importRecipients = new RM_API($this->_account_key\\$this->_username:$this->_password);
+					$importRecipients = new RM_API($this->_account_key, $this->_username, $this->_password);
 					$importRecipients->rm_importRecipients($account_id, $list_id, $request_body);
 		}
 /**
