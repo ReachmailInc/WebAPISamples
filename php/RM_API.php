@@ -489,6 +489,41 @@ Requirements: PHP 5 or higher.
 					$list_xml = simplexml_load_string($response);
 					print_r($response);
 					echo $list_xml->saveXML("list.xml");
+		}
+/**
+ * Export List will export and download a specified list.
+ *
+ * $exportList = new RM_API('ACME','admin','1234ABC');
+ * $exportList->rm_exportList($account_id, $list_id, $request_body);
+ *
+ * @param string $account_id The account_id returned from the Get User service.
+ * @param string $list_id The list which is to be exported.
+ * @param string $request_body In xml and containg parameters delineated here https://services.reachmail.net/sdk/.
+ *
+ * @return string The export_id required for download in the standard output.
+*/			
+		function rm_exportList($account_id, $list_id, $request_body) {	
+					$export_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/export/' ;
+					$api_service_url = $export_recipients_url . $account_id . '/' . $list_id;
+					$header = array("Content-Type: application/xml");	
+					$export_recipients_request = curl_init();
+					$curl_options = array(
+							CURLOPT_URL => $api_service_url,
+							CURLOPT_HEADER => false,
+							CURLOPT_USERPWD => "$this->_account_key\\$this->_username:$this->_password",
+							CURLOPT_HTTPHEADER => $header,
+							CURLOPT_POST => true,
+							CURLOPT_POSTFIELDS => $request_body,
+							CURLOPT_RETURNTRANSFER => true
+							);
+					curl_setopt_array($export_recipients_request, $curl_options);
+					$export_recipients_response = curl_exec($export_recipients_request);
+					curl_close($export_recipients_request);
+					$xml = simplexml_load_string($export_recipients_response);
+					$export_id = $xml->Id;
+					$downloadData = new RM_API($this->_account_key, $this->_username,$this->_password);
+					$downloadData->rm_downloadData($export_id);
+					
 		}		
 /**
  * Enumerate Mailings gives the mail_id and other requested mail properties of all mailings that meet the request requirements.
