@@ -500,7 +500,7 @@ Requirements: PHP 5 or higher.
  * @param string $list_id The list which is to be exported.
  * @param string $request_body In xml and containg parameters delineated here https://services.reachmail.net/sdk/.
  *
- * @return string The export_id required for download in the standard output.
+ * @return string The exported records in the standard output and as "list.xml".
 */			
 		function rm_exportList($account_id, $list_id, $request_body) {	
 					$export_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/export/' ;
