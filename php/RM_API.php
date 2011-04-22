@@ -204,6 +204,28 @@ Requirements: PHP 5 or higher.
 					print "\nSuccessfully created list! (ID: $list_api_id)\n\n";
 					echo $list_api_id->saveXML("listId.xml");
 		}
+/*
+Get List
+*/		
+		function rm_getList($account_id, $list_id) {
+					$get_list_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/';
+					$api_service_url = $get_list_url.$account_id."/".$list_id;
+					$header = array("Content-Type: application/xml");
+					$get_list_request = curl_init();
+					$curl_options = array(
+							CURLOPT_URL => $api_service_url,
+							CURLOPT_HEADER => false,
+							CURLOPT_USERPWD => "$this->_account_key\\$this->_username:$this->_password",
+							CURLOPT_HTTPHEADER => $header,
+							CURLOPT_RETURNTRANSFER => true
+							);
+					curl_setopt_array($get_list_request, $curl_options);
+					$response = curl_exec($get_list_request);
+					curl_close($get_list_request);
+					$xml = simplexml_load_string($response);
+					print_r($response);
+					echo $xml->saveXML("getList.xml");
+	}
 /**
  * Upload Data prepares a file for import into a list and is used with Import Recipients.
  * 
