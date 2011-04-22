@@ -234,6 +234,35 @@ Requirements: PHP 5 or higher.
 					print_r($response);
 					echo $xml->saveXML("getList.xml");
 	}
+/*
+Modify List
+*/
+		function rm_modifyList($account_id, $list_id, $request_body) {
+					$modify_list_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/';
+					$api_service_url = $modify_list_url . $account_id . "/" . $list_id;
+					$header = array("Content-Type: application/xml");
+					$modify_list_request = curl_init();
+					$putString = $request_body;
+					$putData = tmpfile(); 
+					fwrite($putData, $putString); 
+					fseek($putData, 0);
+					$length = strlen($putString);
+					$curl_options = array(
+							CURLOPT_URL => $api_service_url,
+							CURLOPT_HEADER => false,
+							CURLOPT_USERPWD => "$this->_account_key\\$this->_username:$this->_password",
+							CURLOPT_HTTPHEADER => $header,
+							CURLOPT_PUT => true,
+							CURLOPT_INFILE => $putData,
+							CURLOPT_INFILESIZE => $length,
+							CURLOPT_RETURNTRANSFER => true
+							);
+					curl_setopt_array($modify_list_request, $curl_options);
+					$modify_list_response = curl_exec($modify_list_request);
+					curl_close($modify_list_request);
+					$xml = simplexml_load_string($modify_list_response);
+					print_r($modify_list_response);			
+	}
 /**
  * Upload Data prepares a file for import into a list and is used with Import Recipients.
  * 
