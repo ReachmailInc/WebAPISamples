@@ -127,7 +127,7 @@ Requirements: PHP 5 or higher.
 					}
 					print "\n";
 					echo $field_xml->saveXML("fields.xml");
-	        }
+	    }
 /**
  * Enumerate Lists gives the list_id and other requested list properties of list that meet the request requirements. 
  * 
@@ -233,7 +233,7 @@ Requirements: PHP 5 or higher.
 					$xml = simplexml_load_string($response);
 					print_r($response);
 					echo $xml->saveXML("getList.xml");
-	         }
+	    }
 /**
  * Modify List change name, add fields, as well as other properties tin an active list.
  *
@@ -271,7 +271,7 @@ Requirements: PHP 5 or higher.
 					curl_close($modify_list_request);
 					$xml = simplexml_load_string($modify_list_response);
 					print_r($modify_list_response);			
-	         }
+	    }
 /**
  * Upload Data prepares a file for import into a list and is used with Import Recipients.
  * 
@@ -379,7 +379,7 @@ Requirements: PHP 5 or higher.
 					$request_body = "<Parameters><DataId>$data_id</DataId><FieldMappings><FieldMapping><DestinationFieldName>Email</DestinationFieldName><SourceFieldPosition>1</SourceFieldPosition></FieldMapping><FieldMapping><DestinationFieldName>FullName</DestinationFieldName><SourceFieldPosition>2</SourceFieldPosition></FieldMapping></FieldMappings><ImportOptions><CharacterSeperatedOptions><Delimiter>Comma</Delimiter></CharacterSeperatedOptions><Format>CharacterSeperated</Format></ImportOptions></Parameters>";
 					$importRecipients = new RM_API($this->_account_key, $this->_username, $this->_password);
 					$importRecipients->rm_importRecipients($account_id, $list_id, $request_body);
-	          }
+	    }
 /**	
  *Add Records Via Import imports an uploaded file into a file in the account.
  *
@@ -494,9 +494,19 @@ Requirements: PHP 5 or higher.
 						print_r($create_recipients_response);
 					}
 		}	
-/*
-Modify Recipients
-*/
+/**
+ * Modify Recipients changes properties of a recipient in a list.
+ *
+ * $modifyRecipients = new RM_API('ACME','admin','1234ABC');
+ * $modifyRecipients->rm_modifyRecipients($account_id, $list_id, $email, $request_body);
+ *
+ * @param string $account_id The account_id returned from the Get User service.
+ * @param string $list_id The list which is haveing a recipient modified.
+ * @param string $email The email address of the record being modified.
+ * @param string $request_body In xml and containg parameters delineated here https://services.reachmail.net/sdk/.
+ *
+ * @return string The selected will have the record modified in the active list.
+ */
 		function rm_modifyRecipient($account_id, $list_id, $email, $request_body) {
 					$modify_recipient_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/recipients/';
 					$api_service_url = $modify_recipient_url . $account_id . "/" . $list_id . "/" . $email;
