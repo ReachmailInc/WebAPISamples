@@ -234,8 +234,17 @@ Requirements: PHP 5 or higher.
 					print_r($response);
 					echo $xml->saveXML("getList.xml");
 	}
-/*
-Modify List
+/**
+ * Modify List change name, add fields, as well as other properties tin an active list.
+ *
+ * $modifyList = new RM_API('ACME','admin','1234ABC');
+ * $modifyList->rm_modifyList($account_id, $list_id, $request_body);
+ *
+ * @param string $account_id The account_id returned from the Get User service.
+ * @param string $list_id The list Id for the list you are modifying.
+ * @param string $request_body In xml and containg parameters delineated here https://services.reachmail.net/sdk/.
+ *
+ * @return string Makes the requested changes in the specified list.
 */
 		function rm_modifyList($account_id, $list_id, $request_body) {
 					$modify_list_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/';
