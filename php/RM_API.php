@@ -204,8 +204,16 @@ Requirements: PHP 5 or higher.
 					print "\nSuccessfully created list! (ID: $list_api_id)\n\n";
 					echo $list_api_id->saveXML("listId.xml");
 		}
-/*
-Get List
+/**
+ * Get List is used to assure list is active and available for use.
+ *
+ * $getList = new RM_API('ACME','admin','1234ABC');
+ * $getList->rm_getList($account_id, $list_id);
+ *
+ * @param string $account_id The account_id returned from the Get User service.
+ * @param string $list_id The list Id for the list you are retrieving.
+ * 
+ * @return string Returns list properties (e.g. ID, name, number of active users) in both the standard output and as getList.xml.
 */		
 		function rm_getList($account_id, $list_id) {
 					$get_list_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/';
