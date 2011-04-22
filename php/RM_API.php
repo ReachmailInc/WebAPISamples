@@ -217,7 +217,7 @@ Requirements: PHP 5 or higher.
 */		
 		function rm_getList($account_id, $list_id) {
 					$get_list_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/';
-					$api_service_url = $get_list_url.$account_id."/".$list_id;
+					$api_service_url = $get_list_url . $account_id . "/" . $list_id;
 					$header = array("Content-Type: application/xml");
 					$get_list_request = curl_init();
 					$curl_options = array(
