@@ -233,7 +233,7 @@ Requirements: PHP 5 or higher.
 					$xml = simplexml_load_string($response);
 					print_r($response);
 					echo $xml->saveXML("getList.xml");
-	}
+	         }
 /**
  * Modify List change name, add fields, as well as other properties tin an active list.
  *
@@ -271,7 +271,7 @@ Requirements: PHP 5 or higher.
 					curl_close($modify_list_request);
 					$xml = simplexml_load_string($modify_list_response);
 					print_r($modify_list_response);			
-	}
+	         }
 /**
  * Upload Data prepares a file for import into a list and is used with Import Recipients.
  * 
@@ -379,7 +379,7 @@ Requirements: PHP 5 or higher.
 					$request_body = "<Parameters><DataId>$data_id</DataId><FieldMappings><FieldMapping><DestinationFieldName>Email</DestinationFieldName><SourceFieldPosition>1</SourceFieldPosition></FieldMapping><FieldMapping><DestinationFieldName>FullName</DestinationFieldName><SourceFieldPosition>2</SourceFieldPosition></FieldMapping></FieldMappings><ImportOptions><CharacterSeperatedOptions><Delimiter>Comma</Delimiter></CharacterSeperatedOptions><Format>CharacterSeperated</Format></ImportOptions></Parameters>";
 					$importRecipients = new RM_API($this->_account_key, $this->_username, $this->_password);
 					$importRecipients->rm_importRecipients($account_id, $list_id, $request_body);
-	}
+	          }
 /**	
  *Add Records Via Import imports an uploaded file into a file in the account.
  *
