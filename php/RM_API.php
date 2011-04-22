@@ -494,6 +494,35 @@ Requirements: PHP 5 or higher.
 						print_r($create_recipients_response);
 					}
 		}	
+/*
+Modify Recipients
+*/
+		function rm_modifyRecipient($account_id, $list_id, $email, $request_body) {
+					$modify_recipient_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/recipients/';
+					$api_service_url = $modify_recipient_url . $account_id . "/" . $list_id . "/" . $email;
+					$header = array("Content-Type: application/xml");
+					$modify_recipient_request = curl_init();
+					$putString = $request_body;
+					$putData = tmpfile(); 
+					fwrite($putData, $putString); 
+					fseek($putData, 0);
+					$length = strlen($putString);
+					$curl_options = array(
+							CURLOPT_URL => $api_service_url,
+							CURLOPT_HEADER => false,
+							CURLOPT_USERPWD => "$this->_account_key\\$this->_username:$this->_password",
+							CURLOPT_HTTPHEADER => $header,
+							CURLOPT_PUT => true,
+							CURLOPT_INFILE => $putData,
+							CURLOPT_INFILESIZE => $length,
+							CURLOPT_RETURNTRANSFER => true
+							);
+					curl_setopt_array($modify_recipient_request, $curl_options);
+					$modify_recipient_response = curl_exec($modify_recipient_request);
+					curl_close($modify_recipient_request);
+					$xml = simplexml_load_string($modify_recipient_response);
+					$return = print_r($modify_recipient_response);				
+		}	
 /**
  * Export Recipients will export a specified list for subsequent download.
  *
