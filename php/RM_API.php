@@ -214,7 +214,7 @@ Requirements: PHP 5 or higher.
  * @param string $account_id The account_id returned from the Get User service.
  * @param string $list_id The list Id for the list you are retrieving.
  * 
- * @return string Returns list properties (e.g. ID, name, number of active users) in both the standard output and as getList.xml.
+ * @return string Returns list properties (e.g. ID, name, number of active users, etc.) in both the standard output and as getList.xml.
 */		
 		function rm_getList($account_id, $list_id) {
 					$get_list_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/';
