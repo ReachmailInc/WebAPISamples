@@ -506,7 +506,7 @@ Requirements: PHP 5 or higher.
  * @param string $email The email address of the record being modified.
  * @param string $request_body In xml and containg parameters delineated here https://services.reachmail.net/sdk/.
  *
- * @return string The selected will have the record modified in the active list.
+ * @return string The selected record in an active list will be modified.
  */
 		function rm_modifyRecipient($account_id, $list_id, $email, $request_body) {
 					$modify_recipient_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/recipients/';
