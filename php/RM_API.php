@@ -235,7 +235,7 @@ Requirements: PHP 5 or higher.
 					echo $xml->saveXML("getList.xml");
 	    }
 /**
- * Modify List change name, add fields, as well as other properties tin an active list.
+ * Modify List change name, add fields, as well as other properties in an active list.
  *
  * $modifyList = new RM_API('ACME','admin','1234ABC');
  * $modifyList->rm_modifyList($account_id, $list_id, $request_body);
