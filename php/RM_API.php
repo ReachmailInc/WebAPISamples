@@ -461,7 +461,7 @@ Requirements: PHP 5 or higher.
 					echo $response_xml->saveXML("recipients.xml");
 		}
 /**
- * Create Recipient adds a record to a list.
+ * Create Recipient adds a record to an active list.
  *
  * $createRecipients = new RM_API('ACME','admin','1234ABC');
  * $createRecipients->rm_createRecipients($account_id, $list_id, $request_body);
@@ -470,7 +470,7 @@ Requirements: PHP 5 or higher.
  * @param string $list_id The list to which the record is being added.
  * @param string $request_body In xml and containg parameters delineated here https://services.reachmail.net/sdk/.
  *
- * @return string The added records values and the list_id in the standard output.
+ * @return string Returns the added records values and the list_id to the standard output.
 */		
 		function rm_createRecipient($account_id, $list_id, $request_body) {	
 					$create_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/recipients/';
