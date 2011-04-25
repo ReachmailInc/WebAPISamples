@@ -138,7 +138,7 @@ Requirements: PHP 5 or higher.
  * @param string $account_id The account_id returned from the Get User service.
  * @param string $request_body In xml and containg parameters delineated here https://services.reachmail.net/sdk/.
  *
- * @return string A list of list-id's and other requested data in both standard output and as lists.xml.
+ * @return string A list of list-id's and other requested data about enumerated lists in both standard output and as lists.xml.
 */		
 		function rm_enumerateLists($account_id, $request_body) {		
 					$enumerate_lists_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/query/';
