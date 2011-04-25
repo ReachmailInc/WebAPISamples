@@ -18,8 +18,10 @@ Requirements: PHP 5 or higher.
  * $object = new RM_API('ACME','admin','1234ABC');
  *  
  * @param string $_account_key The ReachMail login account key.
- * @param string $_username    The accounts login username.
- * @param srring &_password    The accounts login password. 
+ * @param string $_username  The accounts login username.
+ * @param srring &_password  The accounts login password.
+ *
+ * Noting is actually returned to user, but, the results are used to login for each instance of objects made with individual services.
 */	
 	class RM_API{
 	       private $_account_key;
