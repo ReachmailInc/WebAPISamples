@@ -382,7 +382,7 @@ Requirements: PHP 5 or higher.
 					$importRecipients->rm_importRecipients($account_id, $list_id, $request_body);
 	    }
 /**	
- *Add Records Via Import imports an uploaded file into a file in the account.
+ * Add Records Via Import, imports an uploaded file into an active list in the account.
  *
  * The $request_body xml string need to be set up as per your lists specific needs: https://services.reachmail.net/sdk/.
  * $addViaImport = RM_API('ACME','admin','1234ABC');
@@ -392,7 +392,7 @@ Requirements: PHP 5 or higher.
  * @param string $list_id The list to which the uploaded data will be inported.
  * @param string $file Must be a path to a comma seperated list with open permissions.
  *
- * @return string The import_id in the standard output.
+ * @return string Uploads and adds records into an active list and returns the import_Id.
 */	
 		function rm_addViaImport($account_id, $list_id, $file) {	
 					$upload_data_url = 'https://services.reachmail.net/Rest/Data/';
