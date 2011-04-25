@@ -97,7 +97,7 @@ Requirements: PHP 5 or higher.
  *
  * @param string $account_id The account_id returned from the Get User service.
  *
- * @return string A list of all fields in both the standard output and as fields.xml.
+ * @return string A list of all of the specific accounts fields in both the standard output and as fields.xml.
 */		
 		function rm_enumerateFields($account_id) {		
 					$enumerate_fields_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/fields/';
