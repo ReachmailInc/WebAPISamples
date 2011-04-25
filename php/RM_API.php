@@ -317,7 +317,7 @@ Requirements: PHP 5 or higher.
  * @param string $list_id The list to which the uploaded data will be inported.
  * @param string $request_body In xml and containg parameters delineated here https://services.reachmail.net/sdk/.
  *
- * @return string The import_id in the standard output.
+ * @return string Adds Upload Data records into a specified list and returns the Import_id to the standard output.
 */		
 		function rm_importRecipients($account_id, $list_id, $request_body) {	
 					$import_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/import/';
