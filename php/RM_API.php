@@ -34,9 +34,8 @@ Requirements: PHP 5 or higher.
 					$this->_password = $_password;				
 		}	
 /**
- * Get User returns your accounts API ID. 
+ * Get User returns your accounts API ID which is a requirement for most other services.
  *
- * This ID is a requirement for most other services.
  * $getUser = new RM_API('ACME','admin','1234ABC'); 
  * $getUser->rm_getUser();
  * 
