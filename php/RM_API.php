@@ -274,7 +274,7 @@ Requirements: PHP 5 or higher.
 					print_r($modify_list_response);			
 	    }
 /**
- * Upload Data prepares a file for import into a list and is used with Import Recipients.
+ * Upload Data uploads and prepares a file for Import Recipients into an active list..
  * 
  * $uploadData = new RM_API('ACME','admin','1234ABC');
  * $uploadData->rm_uploadData($file);
