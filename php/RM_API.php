@@ -352,7 +352,7 @@ Requirements: PHP 5 or higher.
  * @param string $account_id  The account_id returned from the Get User service.
  * @param string $file Must be a path to a comma seperated list with open permissions.
  *
- * @return string Sets up a new populated list in the account and returns an importID to the standard output.
+ * @return string Sets up a new populated list in the account and returns an import_id to the standard output.
 */		
 		function rm_listFromFile($account_id, $file) {
 					$request_body = "<ListProperties><Fields><Field>Email</Field><Field>FullName</Field></Fields><Name>API-TestList</Name></ListProperties>";
@@ -382,7 +382,7 @@ Requirements: PHP 5 or higher.
 					$importRecipients->rm_importRecipients($account_id, $list_id, $request_body);
 	    }
 /**	
- * Add Records Via Import, imports an uploaded file into an active list in the account.
+ * Add Records Via Import, imports an uploaded files records into an active list in the account.
  *
  * The $request_body xml string need to be set up as per your lists specific needs: https://services.reachmail.net/sdk/.
  * $addViaImport = RM_API('ACME','admin','1234ABC');
