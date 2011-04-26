@@ -421,7 +421,7 @@ Requirements: PHP 5 or higher.
 					$importRecipients->rm_importRecipients($account_id, $list_id, $request_body);
 		}
 /**
- * Enumerate Recipients returns all records in a list that meet the request parameters.
+ * Enumerate Recipients returns all records in a list that meet the request parameters in the request_body.
  * 
  * $enumerateRecipients = new RM_API('ACME','admin','1234ABC');
  * $enumerateRecipients->rm_enumerateRecipients($account_id, $list_id, $request_body);
@@ -430,7 +430,7 @@ Requirements: PHP 5 or higher.
  * @param string $list_id The list which is being enumerated.
  * @param string $request_body In xml and containg parameters delineated here https://services.reachmail.net/sdk/.
  *
- * @return string The enumerated records in the standard output and as recipients.xml.
+ * @return string Returns the requested records in the standard output and as recipients.xml.
 */		
 		function rm_enumerateRecipients($account_id, $list_id, $request_body) {			
 					$enumerate_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/recipients/query/';
@@ -467,7 +467,7 @@ Requirements: PHP 5 or higher.
  * $createRecipients->rm_createRecipients($account_id, $list_id, $request_body);
  *
  * @param string $account_id The account_id returned from the Get User service.
- * @param string $list_id The list to which the record is being added.
+ * @param string $list_id The list to which the new record is being added.
  * @param string $request_body In xml and containg parameters delineated here https://services.reachmail.net/sdk/.
  *
  * @return string Returns the added records values and the list_id to the standard output.
@@ -496,13 +496,13 @@ Requirements: PHP 5 or higher.
 					}
 		}	
 /**
- * Modify Recipients changes properties of a recipient in a list.
+ * Modify Recipients changes properties of a record in an active list.
  *
  * $modifyRecipients = new RM_API('ACME','admin','1234ABC');
  * $modifyRecipients->rm_modifyRecipients($account_id, $list_id, $email, $request_body);
  *
  * @param string $account_id The account_id returned from the Get User service.
- * @param string $list_id The list which is haveing a recipient modified.
+ * @param string $list_id The list which is having a recipient modified.
  * @param string $email The email address of the record being modified.
  * @param string $request_body In xml and containg parameters delineated here https://services.reachmail.net/sdk/.
  *
