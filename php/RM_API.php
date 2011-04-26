@@ -577,7 +577,7 @@ Requirements: PHP 5 or higher.
  *
  * @param string $export_id From Export Recipients service.
  *
- * @return string The exported records in the standard output and as "list.xml".
+ * @return string The exported records in the standard output and as list.xml.
 */
 		function rm_downloadData($export_id) {
 					$download_data_url = 'https://services.reachmail.net/Rest/Data/';
@@ -599,7 +599,7 @@ Requirements: PHP 5 or higher.
 					echo $list_xml->saveXML("list.xml");
 		}
 /**
- * Export List will export and download a specified list.
+ * Export List will export and download a specified list from an account.
  *
  * $exportList = new RM_API('ACME','admin','1234ABC');
  * $exportList->rm_exportList($account_id, $list_id, $request_body);
@@ -608,7 +608,7 @@ Requirements: PHP 5 or higher.
  * @param string $list_id The list which is to be exported.
  * @param string $request_body In xml and containg parameters delineated here https://services.reachmail.net/sdk/.
  *
- * @return string The exported records in the standard output and as "list.xml".
+ * @return string The exported records in the standard output and as list.xml.
 */			
 		function rm_exportList($account_id, $list_id, $request_body) {	
 					$export_recipients_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/export/' ;
@@ -634,7 +634,7 @@ Requirements: PHP 5 or higher.
 					
 		}		
 /**
- * Enumerate Mailings gives the mail_id and other requested mail properties of all mailings that meet the request requirements.
+ * Enumerate Mailings gives the mail_id and other requested mail properties of all mailings that meet the request requirements in the request_body.
  *
  * $enumerateMailings = new RM_API('ACME','admin','1234ABC');
  * $enumerateMailings->rm_enumerateMailings($account_id, $request_body);
@@ -642,7 +642,7 @@ Requirements: PHP 5 or higher.
  * @param string $account_id The account_id returned from the Get User service.
  * @param string $request_body In xml and containg parameters delineated here https://services.reachmail.net/sdk/.
  *
- * @return string Lists the mail_is's and other requested data in both standard output and as mailings.xml.
+ * @return string Lists the mail_id's and other requested data in both standard output and as mailings.xml.
 */		
 		function rm_enumerateMailings($account_id, $request_body) {			
 					$enumerate_mailings_url = 'https://services.reachmail.net/Rest/Content/Mailings/v1/query/';
@@ -688,7 +688,7 @@ Requirements: PHP 5 or higher.
  * @param string $account_id The account_id returned from the Get User service.
  * @param string $request_body In xml and containg parameters delineated here https://services.reachmail.net/sdk/.
  *
- * @return string The new mailings mail_id in the standard output.
+ * @return string Creates a new mailing in the accou nt and returns it's mailing_id to the standard output.
 */
 		function rm_createMail($account_id, $request_body) {
 					$create_mail_url = 'https://services.reachmail.net/REST/Content/Mailings/v1/';
@@ -712,7 +712,7 @@ Requirements: PHP 5 or higher.
 					print_r($xml);
 	        }		
 /**
- * Enumerate Mailing Reports returns all the mailing reports that meet the requested parameters.
+ * Enumerate Mailing Reports returns all the mailing reports that meet the requested parameters in the request_body.
  *
  * $enumerateMailingReports = new RM_API('ACME','admin','1234ABC');
  * $enumerateMailingReports->rm_enumerateMailingReports($account_id, $request_body);
@@ -720,7 +720,7 @@ Requirements: PHP 5 or higher.
  * @param string $account_id The account_id returned from the Get User service.
  * @param string $request_body In xml and containg parameters delineated here https://services.reachmail.net/sdk/.
  *
- * @return string Returns the mail_id of mailing reports meeting specified parameters.
+ * @return string Returns the sumarized mailing reports meeting specified parameters.
 */		
 		function rm_enumerateMailingReports($account_id, $request_body) {	
 					$enumerate_mailings_report_url = 'https://services.reachmail.net/Rest/Reports/v1/mailings/query/';
@@ -787,7 +787,7 @@ Requirements: PHP 5 or higher.
 					echo $mail_summary_xml->saveXML("summary.xml");
 		}
 /**
- * Get Mailing Report returns a detailed mailing reoprt.
+ * Get Mailing Report returns a detailed mailing report.
  *
  * $mailingReport= new RM_API('ACME','admin','1234ABC');
  * $mailingReport->rm_getMailingReport($account_id, $mailing_id);
