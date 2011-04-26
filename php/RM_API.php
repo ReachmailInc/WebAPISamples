@@ -274,7 +274,7 @@ Requirements: PHP 5 or higher.
 					print_r($modify_list_response);			
 	    }
 /**
- * Upload Data uploads and prepares a file for Import Recipients into an active list..
+ * Upload Data uploads and prepares a file for Import Recipients into an active list.
  * 
  * $uploadData = new RM_API('ACME','admin','1234ABC');
  * $uploadData->rm_uploadData($file);
@@ -308,7 +308,7 @@ Requirements: PHP 5 or higher.
 					echo $upload_id->saveXML("uploadId.xml");
 		}
 /**
- * Import Recipients places the uploaded data into the list itself.
+ * Import Recipients places previously uploaded data into a specified active list.
  *
  * $importRecipients = new RM_API('ACME','admin','1234ABC');
  * $importRecipients->rm_importRecipients($account_id, $list_id, $request_body);
