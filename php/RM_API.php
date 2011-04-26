@@ -343,7 +343,7 @@ Requirements: PHP 5 or higher.
 					}
 		}	
 /**
- * List From File creates and populates a list in your ReachMail account.
+ * List From File creates and populates a new list in your ReachMail account.
  *
  * Both the $request_body xml strings need to be set up as per your lists specific needs: https://services.reachmail.net/sdk/.
  * $listFromFile = RM_API('ACME','admin','1234ABC');
@@ -352,7 +352,7 @@ Requirements: PHP 5 or higher.
  * @param string $account_id  The account_id returned from the Get User service.
  * @param string $file Must be a path to a comma seperated list with open permissions.
  *
- * @return string Sets up a populated list in the account and returnd an importID.
+ * @return string Sets up a new populated list in the account and returns an importID to the standard output.
 */		
 		function rm_listFromFile($account_id, $file) {
 					$request_body = "<ListProperties><Fields><Field>Email</Field><Field>FullName</Field></Fields><Name>API-TestList</Name></ListProperties>";
