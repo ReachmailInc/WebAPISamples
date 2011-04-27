@@ -201,8 +201,16 @@ Requirements: PHP 5 or higher.
 					print_r($list_groups_response);
 					echo $list_groups_xml->saveXML("listGroups.xml");
 		}
-/*
-Create List Group
+/**
+ * Create List Group creates a new List Group in the account.
+ *
+ * $createListGroups = new RM_API('ACME','admin','1234ABC');
+ * $createListGroups->rm_listGroups($account_id, $request_body);
+ *
+ * @param string $account_id The account_id returned from the Get User service.
+ * @param string $request_body In xml and containg parameters delineated here https://services.reachmail.net/sdk/.
+ *
+ * @return string Creates a new List Group in the account and returns its group_id to the standard output.
 */
 		function rm_createListGroup($account_id, $request_body){	
 					$create_group_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/groups/';
