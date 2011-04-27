@@ -172,6 +172,28 @@ Requirements: PHP 5 or higher.
 					print "\n";
 					echo $list_xml->saveXML("lists.xml");
 		}
+/*
+Enumerate List Groups
+*/
+		function rm_enumerateListGroups($account_id) {
+					$list_groups_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/groups/';    
+					$api_service_url = $list_groups_url . $account_id;
+					$header = array("Content-Type: application/xml");
+					$list_groups_request = curl_init();
+					$curl_options = array(
+							CURLOPT_URL => $api_service_url,
+							CURLOPT_HEADER => false,
+							CURLOPT_USERPWD => "$this->_account_key\\$this->_username:$this->_password",
+							CURLOPT_HTTPHEADER => $header,
+							CURLOPT_RETURNTRANSFER => true
+							);
+					curl_setopt_array($list_groups_request, $curl_options);
+					$list_groups_response = curl_exec($list_groups_request);
+					curl_close($list_groups_request);
+					$list_groups_xml = simplexml_load_string($list_groups_response);
+					print_r($list_groups_response);
+					echo $list_groups_xml->saveXML("listGroups.xml");
+		}
 /**
  * Create List sets up an empty list with the fields formatted in the $request_body. 
  *
