@@ -180,7 +180,7 @@ Requirements: PHP 5 or higher.
  *
  * @param string $account_id The account_id returned from the Get User service.
  *
- * @return string Returns the group_id's, names, and other properties of all list groups in the account to the standard output.
+ * @return string Returns the group_id's, names, and other properties of all List Groups in the account to the standard output.
 */
 		function rm_enumerateListGroups($account_id) {
 					$list_groups_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/groups/';    
@@ -204,7 +204,7 @@ Requirements: PHP 5 or higher.
 /*
 Create List Group
 */
-		function rm_createGroup($account_id, $request_body){	
+		function rm_createListGroup($account_id, $request_body){	
 					$create_group_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/groups/';
 					$api_service_url = $create_group_url . $account_id;
 					$header = array("Content-Type: application/xml");					
@@ -223,7 +223,7 @@ Create List Group
 					curl_close($create_group_request);
 					$create_group_xml = simplexml_load_string($create_group_response);
 					$group_id = $create_group_xml->Id;
-					print "\nSuccessfully created list Group! (ID: $group_id)\n\n";
+					print "\nSuccessfully created List Group! (ID: $group_id)\n\n";
 		}	
 /**
  * Create List sets up an empty list with the fields formatted in the $request_body. 
