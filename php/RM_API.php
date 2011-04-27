@@ -128,7 +128,7 @@ Requirements: PHP 5 or higher.
 					}
 					print "\n";
 					echo $field_xml->saveXML("fields.xml");
-			}
+		}
 /**
  * Enumerate Lists gives the list_id and other requested list properties of list that meet the request requirements. 
  * 
