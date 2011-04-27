@@ -180,7 +180,7 @@ Requirements: PHP 5 or higher.
  *
  * @param string $account_id The account_id returned from the Get User service.
  *
- * @return string returns the group_id's, names, and other properties of all list groups in the account.
+ * @return string Returns the group_id's, names, and other properties of all list groups in the account to the standard output.
 */
 		function rm_enumerateListGroups($account_id) {
 					$list_groups_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/groups/';    
