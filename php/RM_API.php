@@ -172,8 +172,15 @@ Requirements: PHP 5 or higher.
 					print "\n";
 					echo $list_xml->saveXML("lists.xml");
 		}
-/*
-Enumerate List Groups
+/**
+ * Enumerate List Groups returns the group_id's, names, and other properties of all list groups in the account.
+ * 
+ * $listGroups = new RM_API('ACME','admin','1234ABC');
+ * $listGroups->rm_listGroups($account_id);
+ *
+ * @param string $account_id The account_id returned from the Get User service.
+ *
+ * @return string returns the group_id's, names, and other properties of all list groups in the account.
 */
 		function rm_enumerateListGroups($account_id) {
 					$list_groups_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/groups/';    
