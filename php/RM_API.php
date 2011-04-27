@@ -201,6 +201,30 @@ Requirements: PHP 5 or higher.
 					print_r($list_groups_response);
 					echo $list_groups_xml->saveXML("listGroups.xml");
 		}
+/*
+Create List Group
+*/
+		function rm_createGroup($account_id, $request_body){	
+					$create_group_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/groups/';
+					$api_service_url = $create_group_url . $account_id;
+					$header = array("Content-Type: application/xml");					
+					$create_group_request = curl_init();
+					$curl_options = array(
+							CURLOPT_URL => $api_service_url,
+							CURLOPT_HEADER => false,
+							CURLOPT_USERPWD => "$this->_account_key\\$this->_username:$this->_password",
+							CURLOPT_HTTPHEADER => $header,
+							CURLOPT_POST => true,
+							CURLOPT_POSTFIELDS => $request_body,
+							CURLOPT_RETURNTRANSFER => true
+					);
+					curl_setopt_array($create_group_request, $curl_options);
+					$create_group_response = curl_exec($create_group_request);
+					curl_close($create_group_request);
+					$create_group_xml = simplexml_load_string($create_group_response);
+					$group_id = $create_group_xml->Id;
+					print "\nSuccessfully created list Group! (ID: $group_id)\n\n";
+		}	
 /**
  * Create List sets up an empty list with the fields formatted in the $request_body. 
  *
