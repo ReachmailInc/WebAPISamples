@@ -233,8 +233,17 @@ Requirements: PHP 5 or higher.
 					$group_id = $create_group_xml->Id;
 					print "\nSuccessfully created List Group! (ID: $group_id)\n\n";
 		}	
-/*
-Modify List Group
+/**
+ * Modify List Group changes the name of a selected active List Group in the account.
+ *
+ * $modifyListGroups = new RM_API('ACME','admin','1234ABC');
+ * $modifyListGroups->rm_modifyListGroups($account_id, $listGroup_id, $request_body);
+ *
+ * @param string $account_id The account_id returned from the Get User service.
+ * $param string $listGroup_id The List Group to be modified.
+ * @param string $request_body In xml and containg parameters delineated here https://services.reachmail.net/sdk/.
+ *
+ * @return string Modifies the name of the active List Group specified in the request_body. 
 */
 		function rm_modifyListGroup($account_id, $listGroup_id, $request_body) {
 					$modify_list_group_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/groups/';
