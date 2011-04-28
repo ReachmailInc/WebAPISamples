@@ -36,57 +36,57 @@ Queue Mialing: Schedules a mailing for send.
 
 <!-- Contact Services -->
 
-Create List: Creates an empty list in the account. Once created list can have records imported into it or created.
+Create List: Creates an empty list in the account. Once created list can have records imported into it or created individualy.
 
 Get List: Used to assure list is active and available. Returns list properties (e.g. ID, name, number of active users).
 
-Modify List: Change name, add fields, as well as other properties to a list.
+Modify List: Change name, add fields, and modify other properties to a list.
 
 Delete List: Deletes a list.
 
-Export Recipients: Will export a specified list for subsequent download.
+Export Recipients: Will export a specified active list for subsequent download.
 
 Get Export Status: Used to assure an export is available for downloading.
 
 Enumerate Fields: Returns a list of all fields available for the account, including any custom fields that have been set up.
 
-Enumerate Groups: Returns id and requested properties of all list groups in account that meet the request parameters.
+Enumerate Groups: Returns id and requested properties of all List Groups in the account that meet the request parameters.
 
 Create Groups: Creates and names List Groups.
 
 Get Groups: Used to assure a List Group is available. Returns the groups properties (name, Id).
 
-Modify Groups: Used to change the name of a List Group.
+Modify Groups: Used to change the name of an active List Group.
 
 Delete Groups: Deletes empty List Groups from the account.
 
-Import Recipients: Imports records into a list.
+Import Recipients: Imports records into an active list.
 
 Get Import Status: Used to assure an import went through.
 
-Opt-in Recipient from List: Opts-in a recipient to a list.
+Opt-in Recipient from List: Opts-in a recipient to an active list.
 
-Opt-out Recipient from List: Opts-out a recipient to a list.
+Opt-out Recipient from List: Opts-out a recipient to an active list.
 
 Enumerate Lists: Returns requested properties of all lists in the account that meet the request parameters (Id, name, etc.).
 
 Get Recipient: Returns recipient properties (email, name, etc.).
 
-Modify Recipient: Changes properties of a recipient in a list.
+Modify Recipient: Changes properties of a recipient in an active list.
 
-Delete Recipient: Deletes a recipient from a list.
+Delete Recipient: Deletes a recipient from an active list.
 
-Create Recipient: Adds a record to a list.
+Create Recipient: Adds a record to an active list.
 
-Get Individual Recipients by Query: Search for recipients in a list by specified recipient properties.
+Get Individual Recipients by Query: Search for recipients in an active list by specified recipient properties.
 
-Delete Individual Recipients by Query: Search for recipients and delete them from a list using specified recipient properties.
+Delete Individual Recipients by Query: Search for recipients and delete them from an active list using specified recipient properties.
 
-Modify Individual Recipients by Query: Search for recipients in list using specified recipient properties and modify them.
+Modify Individual Recipients by Query: Search for recipients in an active list using specified recipient properties and modify them.
 
-Enumerate Recipients: Returns all records in a list that meet the request parameters.
+Enumerate Recipients: Returns all records in an active list that meet the request parameters.
 
-Delete Batch Recipients by Query: Search for multiple recipients and delete them from a list using specified recipient properties.
+Delete Batch Recipients by Query: Search for multiple recipients and delete them from an active list using specified recipient properties.
 
 <!-- Mailing Services -->
 
@@ -108,9 +108,9 @@ Modify Groups: Used to change the name of a Mail Group.
 
 Delete Groups: Deletes empty Mail Groups from the account.
 
-Enumerate Mailings: Returns Id's and requested properties of all Mailings in account that meet the request parameters.
+Enumerate Mailings: Returns Id's and requested properties of all Mailings in the account that meet the request parameters.
 
-Enumerate Mailings: Gives the mail_id and other requested mail properties of all mailings that meet the request parameters.
+Enumerate Mailings: Gives the mail_id and other mail properties of all mailings that meet the request parameters.
 
 Create Mailing Template: Creates a mailing template in the accounts templates area.
 
@@ -134,7 +134,7 @@ Exists: Used to assure the Upload, Download data, or Download File went as expec
 
 <!-- Report Services -->
 
-Get Mailing Report: Same as Mailing Service_Get Mialing, used to assure a mailing and its report are available. Returns the mailings content and properties.
+Get Mailing Report: Used to assure a mailing and its report are available. Returns the mailings content and properties as well as report statistics.
 
 Get Mailing Summary: Returns a summary of a mailing report for a specified mailing.
 
