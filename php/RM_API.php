@@ -233,6 +233,35 @@ Requirements: PHP 5 or higher.
 					$group_id = $create_group_xml->Id;
 					print "\nSuccessfully created List Group! (ID: $group_id)\n\n";
 		}	
+/*
+Modify List Group
+*/
+		function rm_modifyListGroup($account_id, $listGroup_id, $request_body) {
+					$modify_list_group_url = 'https://services.reachmail.net/Rest/Contacts/v1/lists/groups/';
+					$api_service_url = $modify_list_group_url . $account_id . "/" . $listGroup_id;
+					$header = array("Content-Type: application/xml");
+					$modify_list_group_request = curl_init();
+					$putString = $request_body;
+					$putData = tmpfile(); 
+					fwrite($putData, $putString); 
+					fseek($putData, 0);
+					$length = strlen($putString);
+					$curl_options = array(
+							CURLOPT_URL => $api_service_url,
+							CURLOPT_HEADER => false,
+							CURLOPT_USERPWD => "$this->_account_key\\$this->_username:$this->_password",
+							CURLOPT_HTTPHEADER => $header,
+							CURLOPT_PUT => true,
+							CURLOPT_INFILE => $putData,
+							CURLOPT_INFILESIZE => $length,
+							CURLOPT_RETURNTRANSFER => true
+							);
+					curl_setopt_array($modify_list_group_request, $curl_options);
+					$modify_list_group_response = curl_exec($modify_list_group_request);
+					curl_close($modify_list_group_request);
+					$xml = simplexml_load_string($modify_list_group_response);
+					$return = print_r($modify_list_group_response);				
+		}
 /**
  * Create List sets up an empty list with the fields formatted in the $request_body. 
  *
