@@ -15,7 +15,7 @@ method rm_getUser
    "   rm_addViaImport (bundle)
    "   rm_enumerateRecipients
    "   rm_createRecipient
-   "   rm_modifyRecipioents
+   "   rm_modifyRecipients
    "   rm_exportRecipients
    "   rm_downloadData
    "   rm_exportList (bundle)
