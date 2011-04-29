@@ -4,8 +4,8 @@ method rm_getUser
    "   rm_enumerateFields
    "   rm_enumerateLists
    "   rm_enumerateListGroups
-   "   rm_createListGroups
-   "   rm_modifyListGroups
+   "   rm_createListGroup
+   "   rm_modifyListGroup
    "   rm_createList
    "   rm_getList
    "   rm_modifyList
