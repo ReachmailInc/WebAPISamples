@@ -793,6 +793,44 @@ Requirements: PHP 5 or higher.
 					$create_mailing_group_xml = simplexml_load_string($create_mailing_group_response);
 					$mailing_group_id = $create_mailing_group_xml->Id;
 					print "\nSuccessfully created Mailing Group! (ID: $mailing_group_id)\n\n";
+		}
+/**
+ * Modify Mailing Group changes the name of a selected active Mailing Group in the account.
+ *
+ * $modifyMailingGroup = new RM_API('ACME','admin','1234ABC');
+ * $modifyMailingGroup->rm_modifyListGroup($account_id, $listGroup_id, $request_body);
+ *
+ * @param string $account_id The account_id returned from the Get User service.
+ * $param string $listGroup_id The Mailing Group to be modified.
+ * @param string $request_body In xml and containg parameters delineated here https://services.reachmail.net/sdk/.
+ *
+ * @return string Modifies the name of the active Mailing Group specified in the request_body. 
+*/
+		function rm_modifyMailingGroup($account_id, $mailing_group_id, $request_body) {
+					$modify_mailing_group_url = 'https://services.reachmail.net/Rest/Content/Mailings/v1/groups/';
+					$api_service_url = $modify_mailing_group_url . $account_id . "/" . $mailing_group_id;
+					$header = array("Content-Type: application/xml");
+					$modify_mailing_group_request = curl_init();
+					$putString = $request_body;
+					$putData = tmpfile(); 
+					fwrite($putData, $putString); 
+					fseek($putData, 0);
+					$length = strlen($putString);
+					$curl_options = array(
+							CURLOPT_URL => $api_service_url,
+							CURLOPT_HEADER => false,
+							CURLOPT_USERPWD => "$this->_account_key\\$this->_username:$this->_password",
+							CURLOPT_HTTPHEADER => $header,
+							CURLOPT_PUT => true,
+							CURLOPT_INFILE => $putData,
+							CURLOPT_INFILESIZE => $length,
+							CURLOPT_RETURNTRANSFER => true
+					);
+					curl_setopt_array($modify_mailing_group_request, $curl_options);
+					$modify_mailing_group_response = curl_exec($modify_mailing_group_request);
+					curl_close($modify_mailing_group_request);
+					$xml = simplexml_load_string($modify_mailing_group_response);
+					$return = print_r($modify_mailing_group_response);				
 		}		
 /**
  * Enumerate Mailings gives the mail_id and other requested mail properties of all mailings that meet the request requirements in the request_body.
