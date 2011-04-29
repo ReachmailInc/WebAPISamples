@@ -173,7 +173,7 @@ Requirements: PHP 5 or higher.
 					echo $list_xml->saveXML("lists.xml");
 		}
 /**
- * Enumerate List Groups returns the group_id's, names, and other properties of all list groups in the account.
+ * Enumerate List Groups returns the group_id's, names, and other properties of all List Groups in the account.
  * 
  * $listGroups = new RM_API('ACME','admin','1234ABC');
  * $listGroups->rm_listGroups($account_id);
@@ -736,7 +736,7 @@ Requirements: PHP 5 or higher.
  * Enumerate Mailing Groups returns the group_id's, names, and other properties of all Mailing Groups in the account.
  * 
  * $mailGroups = new RM_API('ACME','admin','1234ABC');
- * $mailGroups->rm_listGroups($account_id);
+ * $mailGroups->rm_mailGroups($account_id);
  *
  * @param string $account_id The account_id returned from the Get User service.
  *
@@ -754,7 +754,7 @@ Requirements: PHP 5 or higher.
 							CURLOPT_HTTPHEADER => $header,
 							CURLOPT_RETURNTRANSFER => true
 			
-			);
+					);
 					curl_setopt_array($mailing_groups_request, $curl_options);
 					$mailing_groups_response = curl_exec($mailing_groups_request);
 					curl_close($mailing_groups_request);
