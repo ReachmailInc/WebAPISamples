@@ -20,6 +20,7 @@ method rm_getUser
    "   rm_downloadData
    "   rm_exportList (bundle)
    "   rm_enumerateMailingGroups
+   "   rm_createMailingGroup
    "   rm_enumerateMailings
    "   rm_createMail
    "   rm_enumerateMailingReports
