@@ -175,8 +175,8 @@ Requirements: PHP 5 or higher.
 /**
  * Enumerate List Groups returns the group_id's, names, and other properties of all List Groups in the account.
  * 
- * $listGroups = new RM_API('ACME','admin','1234ABC');
- * $listGroups->rm_listGroups($account_id);
+ * $enumerateListGroups = new RM_API('ACME','admin','1234ABC');
+ * $enumerateListGroups->rm_enumerateListGroups($account_id);
  *
  * @param string $account_id The account_id returned from the Get User service.
  *
@@ -204,8 +204,8 @@ Requirements: PHP 5 or higher.
 /**
  * Create List Group creates a new List Group in the account.
  *
- * $createListGroups = new RM_API('ACME','admin','1234ABC');
- * $createListGroups->rm_createListGroups($account_id, $request_body);
+ * $createListGroup = new RM_API('ACME','admin','1234ABC');
+ * $createListGroup->rm_createListGroup($account_id, $request_body);
  *
  * @param string $account_id The account_id returned from the Get User service.
  * @param string $request_body In xml and containg parameters delineated here https://services.reachmail.net/sdk/.
@@ -597,8 +597,8 @@ Requirements: PHP 5 or higher.
 /**
  * Modify Recipients changes properties of a record in an active list.
  *
- * $modifyRecipients = new RM_API('ACME','admin','1234ABC');
- * $modifyRecipients->rm_modifyRecipients($account_id, $list_id, $email, $request_body);
+ * $modifyRecipient = new RM_API('ACME','admin','1234ABC');
+ * $modifyRecipient->rm_modifyRecipient($account_id, $list_id, $email, $request_body);
  *
  * @param string $account_id The account_id returned from the Get User service.
  * @param string $list_id The list which is having a recipient modified.
@@ -735,8 +735,8 @@ Requirements: PHP 5 or higher.
 /**
  * Enumerate Mailing Groups returns the group_id's, names, and other properties of all Mailing Groups in the account.
  * 
- * $mailGroups = new RM_API('ACME','admin','1234ABC');
- * $mailGroups->rm_mailGroups($account_id);
+ * $enumerateMailingGroups = new RM_API('ACME','admin','1234ABC');
+ * $enumerateMailingGroups->rm_enumerateMailingGroups($account_id);
  *
  * @param string $account_id The account_id returned from the Get User service.
  *
@@ -918,8 +918,8 @@ Requirements: PHP 5 or higher.
 /**
  * Get Mailing Report returns a detailed mailing report.
  *
- * $mailingReport= new RM_API('ACME','admin','1234ABC');
- * $mailingReport->rm_getMailingReport($account_id, $mailing_id);
+ * $getMailingReport= new RM_API('ACME','admin','1234ABC');
+ * $getMailingReport->rm_getMailingReport($account_id, $mailing_id);
  *
  * @param string $account_id The account_id returned from the Get User service.
  * @param string $mailing_id The id of the mailin to generate the report.
