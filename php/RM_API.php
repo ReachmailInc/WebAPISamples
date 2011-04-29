@@ -886,6 +886,38 @@ Requirements: PHP 5 or higher.
 					echo $mail_report_xml ->saveXML("reports.xml");
 		}
 /**
+ * Create Mailing Group creates a new Mailing Group in the account.
+ *
+ * $createMailingGroup = new RM_API('ACME','admin','1234ABC');
+ * $createMailingGroup->rm_createMailingGroup($account_id, $request_body);
+ *
+ * @param string $account_id The account_id returned from the Get User service.
+ * @param string $request_body In xml and containg parameters delineated here https://services.reachmail.net/sdk/.
+ *
+ * @return string Creates a new List Group in the account and returns its group_id to the standard output.
+*/
+		function rm_createMailingGroup($account_id, $request_body){	
+					$create_mailing_group_url = 'https://services.reachmail.net/Rest/Content/Mailings/v1/groups/';
+					$api_service_url = $create_mailing_group_url . $account_id;
+					$header = array("Content-Type: application/xml");					
+					$create_mailing_group_request = curl_init();
+					$curl_options = array(
+							CURLOPT_URL => $api_service_url,
+							CURLOPT_HEADER => false,
+							CURLOPT_USERPWD => "$this->_account_key\\$this->_username:$this->_password",
+							CURLOPT_HTTPHEADER => $header,
+							CURLOPT_POST => true,
+							CURLOPT_POSTFIELDS => $request_body,
+							CURLOPT_RETURNTRANSFER => true
+					);
+					curl_setopt_array($create_mailing_group_request, $curl_options);
+					$create_mailing_group_response = curl_exec($create_mailing_group_request);
+					curl_close($create_mailing_group_request);
+					$create_mailing_group_xml = simplexml_load_string($create_mailing_group_response);
+					$mailing_group_id = $create_mailing_group_xml->Id;
+					print "\nSuccessfully created Mailing Group! (ID: $mailing_group_id)\n\n";
+		}
+/**
  * Get Mailing Report Summary returns a summary of a specific mailing report.
  *
  * $mailingReportSummary = new RM_API('ACME','admin','1234ABC');
@@ -921,7 +953,7 @@ Requirements: PHP 5 or higher.
  * $getMailingReport = new RM_API('ACME','admin','1234ABC');
  * $getMailingReport->rm_getMailingReport($account_id, $mailing_id);
  *
- * @param string $account_id The account_id returned from the Get User service.
+ 
  * @param string $mailing_id The id of the mailin to generate the report.
  *
  * @return string Returns report in the standard output and as an xslt styledReport.xml.
