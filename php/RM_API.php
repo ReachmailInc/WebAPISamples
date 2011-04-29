@@ -230,8 +230,8 @@ Requirements: PHP 5 or higher.
 					$create_group_response = curl_exec($create_group_request);
 					curl_close($create_group_request);
 					$create_group_xml = simplexml_load_string($create_group_response);
-					$group_id = $create_group_xml->Id;
-					print "\nSuccessfully created List Group! (ID: $group_id)\n\n";
+					$list_group_id = $create_group_xml->Id;
+					print "\nSuccessfully created List Group! (ID: $list_group_id)\n\n";
 		}	
 /**
  * Modify List Group changes the name of a selected active List Group in the account.
