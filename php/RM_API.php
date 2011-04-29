@@ -205,7 +205,7 @@ Requirements: PHP 5 or higher.
  * Create List Group creates a new List Group in the account.
  *
  * $createListGroups = new RM_API('ACME','admin','1234ABC');
- * $createListGroups->rm_listGroups($account_id, $request_body);
+ * $createListGroups->rm_createListGroups($account_id, $request_body);
  *
  * @param string $account_id The account_id returned from the Get User service.
  * @param string $request_body In xml and containg parameters delineated here https://services.reachmail.net/sdk/.
