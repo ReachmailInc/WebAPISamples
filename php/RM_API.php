@@ -562,8 +562,8 @@ Requirements: PHP 5 or higher.
 /**
  * Create Recipient adds a record to an active list.
  *
- * $createRecipients = new RM_API('ACME','admin','1234ABC');
- * $createRecipients->rm_createRecipients($account_id, $list_id, $request_body);
+ * $createRecipient = new RM_API('ACME','admin','1234ABC');
+ * $createRecipient->rm_createRecipient($account_id, $list_id, $request_body);
  *
  * @param string $account_id The account_id returned from the Get User service.
  * @param string $list_id The list to which the new record is being added.
@@ -918,7 +918,7 @@ Requirements: PHP 5 or higher.
 /**
  * Get Mailing Report returns a detailed mailing report.
  *
- * $getMailingReport= new RM_API('ACME','admin','1234ABC');
+ * $getMailingReport = new RM_API('ACME','admin','1234ABC');
  * $getMailingReport->rm_getMailingReport($account_id, $mailing_id);
  *
  * @param string $account_id The account_id returned from the Get User service.
