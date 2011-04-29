@@ -731,6 +731,36 @@ Requirements: PHP 5 or higher.
 					$downloadData = new RM_API($this->_account_key, $this->_username,$this->_password);
 					$downloadData->rm_downloadData($export_id);
 					
+		}
+/**
+ * Enumerate Mailing Groups returns the group_id's, names, and other properties of all Mailing Groups in the account.
+ * 
+ * $mailGroups = new RM_API('ACME','admin','1234ABC');
+ * $mailGroups->rm_listGroups($account_id);
+ *
+ * @param string $account_id The account_id returned from the Get User service.
+ *
+ * @return string Returns the group_id's, names, and other properties of all Mailing Groups in the account to the standard output.
+*/
+		function rm_enumerateMailingGroups($account_id) {
+					$mailing_groups_url = 'https://services.reachmail.net/Rest/Content/Mailings/v1/groups/';    
+					$api_service_url = $mailing_groups_url . $account_id;
+					$header = array("Content-Type: application/xml");
+					$mailing_groups_request = curl_init();
+					$curl_options = array(
+							CURLOPT_URL => $api_service_url,
+							CURLOPT_HEADER => false,
+							CURLOPT_USERPWD => "$this->_account_key\\$this->_username:$this->_password",
+							CURLOPT_HTTPHEADER => $header,
+							CURLOPT_RETURNTRANSFER => true
+			
+			);
+					curl_setopt_array($mailing_groups_request, $curl_options);
+					$mailing_groups_response = curl_exec($mailing_groups_request);
+					curl_close($mailing_groups_request);
+					$mailing_groups_xml = simplexml_load_string($mailing_groups_response);
+					print_r($mailing_groups_response);
+					echo $mailing_groups_xml->saveXML("mailingGroups.xml");
 		}		
 /**
  * Enumerate Mailings gives the mail_id and other requested mail properties of all mailings that meet the request requirements in the request_body.
