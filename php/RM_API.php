@@ -236,8 +236,8 @@ Requirements: PHP 5 or higher.
 /**
  * Modify List Group changes the name of a selected active List Group in the account.
  *
- * $modifyListGroups = new RM_API('ACME','admin','1234ABC');
- * $modifyListGroups->rm_modifyListGroups($account_id, $listGroup_id, $request_body);
+ * $modifyListGroup = new RM_API('ACME','admin','1234ABC');
+ * $modifyListGroup->rm_modifyListGroup($account_id, $listGroup_id, $request_body);
  *
  * @param string $account_id The account_id returned from the Get User service.
  * $param string $listGroup_id The List Group to be modified.
