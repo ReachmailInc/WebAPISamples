@@ -15,7 +15,7 @@ method rm_getUser
    "   rm_addViaImport (bundle)
    "   rm_enumerateRecipients
    "   rm_createRecipient
-   "   rm_modifyRecipients
+   "   rm_modifyRecipient
    "   rm_exportRecipients
    "   rm_downloadData
    "   rm_exportList (bundle)
@@ -55,13 +55,13 @@ Enumerate Fields: Returns a list of all fields available for the account, includ
 
 Enumerate Groups: Returns id and requested properties of all List Groups in the account that meet the request parameters.
 
-Create Groups: Creates and names List Groups.
+Create List Group: Creates and names a List Group.
 
-Get Groups: Used to assure a List Group is available. Returns the groups properties (name, Id).
+Get Group: Used to assure a List Group is available. Returns the groups properties (name, Id).
 
-Modify Groups: Used to change the name of an active List Group.
+Modify Group: Used to change the name of an active List Group.
 
-Delete Groups: Deletes empty List Groups from the account.
+Delete Group: Deletes empty List Groups from the account.
 
 Import Recipients: Imports records into an active list.
 
@@ -103,17 +103,15 @@ Delete Mailing: Used to delete a mailing.
 
 Enumerate Groups: Returns id and requested properties of all Mail Groups in account that meet the request parameters.
 
-Create Groups: Creates and names Mail Groups.
+Create Mailing Group: Creates and names a Mailing Group.
 
-Get Groups: Used to assure a Mail Group is available. Returns the groups properties (name, Id).
+Get Mailing Group: Used to assure a Mail Group is available. Returns the groups properties (name, Id).
 
-Modify Groups: Used to change the name of a Mail Group.
+Modify Mailing Group: Used to change the name of a Mail Group.
 
-Delete Groups: Deletes empty Mail Groups from the account.
+Delete Mailing Group: Deletes empty Mail Groups from the account.
 
 Enumerate Mailings: Returns Id's and requested properties of all Mailings in the account that meet the request parameters.
-
-Enumerate Mailings: Gives the mail_id and other mail properties of all mailings that meet the request parameters.
 
 Create Mailing Template: Creates a mailing template in the accounts templates area.
 
