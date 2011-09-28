@@ -20,7 +20,7 @@ public class Rest {
 		String pass = "PASSWORD";
 		
 		//set URL
-		URL url = new URL("https://services.reachmail.net/Rest/Contacts/v1/lists/9D307247-13D3-E011-9A62-001EC9B929F4");
+		URL url = new URL("https://services.reachmail.net/Rest/Contacts/v1/lists/ACCOUNTID");
 
 		//open URL connection
 		HttpURLConnection connection = (HttpURLConnection)url.openConnection();
