@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-"""enumerate_mailings.py [-k account key] [-u username]\n"""
-# enumerate_mailings.py - Demonstration of Reachmail API service 
-# MailingService\EnumerateMailings 
+"""enumerate_mailing_reports.py [-k account key] [-u username]\n"""
+# enumerate_mailing_reports.py - Demonstration of Reachmail API service 
+# ReportService\EnumerateMailingReports 
 import sys, urllib2, getpass, getopt
 from xml.dom import minidom
 
@@ -51,17 +51,18 @@ def get_current_user(credentials):
 		return _id, e 
 	return _id, None 
 
-def enumerate_mailings(credentials, _id):
-	service_uri = 'https://services.reachmail.net/Rest/Content/Mailings/v1/query/%s' % str(_id)
+def enumerate_mailing_reports(credentials, _id):
+	service_uri = 'https://services.reachmail.net/Rest/Reports/v1/mailings/query/%s' % str(_id)
 	response = service_call(service_uri, 'POST', credentials.api_user,
-		credentials.password, request_body='<MailingFilter></MailingFilter>')
+		credentials.password, 
+		request_body='<MailingReportFilter></MailingReportFilter>')
 	try:
 		xmldom = minidom.parseString(response)
-		_mails = xmldom.getElementsByTagName('Mailing')
+		_reports = xmldom.getElementsByTagName('MailingReport')
 	except Exception, e:
-		_mails = None
-		return _mails, e
-	return _mails, None
+		_reports = None
+		return _reports, e
+	return _reports, None
 
 def parseargs():
 	try:
@@ -98,11 +99,11 @@ def run():
 	if not _id:
 		print err
 		sys.exit(2)
-	_mails, err = enumerate_mailings(credentials, _id)
-	if not _mails:
+	_reports, err = enumerate_mailing_reports(credentials, _id)
+	if not _reports:
 		print err
 		sys.exit(2)
-	print "Account %s has %d messages" % (credentials.key, len(_mails))
+	print "Account %s has %d campaigns" % (credentials.key, len(_reports))
 
 if __name__ == '__main__':
 	run()

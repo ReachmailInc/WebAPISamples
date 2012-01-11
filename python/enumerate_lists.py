@@ -63,14 +63,6 @@ def enumerate_lists(credentials, _id):
 		return _lists, e
 	return _lists, None
 
-def parse_response(response):
-	try:
-		xmldom = minidom.parseString(response)
-		_id = xmldom.getElementsByTagName('AccountId')[0].firstChild.nodeValue
-	except Exception, e:
-		_id = response
-	return _id
-
 def parseargs():
 	try:
 		opts, args = getopt.getopt(sys.argv[1:], 'hk:u:',
