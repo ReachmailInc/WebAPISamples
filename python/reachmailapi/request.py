@@ -22,6 +22,20 @@ class ContactService(object):
 		'method': 'POST'
 	}
 
+class MailingService(object):
+	base = 'https://services.reachmail.net/Rest/Mailings/v1'
+	EnumerateMailings = {
+		'uri': base + '/query/%s',
+		'method': 'POST'
+	}
+
+class ReportService(object):
+	base = 'https://services.reachmail.net/Rest/Reports/v1'
+	EnumerateMailingReports = {
+		'uri': base + '/mailings/query/%s',
+		'method': 'POST'
+	}
+
 def call(service_uri, method, api_user, password, request_body=None):
 	pw_manager = urllib2.HTTPPasswordMgrWithDefaultRealm()
 	pw_manager.add_password(None, service_uri, api_user, password)
