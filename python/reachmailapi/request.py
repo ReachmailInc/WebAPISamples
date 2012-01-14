@@ -17,6 +17,38 @@ class CampaignService(object):
 
 class ContactService(object):
 	base = 'https://services.reachmail.net/Rest/Contacts/v1'
+	CreateList = {
+		'uri': base + '/lists/%s',
+		'method': 'POST'
+	}
+	GetList = {
+		'uri': base + '/lists/%s/%s',
+		'method': 'GET'
+	}
+	ExportRecipients = {
+		'uri': base + '/lists/export/%s/%s',
+		'method': 'POST'
+	}
+	GetExportStatus = {
+		'uri': base + '/lists/export/status/%s/%s',
+		'method': 'GET'
+	}
+	EnumerateFields = {
+		'uri': base + '/lists/fields/%s',
+		'method': 'GET'
+	}
+	EnumerateGroups = {
+		'uri': base + '/lists/groups/%s',
+		'method': 'GET'
+	}
+	CreateGroup = {
+		'uri': base + '/lists/groups/%s',
+		'method': 'POST'
+	}
+	GetGroup = {
+		'uir': base + '/lists/groups/%s/%s',
+		'method': 'GET'
+	}
 	EnumerateLists = {
 		'uri': base + '/lists/query/%s',
 		'method': 'POST'
