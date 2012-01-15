@@ -16,6 +16,21 @@ def get_list(credentials, acct_id, list_id):
 		credentials.api_user, credentials.password)
 	return response
 
+def modify_list(credentials, acct_id, list_id, request_body):
+	service = request.ContactService.ModifyList
+	service_uri = service['uri'] % (str(acct_id), str(list_id))
+	response = request.call(service_uri, service['method'],
+		credentials.api_user, credentials.password,
+		request_body=request_body)
+	return response
+
+def delete_list(credentials, acct_id, list_id):
+	service = request.ContactService.DeleteList
+	service_uri = service['uri'] % (str(acct_id), str(list_id))
+	response = request.call(service_uri, service['method'],
+		credentials.api_user, credentials.password)
+	return response
+
 def export_recipients(credentials, acct_id, list_id, request_body):
 	service = request.ContactService.ExportRecipients
 	service_uri = service['uri'] % (str(acct_id), str(list_id))
