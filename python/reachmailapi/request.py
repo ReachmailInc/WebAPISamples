@@ -54,7 +54,7 @@ class ContactService(object):
 		'method': 'POST'
 	}
 	GetGroup = {
-		'uir': base + '/lists/groups/%s/%s',
+		'uri': base + '/lists/groups/%s/%s',
 		'method': 'GET'
 	}
 	EnumerateLists = {
