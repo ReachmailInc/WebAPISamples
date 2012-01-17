@@ -1,5 +1,5 @@
 # Functions for accessing the CampaignService group
-from reeachmailapi import request
+from reachmailapi import request
 
 def queue_mailing(credentials, account_id, request_body):
 	service = request.CampaignService.QueueMailing
