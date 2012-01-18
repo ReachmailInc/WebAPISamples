@@ -57,8 +57,86 @@ class ContactService(object):
 		'uri': base + '/lists/groups/%s/%s',
 		'method': 'GET'
 	}
+	ModifyGroup = {
+		'uri': base + '/lists/groups/%s/%s',
+		'method': 'PUT'
+	}
+	DeleteGroup = {
+		'uri': base + '/lists/groups/%s/%s',
+		'method': 'PUT'
+	}
+	ImportRecipients = {
+		'uri': base + '/lists/import/%s/%s',
+		'method': 'POST'
+	}
+	GetImportStatus = {
+		'uri': base + '/lists/import/%s/%s',
+		'method': 'GET'
+	}
+	OptInRecipientFromList = {
+		'uri': base + '/lists/optin/%s/%s?redirecturl=%s',
+		'method': 'POST'
+	}
+	OptOutRecipientFromList = {
+		'uri': base + '/lists/optout/%s/%s?redirecturl=%s',
+		'method': 'POST'
+	}
 	EnumerateLists = {
 		'uri': base + '/lists/query/%s',
+		'method': 'POST'
+	}
+	GetRecipient = {
+		'uri': base + '/lists/query/%s/%s/%s',
+		'method': 'GET'
+	}
+	ModifyRecipient = {
+		'uri': base + '/lists/recipients/%s/%s/%s',
+		'method': 'PUT'
+	}
+	DeleteRecipient = {
+		'uri': base + '/lists/recipients/%s/%s/%s',
+		'method': 'DELETE'
+	}
+	CreateRecipient = {
+		'uri': base + '/lists/recipients/%s/%s?redirecturl=%s',
+		'method': 'POST'
+	}
+	GetIndividualRecipientByQuery = {
+		'uri': base + '/lists/recipients/find/%s/%s',
+		'method': 'POST'
+	}
+	DeleteIndividualRecipientByQuery = {
+		'uri': base + '/lists/recipients/find/delete/%s/%s',
+		'method': 'POST'
+	}
+	ModifyIndividualRecipientByQuery = {
+		'uri': base \
+			+ '/lists/recipients/find/modify/%s/%s?redirecturl=%s',
+		'method': 'POST'
+	}
+	EnumerateRecipients = {
+		'uri': base + '/lists/recipients/query/%s/%s',
+		'method': 'POST'
+	}
+	DeleteBatchRecipientsByQuery = {
+		'uri': base + '/lists/recipients/query/delete/%s/%s',
+		'method': 'POST'
+	}
+	ModifyBatchRecipientsByQuery = {
+		'uri': base + '/lists/recipients/query/modify/%s/%s',
+		'method': 'POST'
+	}
+	ModifyOrCreateIndividualRecipientByQuery = {
+		'uri': base + \
+			'/lists/recipients/subscribe/%s/%s?redirecturl=%s',
+		'method': 'POST'
+	}
+	OptInRecipientFromAccount = {
+		'uri': base + '/optin/%s?redirecturl=%s',
+		'method': 'POST'
+	}
+	OptOutRecipientFromAccount = {
+		'uri': base + '/optout/%s?redirecturl=%s',
 		'method': 'POST'
 	}
 
