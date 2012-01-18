@@ -140,6 +140,49 @@ class ContactService(object):
 		'method': 'POST'
 	}
 
+class ContentLibraryService(object):
+	base = 'https://services.reachmail.net/Rest/Content/Library'
+	AddFile = {
+		'uri': base + '/files/%s/%s',
+		'method': 'POST'
+	}
+	GetFile = {
+		'uri': base + '/files/%s/%s',
+		'method': 'GET'
+	}
+	ModifyFile = {
+		'uri': base + '/files/%s/%s',
+		'method': 'PUT'
+	}
+	DeleteFile = {
+		'uri': base + '/files/%s/%s',
+		'method': 'DELETE'
+	}
+	EnumerateFiles = {
+		'uri': base + '/files/query/%s',
+		'method': 'POST'
+	}
+	CreateFolder = {
+		'uri': base + '/folders/%s',
+		'method': 'POST'
+	}
+	GetFolder = {
+		'uri': base + '/folders/%s/%s',
+		'method': 'GET'
+	}
+	ModifyFolder = {
+		'uri': base + '/folders/%s/%s',
+		'method': 'PUT'
+	}
+	DeleteFolder = {
+		'uri': base + '/folders/%s/%s',
+		'method': 'DELETE'
+	}
+	EnumerateFolders = {
+		'uri': base + '/folders/query/%s',
+		'method': 'POST'
+	}
+
 class MailingService(object):
 	base = 'https://services.reachmail.net/Rest/Mailings/v1'
 	EnumerateMailings = {
