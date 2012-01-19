@@ -347,7 +347,7 @@ def call(service_uri, method, api_user, password, request_body=None):
 		elif method == 'DELETE':
 			request = urllib2.Request(service_uri, request_body)
 			request.add_header('Content-Type', 'text/xml')
-			request.get_method* = lambda: 'DELETE'
+			request.get_method = lambda: 'DELETE'
 			response = urllib2.urlopen(request).read()
 	except urllib2.HTTPError, e:
 		response = "HTTP ERROR: %s %s" % (service_uri, e)
