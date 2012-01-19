@@ -8,7 +8,7 @@ class Options:
 	pass
 
 def get_account_id(user):
-	response = credentials(user)
+	response = administration.get_current_user(user)
 	account_id = parse_response(response, 'AccountId')[0].firstChild.nodeValue
 	return account_id
 

@@ -250,7 +250,7 @@ class MailingService(object):
 		'method': 'POST'
 	}
 	GetTemplateGroup = {
-		'uri': base + '/templates/groups/%s/%s'
+		'uri': base + '/templates/groups/%s/%s',
 		'method': 'GET'
 	}
 	ModifyTemplateGroup = {
