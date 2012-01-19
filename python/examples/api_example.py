@@ -43,7 +43,7 @@ def usage(code, msg=''):
 		print "%s" % __doc__
 	sys.exit(code)
 
-def run()
+def run():
 	options = parse_args()
 	if not options.acct_key:
 		options.acct_key = raw_input('Account key: ')
