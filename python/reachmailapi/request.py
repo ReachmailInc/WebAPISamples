@@ -185,16 +185,145 @@ class ContentLibraryService(object):
 
 class MailingService(object):
 	base = 'https://services.reachmail.net/Rest/Mailings/v1'
+	CreateMailing = {
+		'uri': base + '/%s',
+		'method': 'POST'
+	}
+	GetMailing = {
+		'uri': base + '/%s/%s',
+		'method': 'POST'
+	}
+	ModifyMailing = {
+		'uri': base + '/%s/%s',
+		'method': 'POST'
+	}
+	DeleteMailing = {
+		'uri': base + '/%s/%s',
+		'method': 'POST'
+	}
+	EnumerateGroups = {
+		'uri': base + '/groups/%s',
+		'method': 'POST'
+	}
+	CreateGroup = {
+		'uri': base + '/groups/%s',
+		'method': 'POST'
+	}
+	GetGroup = {
+		'uri': base + '/groups/%s/%s',
+		'method': 'GET'
+	}
+	ModifyGroup = {
+		'uri': base + '/groups/%s/%s',
+		'method': 'PUT'
+	}
+	DeleteGroup = {
+		'uri': base + '/group/%s/%s',
+		'method': 'DELETE'
+	}
 	EnumerateMailings = {
 		'uri': base + '/query/%s',
 		'method': 'POST'
 	}
+	CreateMailingtemplate = {
+		'uri': base + '/templates/%s',
+		'method': 'POST'
+	}
+	GetMailingTemplate = {
+		'uri': base + '/templates/%s/%s',
+		'method': 'GET'
+	}
+	ModifyMailingTemplate = {
+		'uri': base + '/templates/%s/%s',
+		'method': 'PUT'
+	}
+	DeleteMailingTemplate = {
+		'uri': base + '/templates/%s/%s',
+		'method': 'DELETE'
+	}
+	EnumerateTemplateGroups = {
+		'uri': base + '/templates/groups/%s',
+		'method': 'GET'
+	}
+	CreateTemplateGroup = {
+		'uri': base + '/templates/groups/%s',
+		'method': 'POST'
+	}
+	GetTemplateGroup = {
+		'uri': base + '/templates/groups/%s/%s'
+		'method': 'GET'
+	}
+	ModifyTemplateGroup = {
+		'uri': base + '/templates/groups/%s/%s',
+		'method': 'PUT'
+	}
+	DeleteTemplateGroup = {
+		'uri': base + '/templates/groups/%s/%s',
+		'method': 'DELETE'
+	}
+	EnumerateMailingTemplates = {
+		'uri': base + '/templates/query/%s',
+		'method': 'POST'
+	}
+
+class DataService(object):
+	base = 'https://services.reachmail.net/Rest/Data'
+	Upload = {
+		'uri': base + '/',
+		'method': 'POST'
+	}
+	Download = {
+		'uri': base + '/%s',
+		'method': 'GET'
+	}
+	DownloadFile = {
+		'uri': base + '/%s/%s',
+		'method': 'GET'
+	}
+	Exists = {
+		'uri': base + '/exists/%s',
+		'method': 'GET'
+	}
 
 class ReportService(object):
 	base = 'https://services.reachmail.net/Rest/Reports/v1'
+	GetBounceDetailReport = {
+		'uri': base + '/details/mailings/bounces/%s/%s',
+		'method': 'POST'
+	}
+	GetOptOutDetailReport = {
+		'uri': base + '/details/mailings/optouts/%s/%s',
+		'method': 'POST'
+	}
+	GetReadDetailReport = {
+		'uri': base + '/details/mailings/reads/%s/%s',
+		'method': 'POST'
+	}
+	GetTrackedLinkDetailReport = {
+		'uri': base + '/details/mailings/trackedLink/%s/%s',
+		'method': 'POST'
+	}
+	GetMailingReport = {
+		'uri': base + '/mailings/%s/%s',
+		'method': 'GET'
+	}
 	EnumerateMailingReports = {
 		'uri': base + '/mailings/query/%s',
 		'method': 'POST'
+	}
+	GetTrackedLinkReportByMailingId = {
+		'uri': base + '/mailings/trackedLinks/%s/%s',
+		'method': 'GET'
+	}
+	GetTrackedLinkReportByMailingListId = {
+		'uri': base + '/mailings/trackedLinks/%s/%s/%s',
+		'method': 'GET'
+	}
+
+class RuntimeService(object):
+	GetInfo = {
+		'uri': 'https://services.reachmail.net/Rest/Runtime/',
+		'method': 'GET'
 	}
 
 def call(service_uri, method, api_user, password, request_body=None):
