@@ -105,7 +105,7 @@ def get_import_status(credentials, acct_id, import_id):
 	return response
 
 def opt_in_recipient_from_list(credentials, acct_id, list_id,
-	request_body=None, redirect=None):
+	request_body, redirect=None):
 	service = request.ContactService.OptInRecipientFromList
 	if not redirect:
 		service_uri = service['uri'] % (str(acct_id), str(list_id), '')
@@ -118,7 +118,7 @@ def opt_in_recipient_from_list(credentials, acct_id, list_id,
 	return response
 
 def opt_out_recipient_from_list(credentials, acct_id, list_id,
-	request_body=None, redirect=None):
+	request_body, redirect=None):
 	service = request.ContactService.OptOutRecipientFromList
 	if not redirect:
 		service_uri = service['uri'] % (str(acct_id), str(list_id), '')
@@ -159,7 +159,7 @@ def delete_recipient(credenetials, acct_id, list_id, email):
 		credentials.api_user, credentials.password)
 	return response
 
-def create_recipient(credentials, acct_id, list_id, request_body=None,
+def create_recipient(credentials, acct_id, list_id, request_body,
 	redirect=None):
 	service = request.ContactService.CreateRecipient
 	if not redirect:
@@ -173,7 +173,7 @@ def create_recipient(credentials, acct_id, list_id, request_body=None,
 	return response
 
 def get_individual_recipient_by_query(credentials, acct_id, list_id,
-	request_body=None):
+	request_body):
 	service = request.ContactService.GetIndividualRecipientByQuery
 	service_uri = service['uri'] % (str(acct_id), str(list_id))
 	response = request.call(service_uri, service['method'],
@@ -182,7 +182,7 @@ def get_individual_recipient_by_query(credentials, acct_id, list_id,
 	return response
 
 def delete_individual_recipient_by_query(credentials, acct_id, list_id,
-	request_body=None):
+	request_body):
 	service = request.ContactService.DeleteIndividualRecipientByQuery
 	service_uri = service['uri'] % (str(acct_id), str(list_id))
 	response = request.call(service_uri, service['method'],
@@ -191,7 +191,7 @@ def delete_individual_recipient_by_query(credentials, acct_id, list_id,
 	return response
 
 def modify_individual_recipient_by_query(credentials, acct_id, list_id,
-	request_body=None, redirect_url=None):
+	request_body, redirect_url=None):
 	service = request.ContactService.ModifyIndividualRecipientByQuery
 	if not redirect:
 		service_uri = service['uri'] % (str(acct_id), str(list_id), '')
@@ -203,7 +203,7 @@ def modify_individual_recipient_by_query(credentials, acct_id, list_id,
 		request_body=request_body)
 	return response
 
-def enumerate_recipients(credentials, acct_id, list_id, request_body=None):
+def enumerate_recipients(credentials, acct_id, list_id, request_body):
 	service = request.ContactService.EnumerateRecipients
 	serivce_uri = service['uri'] % (str(acct_id), str(list_id))
 	response = request.call(service_uri, service['method'],
@@ -212,7 +212,7 @@ def enumerate_recipients(credentials, acct_id, list_id, request_body=None):
 	return response
 
 def delete_batch_recipients_by_query(credentials, acct_id, list_id,
-	request_body=None):
+	request_body):
 	serivce = request.ContactService.DeleteBatchRecipientsByQuery
 	service_uri = service['uri'] % (str(acct_id), str(list_id))
 	response = request.call(service_uri, service['method'],
@@ -221,7 +221,7 @@ def delete_batch_recipients_by_query(credentials, acct_id, list_id,
 	return response
 
 def modify_batch_recipients_by_query(credentials, acct_id, list_id,
-	request_body=None):
+	request_body):
 	serivce = request.ContactService.ModifyBatchRecipientsByQuery
 	service_uri = service['uri'] % (str(acct_id), str(list_id))
 	response = request.call(service_uri, service['method'],
@@ -230,7 +230,7 @@ def modify_batch_recipients_by_query(credentials, acct_id, list_id,
 	return response
 
 def modify_or_create_individual_recipient_by_query(credentials, acct_id,
-	list_id, request_body=None, redirect=None):
+	list_id, request_body, redirect=None):
 	service = request.ContactService.ModifyOrCreateIndividualRecipientByQuery
 	if not redirect:
 		service_uri = service['uri'] % (str(acct_id), str(list_id), '')
@@ -242,7 +242,8 @@ def modify_or_create_individual_recipient_by_query(credentials, acct_id,
 		request_body=request_body)
 	return response
 
-def opt_in_recipient_from_account(credentials, acct_id, redirect=None):
+def opt_in_recipient_from_account(credentials, acct_id, request_body,
+	redirect=None):
 	service = request.ContactService.OptInrecipientFromAccount
 	if not redirect:
 		service_uri = service['uri'] % (str(acct_id), str(list_id), '')
@@ -254,7 +255,8 @@ def opt_in_recipient_from_account(credentials, acct_id, redirect=None):
 		request_body=request_body)
 	return response
 
-def opt_out_recipient_from_account(credentials, acct_id, redirect=None):
+def opt_out_recipient_from_account(credentials, acct_id, request_body,
+	redirect=None):
 	service = request.ContactService.OptInrecipientFromAccount
 	if not redirect:
 		service_uri = service['uri'] % (str(acct_id), str(list_id), '')
