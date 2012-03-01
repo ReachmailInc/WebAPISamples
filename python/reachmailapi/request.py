@@ -3,6 +3,10 @@ import urllib2
 
 class Administration(object):
 	base = 'https://services.reachmail.net/Rest/Administration/v1'
+	EnumerateAddresses = {
+                'uri': base + '/addresses/%s',
+                'method': 'GET'
+        }
 	GetCurrentUser = {
 		'uri': base + '/users/current',
 		'method':'GET'
