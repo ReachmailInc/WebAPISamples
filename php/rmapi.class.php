@@ -39,7 +39,7 @@ if(!extension_loaded("curl")) {
  * $RMAPI = new RMAPI('ACME','admin','password');
  * Once this command has been added to your PHP script, you'll be able to use services like this:
 
- * $RMAPI->rm_functionName(requested perameters)	
+ * $RMAPI->rm_functionName(requested parameters)	
  * Requested parameters could be anything from account ids, list ids, or whatever you plan on accessing.
 
  * All sample commands assume that the class file is included in your script.	
@@ -69,7 +69,7 @@ class RMAPI{
  * Sample: $RMAPI->rm_getUser();	
  * Sample Output
 
-    [AccountId] => 9d307247-13d3-e111-9a62-001ec9b929f4
+    [AccountId] => 11111111-1111-1111-111111111111
     [AccountKey] => ACME
     [Username] => User
  * 
