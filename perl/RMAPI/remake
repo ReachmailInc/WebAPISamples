@@ -1,0 +1,3 @@
+rm /home/RMCOLO/mmarshall/lib/RMAPI/*
+make
+cp -pr /home/RMCOLO/mmarshall/scripts/API/RMAPI/blib/lib/* /home/RMCOLO/mmarshall/lib/RMAPI
