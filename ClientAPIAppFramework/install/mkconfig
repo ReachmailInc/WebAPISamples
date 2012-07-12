@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+# mkconfig - Creates application config file
+import sys
+try:
+	import configparser
+except:
+	import ConfigParser as configparser
+
+default_config = '../config/app_config.ini'
+
+def set_loop():
+	for section in parser.sections():
+		for name in parser.items(section):
+			value = raw_input("%s: " % name[0])
+			parser.set(section, name[0], value)
+
+parser = configparser.SafeConfigParser()
+parser.read(default_config)
+
+done = False
+while not done:
+	print "Please enter values for the following configuration settings..."
+	set_loop()
+	print "\nPlease review the configuration settings\n"
+	parser.write(sys.stdout)
+	correct = raw_input("Type 'Y' if all settings are correct")
+	if correct in ('y', 'Y', 'yes', 'Yes'):
+		done= True
+		try:
+			parser.write(open(default_config, 'w'))
+		except:
+			print "error writing config file; please try again."
+			sys.exit(1)
+		sys.exit(0)
+
