@@ -14,19 +14,19 @@ assemblyinfo :assemblyInfo do |asm|
     asm.title = "Reachmail API Wrapper"
     asm.description = "Wrapper for the Reachmail API."
     asm.copyright = "Copyright (c) #{Time.now.year} Reachmail Inc."
-    asm.output_file = "src/Reachmail/Properties/AssemblyInfo.cs"
+    asm.output_file = "dotnet/Reachmail/Properties/AssemblyInfo.cs"
 end
 
 msbuild :buildLibrary => :assemblyInfo do |msb|
     msb.properties :configuration => :Release
     msb.targets :Clean, :Build
-    msb.solution = "src/Reachmail/Reachmail.csproj"
+    msb.solution = "dotnet/Reachmail/Reachmail.csproj"
 end
 
 msbuild :buildTests => :buildLibrary do |msb|
     msb.properties :configuration => :Release
     msb.targets :Clean, :Build
-    msb.solution = "src/Tests/Tests.csproj"
+    msb.solution = "dotnet/Tests/Tests.csproj"
 end
 
 task :unitTestInit do
@@ -35,7 +35,7 @@ end
 
 gallio :unitTests => [:buildTests, :unitTestInit] do |runner|
 	runner.echo_command_line = true
-	runner.add_test_assembly("src/Tests/bin/Release/Tests.dll")
+	runner.add_test_assembly("dotnet/Tests/bin/Release/Tests.dll")
 	runner.verbosity = 'Normal'
 	runner.report_directory = reportsPath
 	runner.report_name_format = 'tests'
@@ -48,7 +48,7 @@ deployPath = "deploy"
 packagePath = File.join(deployPath, "package")
 nuspecName = "reachmail.nuspec"
 packageLibPath = File.join(packagePath, "lib")
-binPath = "src/Reachmail/bin/Release"
+binPath = "dotnet/Reachmail/bin/Release"
 
 task :prepPackage => :unitTests do
   FileSystem.DeleteDirectory(deployPath)
