@@ -1,8 +1,6 @@
 require 'net/http'
 require_relative 'dotnet'
 
-version = ENV['BUILD_NUMBER']
-
 task :build => [:downloadApiSpec, :buildDotNet]
 
 task :downloadApiSpec do

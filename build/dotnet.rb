@@ -2,6 +2,7 @@ require "albacore"
 require_relative "path"
 require_relative "gallio-task"
 
+version = ENV['BUILD_NUMBER']
 reportsPath = 'reports'
 
 task :buildDotNet => :pushPackage
