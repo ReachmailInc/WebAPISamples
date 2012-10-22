@@ -51,11 +51,11 @@ packageLibPath = File.join(packagePath, "lib")
 binPath = "dotnet/Reachmail/bin/Release"
 
 task :prepPackage => :unitTests do
-  FileSystem.DeleteDirectory(deployPath)
+  Path.DeleteDirectory(deployPath)
   
-  FileSystem.EnsurePath(packageLibPath)
-  FileSystem.CopyFiles(File.join(binPath, "Reachmail.dll"), packageLibPath)
-  FileSystem.CopyFiles(File.join(binPath, "Reachmail.pdb"), packageLibPath)
+  Path.EnsurePath(packageLibPath)
+  Path.CopyFiles(File.join(binPath, "Reachmail.dll"), packageLibPath)
+  Path.CopyFiles(File.join(binPath, "Reachmail.pdb"), packageLibPath)
 end
 
 nuspec :createSpec => :prepPackage do |nuspec|
