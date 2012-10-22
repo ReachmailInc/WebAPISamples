@@ -2,31 +2,27 @@ require "albacore"
 require_relative "path"
 require_relative "gallio-task"
 
-task :buildDotNet => :createPackage
+reportsPath = 'reports'
+
+task :buildDotNet => :pushPackage
 
 assemblyinfo :assemblyInfo do |asm|
     asm.version = version
-    asm.company_name = "Ultraviolet Catastrophe"
-    asm.product_name = "FubuMVC Swank"
-    asm.title = "FubuMVC Swank"
-    asm.description = "FubuMVC Swank."
-    asm.copyright = "Copyright (c) #{Time.now.year} Ultraviolet Catastrophe"
-    asm.output_file = "src/Swank/Properties/AssemblyInfo.cs"
+    asm.company_name = "Reachmail Inc."
+    asm.product_name = "Reachmail API Wrapper"
+    asm.title = "Reachmail API Wrapper"
+    asm.description = "Wrapper for the Reachmail API."
+    asm.copyright = "Copyright (c) #{Time.now.year} Reachmail Inc."
+    asm.output_file = "src/Reachmail/Properties/AssemblyInfo.cs"
 end
 
 msbuild :buildLibrary => :assemblyInfo do |msb|
     msb.properties :configuration => :Release
     msb.targets :Clean, :Build
-    msb.solution = "src/Swank/Swank.csproj"
+    msb.solution = "src/Reachmail/Reachmail.csproj"
 end
 
-msbuild :buildTestHarness => :buildLibrary do |msb|
-    msb.properties :configuration => :Release
-    msb.targets :Clean, :Build
-    msb.solution = "src/TestHarness/TestHarness.csproj"
-end
-
-msbuild :buildTests => :buildTestHarness do |msb|
+msbuild :buildTests => :buildLibrary do |msb|
     msb.properties :configuration => :Release
     msb.targets :Clean, :Build
     msb.solution = "src/Tests/Tests.csproj"
@@ -49,52 +45,42 @@ nugetApiKey = ENV["NUGET_API_KEY"]
 deployPath = "deploy"
 
 packagePath = File.join(deployPath, "package")
-nuspecFilename = "FubuMVC.Swank.nuspec"
-packageContentPath = File.join(packagePath, "content/fubu-content")
+nuspecName = "reachmail.nuspec"
+packageLibPath = File.join(packagePath, "lib")
+binPath = "src/Reachmail/bin/Release"
 
 task :prepPackage => :unitTests do
-	Path.DeleteDirectory(deployPath)
-	Path.EnsurePath(packageContentPath)
-    packageLibPath = File.join(packagePath, "lib")
-	Path.EnsurePath(packageLibPath)
-	Path.CopyFiles("src/Swank/bin/FubuMVC.Swank.*", packageLibPath)
+  FileSystem.DeleteDirectory(deployPath)
+  
+  FileSystem.EnsurePath(packageLibPath)
+  FileSystem.CopyFiles(File.join(binPath, "Reachmail.dll"), packageLibPath)
+  FileSystem.CopyFiles(File.join(binPath, "Reachmail.pdb"), packageLibPath)
 end
 
-create_fubu_bottle :createBottle => :prepPackage do |bottle|
-    bottle.package_type = :zip
-    bottle.source_path = 'src/Swank'
-    bottle.output_path = File.join(packageContentPath, 'fubu-swank.zip')
-    bottle.include_pdb = true
-    bottle.overwrite = true
-end
-
-nuspec :createSpec => :createBottle do |nuspec|
-   nuspec.id = "FubuMVC.Swank"
+nuspec :createSpec => :prepPackage do |nuspec|
+   nuspec.id = "reachmail"
    nuspec.version = version
-   nuspec.authors = "Mike O'Brien"
-   nuspec.owners = "Mike O'Brien"
-   nuspec.title = "FubuMVC Swank"
-   nuspec.description = "A FubuMVC plugin that allows you to describe and publish documentation for RESTful services."
-   nuspec.summary = "A FubuMVC plugin that allows you to describe and publish documentation for RESTful services."
+   nuspec.authors = "Reachmail, Inc."
+   nuspec.owners = "Reachmail, Inc."
+   nuspec.title = "Reachmail API Wrapper"
+   nuspec.description = "This library enables you to easily interact with the Reachmail API."
+   nuspec.summary = "This library enables you to easily interact with the Reachmail API."
    nuspec.language = "en-US"
-   nuspec.licenseUrl = "https://github.com/mikeobrien/FubuMVC.Swank/blob/master/LICENSE"
-   nuspec.projectUrl = "https://github.com/mikeobrien/FubuMVC.Swank"
-   nuspec.iconUrl = "https://github.com/mikeobrien/FubuMVC.Swank/raw/master/misc/logo.png"
+   nuspec.licenseUrl = "https://github.com/ReachmailInc/WebAPISamples/dotnet/blob/master/LICENSE"
+   nuspec.projectUrl = "https://github.com/ReachmailInc/WebAPISamples/dotnet"
+   nuspec.iconUrl = "https://github.com/ReachmailInc/WebAPISamples/dotnet/raw/master/misc/logo.png"
    nuspec.working_directory = packagePath
-   nuspec.output_file = nuspecFilename
-   nuspec.tags = "fubumvc"
-   nuspec.dependency "FubuMVC.References", "0.9.0.0"
-   nuspec.dependency "FubuMVC.Spark", "0.9.0.0"
-   nuspec.dependency "MarkdownSharp", "1.0.0.0"
+   nuspec.output_file = nuspecName
+   nuspec.tags = "reachmail email esp"
 end
 
 nugetpack :createPackage => :createSpec do |nugetpack|
-   nugetpack.nuspec = File.join(packagePath, nuspecFilename)
+   nugetpack.nuspec = File.join(packagePath, nuspecName)
    nugetpack.base_folder = packagePath
    nugetpack.output = deployPath
 end
 
 nugetpush :pushPackage => :createPackage do |nuget|
-    nuget.apikey = nugetApiKey
-    nuget.package = File.join(deployPath, "FubuMVC.Swank.#{version}.nupkg").gsub('/', '\\')
+  nuget.apikey = nugetApiKey
+  nuget.package = File.join(deployPath, "reachmail.#{version}.nupkg").gsub('/', '\\')
 end

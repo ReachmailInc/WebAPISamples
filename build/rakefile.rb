@@ -1,6 +1,5 @@
 require 'net/http'
 
-reportsPath = 'reports'
 version = ENV['BUILD_NUMBER']
 
 task :build => [:downloadApiSpec]#[:buildDotNet]
