@@ -43,7 +43,7 @@ gallio :unitTests => [:buildTests, :unitTestInit] do |runner|
 end
 
 nugetApiKey = ENV["NUGET_API_KEY"]
-deployPath = "deploy"
+deployPath = "dotnet/deploy"
 
 packagePath = File.join(deployPath, "package")
 nuspecName = "reachmail.nuspec"
