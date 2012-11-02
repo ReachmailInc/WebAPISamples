@@ -5,7 +5,8 @@ require_relative "gallio-task"
 version = ENV['BUILD_NUMBER']
 reportsPath = 'reports'
 
-task :buildDotNet => :pushPackage
+task :buildDotNet => :createPackage
+task :deployDotNet => :pushPackage
 
 assemblyinfo :assemblyInfo do |asm|
     asm.version = version
