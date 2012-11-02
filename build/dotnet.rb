@@ -50,7 +50,7 @@ packagePath = File.join(deployPath, "package")
 nuspecName = "reachmail.nuspec"
 packageLibPath = File.join(packagePath, "lib")
 binPath = "dotnet/Reachmail/bin/Release"
-packageFilename = File.join(deployPath, "reachmail.#{version}.nupkg").gsub('/', '\\')
+packageFilePath = File.join(deployPath, "reachmail.#{version}.nupkg").gsub('/', '\\')
 
 task :prepPackage => :unitTests do
   Path.DeleteDirectory(deployPath)
@@ -83,12 +83,12 @@ nugetpack :createPackage => :createSpec do |nugetpack|
    nugetpack.output = deployPath
 end
 
-task :publishLocalPackage => :unitTests do
+task :publishLocalPackage => :createPackage do
   Path.EnsurePath('artifacts')
-  Path.CopyFiles(packageFilename, 'artifacts')
+  Path.CopyFiles(packageFilePath, 'artifacts')
 end
 
 nugetpush :publishPublicPackage => :createPackage do |nuget|
   nuget.apikey = nugetApiKey
-  nuget.package = packageFilename
+  nuget.package = packageFilePath
 end
