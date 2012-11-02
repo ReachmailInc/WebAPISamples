@@ -5,8 +5,8 @@ require_relative "gallio-task"
 version = ENV['BUILD_NUMBER']
 reportsPath = 'reports'
 
-task :buildDotNet => :createPackage
-task :deployDotNet => :pushPackage
+task :buildDotNet => :publishLocalPackage
+task :deployDotNet => :publishPublicPackage
 
 assemblyinfo :assemblyInfo do |asm|
     asm.version = version
@@ -50,6 +50,7 @@ packagePath = File.join(deployPath, "package")
 nuspecName = "reachmail.nuspec"
 packageLibPath = File.join(packagePath, "lib")
 binPath = "dotnet/Reachmail/bin/Release"
+packageFilename = File.join(deployPath, "reachmail.#{version}.nupkg").gsub('/', '\\')
 
 task :prepPackage => :unitTests do
   Path.DeleteDirectory(deployPath)
@@ -82,7 +83,11 @@ nugetpack :createPackage => :createSpec do |nugetpack|
    nugetpack.output = deployPath
 end
 
-nugetpush :pushPackage => :createPackage do |nuget|
+task :publishLocalPackage => :unitTests do
+  Path.CopyFiles(packageFilename, 'artifacts')
+end
+
+nugetpush :publishPublicPackage => :createPackage do |nuget|
   nuget.apikey = nugetApiKey
-  nuget.package = File.join(deployPath, "reachmail.#{version}.nupkg").gsub('/', '\\')
+  nuget.package = packageFilename
 end
