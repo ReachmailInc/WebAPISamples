@@ -84,6 +84,7 @@ nugetpack :createPackage => :createSpec do |nugetpack|
 end
 
 task :publishLocalPackage => :unitTests do
+  Path.EnsurePath('artifacts')
   Path.CopyFiles(packageFilename, 'artifacts')
 end
 
