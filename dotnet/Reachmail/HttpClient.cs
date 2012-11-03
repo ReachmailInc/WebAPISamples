@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
+using System.Net;
 
 namespace ReachmailApi
 {
@@ -8,7 +10,7 @@ namespace ReachmailApi
     public interface IHttpClient
     {
         object Execute(
-            string url,
+            string relativeUrl,
             Verb verb,
             Dictionary<string, object> urlParameters,
             Dictionary<string, object> querystringParameters,
@@ -37,14 +39,63 @@ namespace ReachmailApi
         }
 
         public object Execute(
-            string url,
+            string relativeUrl,
             Verb verb,
             Dictionary<string, object> urlParameters,
             Dictionary<string, object> querystringParameters,
             object request,
             Type responseType)
         {
-            return null;
+            var url = (_baseUrl + relativeUrl).ReplaceAll(
+                    urlParameters.EmptyWhenNull(), 
+                    querystringParameters.EmptyWhenNull(), 
+                    _defaultValues.FromLazyDictionary());
+            var httpRequest = (HttpWebRequest)WebRequest.Create(url);
+            httpRequest.Method = verb.ToString().ToUpper();
+            httpRequest.Credentials = new NetworkCredential(_username, _password);
+            httpRequest.Accept = httpRequest.ContentType = "application/json";
+
+            if (request != null)
+            {
+                using (Stream sourceStream = request as Stream ?? request.ToJsonStream(), 
+                              requestStream = httpRequest.GetRequestStream())
+                    sourceStream.CopyTo(requestStream);
+            }
+
+            using (var response = GetResponse(httpRequest))
+            {
+                if ((int)response.StatusCode >= 300) throw new RequestException(response);
+                if (responseType == null) return null;
+                if (responseType == typeof(Stream)) return response.GetResponseStream();
+                return response.GetResponseText().FromJson(responseType);
+            }
         }
+
+        private static HttpWebResponse GetResponse(HttpWebRequest request)
+        {
+            try
+            {
+                return (HttpWebResponse)request.GetResponse();
+            }
+            catch (WebException e)
+            {
+                var response = e.Response as HttpWebResponse;
+                if (response == null) throw;
+                return response;
+            }
+        }
+    }
+
+    public class RequestException : Exception
+    {
+        public RequestException(HttpWebResponse response)
+            : base(string.Format("Request failed: {0} - {1}", response.StatusCode, response.StatusDescription))
+        {
+            Response = response;
+            ResponseText = response.GetResponseText();
+        }
+
+        public HttpWebResponse Response { get; private set; }
+        public string ResponseText { get; set; }
     }
 }
