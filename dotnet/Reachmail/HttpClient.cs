@@ -70,13 +70,14 @@ namespace ReachmailApi
                     sourceStream.CopyTo(requestStream);
             }
 
-            using (var response = GetResponse(httpRequest))
-            {
+            //using (var response = GetResponse(httpRequest))
+            //{
+            var response = GetResponse(httpRequest);
                 if ((int)response.StatusCode >= 300) throw new RequestException(response);
                 if (responseType == null) return null;
                 if (responseType == typeof(Stream)) return response.GetResponseStream();
                 return response.GetResponseText().FromJson(responseType);
-            }
+            //}
         }
 
         private static HttpWebResponse GetResponse(HttpWebRequest request)
