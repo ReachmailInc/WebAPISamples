@@ -70,7 +70,7 @@ namespace Tests
 
             // Delete
             _reachmail.Contacts.Lists.ByListId.Delete(postList.Id.Value);
-            _reachmail.Contacts.Lists.Query.Post(new ListFilter { NewerThan = DateTime.Now.AddMinutes(20) })
+            _reachmail.Contacts.Lists.Query.Post(new ListFilter { NewerThan = DateTime.Now.AddMinutes(-20) })
                 .Any(x => x.Id == postList.Id).ShouldBeFalse();
         }
 
