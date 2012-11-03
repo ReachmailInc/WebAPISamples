@@ -19,6 +19,7 @@ namespace ReachmailApi
         public static string ReplaceAll(this string source, params IDictionary<string, object>[] replacements)
         {
             return replacements.SelectMany(x => x)
+                .Where(x => x.Value != null)
                 .Aggregate(source, (input, replacement) => 
                     Regex.Replace(input, replacement.Key, replacement.Value.ToString(), RegexOptions.IgnoreCase));
         }
