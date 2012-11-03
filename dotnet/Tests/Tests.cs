@@ -36,6 +36,8 @@ namespace Tests
         [Test]
         public void should_interact_with_list_api()
         {
+            var listName = "TestList-" + Guid.NewGuid().ToString("N");
+
             // Post
             var postList = _reachmail.Contacts.Lists.Post(new ListProperties
             {
