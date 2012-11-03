@@ -56,8 +56,8 @@ namespace ReachmailApi
             var httpRequest = (HttpWebRequest)WebRequest.Create(url);
             httpRequest.Method = verb.ToString().ToUpper();
             httpRequest.Credentials = new NetworkCredential(_username, _password);
-            httpRequest.ContentType = responseType == typeof(Stream) ? BinaryContentType : JsonContentType;
-            httpRequest.Accept = request is Stream ? BinaryContentType : JsonContentType;
+            httpRequest.ContentType = request is Stream ? BinaryContentType : JsonContentType;
+            httpRequest.Accept = responseType == typeof(Stream) ? BinaryContentType : JsonContentType;
 
             if (request != null)
             {
