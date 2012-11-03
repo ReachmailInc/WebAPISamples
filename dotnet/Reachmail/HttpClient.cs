@@ -20,6 +20,9 @@ namespace ReachmailApi
 
     public class HttpClient : IHttpClient
     {
+        private const string BinaryContentType = "application/binary";
+        private const string JsonContentType = "application/json";
+
         private readonly string _baseUrl;
         private readonly string _username;
         private readonly string _password;
@@ -53,7 +56,8 @@ namespace ReachmailApi
             var httpRequest = (HttpWebRequest)WebRequest.Create(url);
             httpRequest.Method = verb.ToString().ToUpper();
             httpRequest.Credentials = new NetworkCredential(_username, _password);
-            httpRequest.Accept = httpRequest.ContentType = "application/json";
+            httpRequest.ContentType = responseType == typeof(Stream) ? BinaryContentType : JsonContentType;
+            httpRequest.Accept = request is Stream ? BinaryContentType : JsonContentType;
 
             if (request != null)
             {
