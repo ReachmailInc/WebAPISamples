@@ -16,11 +16,6 @@ namespace ReachmailApi
             return source ?? new Dictionary<TKey, TValue>();
         }
 
-        public static Dictionary<TKey, TValue> FromLazyDictionary<TKey, TValue>(this Dictionary<TKey, Lazy<TValue>> source)
-        {
-            return source.ToDictionary(x => x.Key, x => x.Value.Value);
-        }
-
         public static string ReplaceAll(this string source, params IDictionary<string, object>[] replacements)
         {
             return replacements.SelectMany(x => x)

@@ -14,6 +14,7 @@ namespace Tests
 
         private Reachmail _reachmail;
 
+        [SetUp]
         public void Setup()
         {
             _reachmail = Reachmail.Create(_accountKey, _username, _password);

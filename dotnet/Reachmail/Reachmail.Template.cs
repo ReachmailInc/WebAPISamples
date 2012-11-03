@@ -17,12 +17,12 @@ namespace ReachmailApi
         {
             var httpClient = new HttpClient(baseUrl, accountKey + @"\" + username, password);
             var reachmail = new Reachmail(httpClient);
-            httpClient.AddParameterDefault("accountId", () => reachmail.Administration.Users.Current.Get().AccountId);
+            httpClient.AddParameterDefault("accountId", reachmail.Administration.Users.Current.Get().AccountId);
             return reachmail;
         }
 
     {{#rootModules}}
-    public {{.}}.ApiModule {{.}} { get; set; }
+    public {{.}}.ApiModule {{.}} { get; private set; }
     {{/rootModules}}
 }   
 
@@ -42,7 +42,7 @@ namespace {{namespace}}
         }
 
     {{#modules}}
-        public {{.}}.ApiModule {{.}} { get; set; }
+        public {{.}}.ApiModule {{.}} { get; private set; }
     {{/modules}}
     {{#endpoints}}
 

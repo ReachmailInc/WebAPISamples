@@ -23,8 +23,8 @@ namespace ReachmailApi
         private readonly string _baseUrl;
         private readonly string _username;
         private readonly string _password;
-        private readonly Dictionary<string, Lazy<object>> _defaultValues = 
-            new Dictionary<string, Lazy<object>>();  
+        private readonly Dictionary<string, object> _defaultValues = 
+            new Dictionary<string, object>();  
 
         public HttpClient(string baseUrl, string username, string password)
         {
@@ -49,7 +49,7 @@ namespace ReachmailApi
             var url = (_baseUrl + relativeUrl).ReplaceAll(
                     urlParameters.EmptyWhenNull(), 
                     querystringParameters.EmptyWhenNull(), 
-                    _defaultValues.FromLazyDictionary());
+                    _defaultValues);
             var httpRequest = (HttpWebRequest)WebRequest.Create(url);
             httpRequest.Method = verb.ToString().ToUpper();
             httpRequest.Credentials = new NetworkCredential(_username, _password);
