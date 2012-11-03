@@ -28,5 +28,41 @@ namespace Tests
             currentUser.AccountKey.ShouldEqual(_accountKey);
             currentUser.Username.ShouldEqual(_username);
         }
+
+        [Test]
+        public void should_add_a_list()
+        {
+            
+        }
+
+        [Test]
+        public void should_update_a_list()
+        {
+            
+        }
+
+        [Test]
+        public void should_get_a_list()
+        {
+            
+        }
+
+        [Test]
+        public void should_get_lists()
+        {
+            
+        }
+
+        [Test]
+        public void should_upload_data()
+        {
+            
+        }
+
+        [Test]
+        public void should_download_data()
+        {
+            
+        }
     }
 }
