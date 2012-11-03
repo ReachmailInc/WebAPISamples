@@ -37,7 +37,7 @@ namespace ReachmailApi
         public static string GetResponseText(this HttpWebResponse response)
         {
             using (var responseStream = response.GetResponseStream())
-                return response.ContentLength > 0 ? new StreamReader(responseStream).ReadToEnd() : "";
+                return response.ContentLength != 0 ? new StreamReader(responseStream).ReadToEnd() : "";
         }
     }
 }

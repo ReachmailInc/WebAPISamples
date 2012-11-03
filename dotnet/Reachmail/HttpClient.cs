@@ -29,8 +29,12 @@ namespace ReachmailApi
         private readonly Dictionary<string, object> _defaultValues = 
             new Dictionary<string, object>();  
 
-        public HttpClient(string baseUrl, string username, string password)
+        public HttpClient(string baseUrl, string username, string password, bool allowSelfSignedCerts)
         {
+            if (allowSelfSignedCerts)
+                ServicePointManager.ServerCertificateValidationCallback =
+                    ((sender, certificate, chain, sslPolicyErrors) => true);
+
             _baseUrl = baseUrl;
             _username = username;
             _password = password;

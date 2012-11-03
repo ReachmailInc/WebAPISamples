@@ -23,7 +23,7 @@ namespace Tests
         [SetUp]
         public void Setup()
         {
-            _reachmail = Reachmail.Create(_accountKey, _username, _password);
+            _reachmail = Reachmail.Create(_accountKey, _username, _password, allowSelfSignedCerts: true);
         }
 
         [Test]
@@ -80,8 +80,6 @@ namespace Tests
         public void should_interact_with_data_api()
         {
             var data = _reachmail.Data.Post(new MemoryStream(Encoding.ASCII.GetBytes("oh hai")));
-            data.ShouldNotBeNull();
-            data.Id.HasValue.ShouldBeTrue();
             new StreamReader(_reachmail.Data.ById.Get(data.Id.Value)).ReadToEnd().ShouldEqual("oh hai");
         }
     }

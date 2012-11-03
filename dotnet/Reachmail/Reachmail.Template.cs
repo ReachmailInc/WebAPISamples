@@ -13,9 +13,9 @@ namespace ReachmailApi
     {{/rootModules}}
     }
 
-        public static Reachmail Create(string accountKey, string username, string password, string baseUrl = "https://services.reachmail.net")
+        public static Reachmail Create(string accountKey, string username, string password, string baseUrl = "https://services.reachmail.net", bool allowSelfSignedCerts = false)
         {
-            var httpClient = new HttpClient(baseUrl, accountKey + @"\" + username, password);
+            var httpClient = new HttpClient(baseUrl, accountKey + @"\" + username, password, allowSelfSignedCerts);
             var reachmail = new Reachmail(httpClient);
             httpClient.AddParameterDefault("accountId", reachmail.Administration.Users.Current.Get().AccountId);
             return reachmail;
