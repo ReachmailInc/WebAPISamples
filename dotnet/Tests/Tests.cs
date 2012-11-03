@@ -80,6 +80,8 @@ namespace Tests
         public void should_interact_with_data_api()
         {
             var data = _reachmail.Data.Post(new MemoryStream(Encoding.ASCII.GetBytes("oh hai")));
+            data.ShouldNotBeNull();
+            data.Id.HasValue.ShouldBeTrue();
             new StreamReader(_reachmail.Data.ById.Get(data.Id.Value)).ReadToEnd().ShouldEqual("oh hai");
         }
     }
