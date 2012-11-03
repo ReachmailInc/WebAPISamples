@@ -1,7 +1,7 @@
 Reachmail API Wrapper
 =============
 
-This library allows you to interact with the Reachmail API in .NET.
+This library allows you to easily interact with the Reachmail API in .NET.
 
 Installation
 ------------
