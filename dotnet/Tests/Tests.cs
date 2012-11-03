@@ -42,30 +42,27 @@ namespace Tests
             });
 
             // Get
-            var getList = _reachmail.Contacts.Lists.ByListId.Get(postList.Id);
-            getList.Id.ShouldEqual(postList.Id);
+            var getList = _reachmail.Contacts.Lists.ByListId.Get(postList.Id.Value);
+            getList.Id.ShouldEqual(postList.Id.Value);
             getList.Name.ShouldEqual(listName);
-            getList.Type.ShouldEqual(ListProperties.TypeOptions.Recipient);
+            getList.Type.ShouldEqual(ReachmailApi.Contacts.Lists.ByListId.Get.Response.List.TypeOptions.Recipient);
+
+            // Put
+            _reachmail.Contacts.Lists.ByListId.Put(postList.Id.Value,
+                new ReachmailApi.Contacts.Lists.ByListId.Put.Request.ListProperties { Name = "New" + listName });
 
             // Get many
             var queryLists = _reachmail.Contacts.Lists.Query.Post(new ListFilter { NewerThan = DateTime.Now.AddMinutes(20) });
             var queryList = queryLists.FirstOrDefault(x => x.Id == postList.Id);
             queryList.ShouldNotBeNull();
-            getList.Id.ShouldEqual(postList.Id);
-            getList.Name.ShouldEqual(listName);
-            getList.Type.ShouldEqual(ListProperties.TypeOptions.Recipient);
-
-            // Put
-            _reachmail.Contacts.Lists.ByListId.Put(postList.Id, new ListProperties { Name = "New" + listName });
-            getList = _reachmail.Contacts.Lists.ByListId.Get(postList.Id);
-            getList.Id.ShouldEqual(postList.Id);
+            getList.Id.ShouldEqual(postList.Id.Value);
             getList.Name.ShouldEqual("New" + listName);
-            getList.Type.ShouldEqual(ListProperties.TypeOptions.Recipient);
+            getList.Type.ShouldEqual(ReachmailApi.Contacts.Lists.ByListId.Get.Response.List.TypeOptions.Recipient);
 
             // Delete
-            _reachmail.Contacts.Lists.ByListId.Delete(listId.Id);
+            _reachmail.Contacts.Lists.ByListId.Delete(postList.Id.Value);
             _reachmail.Contacts.Lists.Query.Post(new ListFilter { NewerThan = DateTime.Now.AddMinutes(20) })
-                .Any(x => x.Id == listId.Id).ShouldBeFalse();
+                .Any(x => x.Id == postList.Id).ShouldBeFalse();
         }
 
         [Test]
