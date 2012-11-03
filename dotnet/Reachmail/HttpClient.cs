@@ -33,9 +33,9 @@ namespace ReachmailApi
             _password = password;
         }
 
-        public void AddParameterDefault(string name, Func<object> value)
+        public void AddParameterDefault(string name, object value)
         {
-            _defaultValues.Add(name, new Lazy<object>(value));
+            _defaultValues.Add(name, value);
         }
 
         public object Execute(
