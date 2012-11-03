@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using ReachmailApi;
+using Should;
 
 namespace Tests
 {
