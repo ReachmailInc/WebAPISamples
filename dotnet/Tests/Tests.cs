@@ -52,14 +52,18 @@ namespace Tests
             getList.Name.ShouldEqual(listName);
             getList.Type.ShouldEqual(ReachmailApi.Contacts.Lists.ByListId.Get.Response.List.TypeOptions.Recipient);
 
+            // Get many
+            var queryLists = _reachmail.Contacts.Lists.Query.Post(new ListFilter { NewerThan = DateTime.Now.AddMinutes(20) });
+            var queryList = queryLists.FirstOrDefault(x => x.Id == postList.Id.Value);
+            queryList.ShouldNotBeNull();
+            queryList.Id.ShouldEqual(postList.Id.Value);
+            queryList.Name.ShouldEqual(listName);
+            queryList.Type.ShouldEqual(ReachmailApi.Contacts.Lists.Query.Post.Response.List.TypeOptions.Recipient);
+
             // Put
             _reachmail.Contacts.Lists.ByListId.Put(postList.Id.Value,
                 new ReachmailApi.Contacts.Lists.ByListId.Put.Request.ListProperties { Name = "New" + listName });
-
-            // Get many
-            var queryLists = _reachmail.Contacts.Lists.Query.Post(new ListFilter { NewerThan = DateTime.Now.AddMinutes(20) });
-            var queryList = queryLists.FirstOrDefault(x => x.Id == postList.Id);
-            queryList.ShouldNotBeNull();
+            getList = _reachmail.Contacts.Lists.ByListId.Get(postList.Id.Value);
             getList.Id.ShouldEqual(postList.Id.Value);
             getList.Name.ShouldEqual("New" + listName);
             getList.Type.ShouldEqual(ReachmailApi.Contacts.Lists.ByListId.Get.Response.List.TypeOptions.Recipient);
