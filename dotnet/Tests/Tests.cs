@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using ReachmailApi;
 using Should;
@@ -30,37 +31,45 @@ namespace Tests
         }
 
         [Test]
-        public void should_add_a_list()
+        public void should_interact_with_list_api()
         {
-            
+            // Post
+            var postList = _reachmail.Contacts.Lists.Post(new ListProperties
+            {
+                Name = listName,
+                Fields = new List<string> { "Zip" },
+                Type = ListProperties.TypeOptions.Recipient
+            });
+
+            // Get
+            var getList = _reachmail.Contacts.Lists.ByListId.Get(postList.Id);
+            getList.Id.ShouldEqual(postList.Id);
+            getList.Name.ShouldEqual(listName);
+            getList.Type.ShouldEqual(ListProperties.TypeOptions.Recipient);
+
+            // Get many
+            var queryLists = _reachmail.Contacts.Lists.Query.Post(new ListFilter { NewerThan = DateTime.Now.AddMinutes(20) });
+            var queryList = queryLists.FirstOrDefault(x => x.Id == postList.Id);
+            queryList.ShouldNotBeNull();
+            getList.Id.ShouldEqual(postList.Id);
+            getList.Name.ShouldEqual(listName);
+            getList.Type.ShouldEqual(ListProperties.TypeOptions.Recipient);
+
+            // Put
+            _reachmail.Contacts.Lists.ByListId.Put(postList.Id, new ListProperties { Name = "New" + listName });
+            getList = _reachmail.Contacts.Lists.ByListId.Get(postList.Id);
+            getList.Id.ShouldEqual(postList.Id);
+            getList.Name.ShouldEqual("New" + listName);
+            getList.Type.ShouldEqual(ListProperties.TypeOptions.Recipient);
+
+            // Delete
+            _reachmail.Contacts.Lists.ByListId.Delete(listId.Id);
+            _reachmail.Contacts.Lists.Query.Post(new ListFilter { NewerThan = DateTime.Now.AddMinutes(20) })
+                .Any(x => x.Id == listId.Id).ShouldBeFalse();
         }
 
         [Test]
-        public void should_update_a_list()
-        {
-            
-        }
-
-        [Test]
-        public void should_get_a_list()
-        {
-            
-        }
-
-        [Test]
-        public void should_get_lists()
-        {
-            
-        }
-
-        [Test]
-        public void should_upload_data()
-        {
-            
-        }
-
-        [Test]
-        public void should_download_data()
+        public void should_interact_with_data_api()
         {
             
         }
