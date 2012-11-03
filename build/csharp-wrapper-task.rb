@@ -168,7 +168,7 @@ class CSharpWrapper
             modelType['Members'].each{|member|
                 if member['Options'] != nil && member['Options'].length > 0
                     typeName = member['Name'] + 'Options'
-                    type['enums'].push Hash['name' => typeName, 'values' => member['Options'].map {|option| Hash['value' => option['Value'], 'comments' => option['Comments']] }]
+                    type['enums'].push Hash['name' => typeName, 'values' => member['Options'].map {|option| Hash['value' => option['Value'].gsub(/\s/, ''), 'comments' => option['Comments']] }]
                 else
                     typeName = get_member_data_type(spec, member)
                     get_types(spec, types, member['Type'], namespace)
