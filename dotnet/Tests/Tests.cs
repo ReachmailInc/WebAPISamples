@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using ReachmailApi;
+using ReachmailApi.Contacts.Lists.Post.Request;
+using ReachmailApi.Contacts.Lists.Query.Post.Request;
 using Should;
 
 namespace Tests
