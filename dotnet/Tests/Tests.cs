@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using NUnit.Framework;
 using ReachmailApi;
 using ReachmailApi.Contacts.Lists.Post.Request;
@@ -77,7 +79,8 @@ namespace Tests
         [Test]
         public void should_interact_with_data_api()
         {
-            
+            var data = _reachmail.Data.Post(new MemoryStream(Encoding.ASCII.GetBytes("oh hai")));
+            new StreamReader(_reachmail.Data.ById.Get(data.Id.Value)).ReadToEnd().ShouldEqual("oh hai");
         }
     }
 }
