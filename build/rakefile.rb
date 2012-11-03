@@ -1,6 +1,7 @@
 require 'net/http'
 require_relative 'dotnet'
 
+task :default => :build
 task :build => [:downloadApiSpec, :buildDotNet]
 task :deploy => [:downloadApiSpec, :deployDotNet]
 

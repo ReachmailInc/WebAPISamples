@@ -1,76 +1,94 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 
 namespace ReachmailApi
 {
     public class Reachmail
     {
-        public Reachmail(string accountKey, string username, string password) 
+        public Reachmail(IHttpClient httpClient) 
         {
-            var httpClient = new HttpClient(accountKey + @"\" + username, password);
     {{#rootModules}}
-        {{.}} = new {{.}}.Module(httpClient);
+        {{.}} = new {{.}}.ApiModule(httpClient);
     {{/rootModules}}
-    
-            httpClient.AddParameterDefault("accountId", Administration.Users.Current.Get().AccountId);
+    }
+
+        public static Reachmail Create(string accountKey, string username, string password, string baseUrl = "https://services.reachmail.net")
+        {
+            var httpClient = new HttpClient(baseUrl, accountKey + @"\" + username, password);
+            var reachmail = new Reachmail(httpClient);
+            httpClient.AddParameterDefault("accountId", () => reachmail.Administration.Users.Current.Get().AccountId);
+            return reachmail;
         }
 
     {{#rootModules}}
-    public {{.}}.Module {{.}} { get; set; }
+    public {{.}}.ApiModule {{.}} { get; set; }
     {{/rootModules}}
 }   
 
     {{#modules}}
 namespace {{namespace}}
     {
-        public class Module
+        public class ApiModule
         {
-            private readonly HttpClient _httpClient;
+            private readonly IHttpClient _httpClient;
 
-            internal Module(HttpClient httpClient) 
+            internal ApiModule(IHttpClient httpClient) 
             {
                 _httpClient = httpClient;
     {{#modules}}
-            {{.}} = new {{.}}.Module(httpClient);
+            {{.}} = new {{.}}.ApiModule(httpClient);
     {{/modules}}
         }
 
     {{#modules}}
-        public {{.}}.Module {{.}} { get; set; }
+        public {{.}}.ApiModule {{.}} { get; set; }
     {{/modules}}
     {{#endpoints}}
 
-            /// <summary>{{Comments}}</summary> 
-            {{#UrlParameters}}/// <param name="{{Name}}">{{Comments}}</param>
-            {{/UrlParameters}}
-{{#Request}}/// <param name="request">{{Comments}}</param>
-{{/Request}}
-            {{#QuerystringParameters}}/// <param name="{{Name}}">{{Comments}}</param>
-            {{/QuerystringParameters}}
-public {{returnType}} {{Method}}({{parameters}}) 
+            /// <summary>{{{comments}}}</summary> 
+            {{#parameterComments}}/// <param name="{{name}}">{{{comments}}}</param>
+            {{/parameterComments}}
+            {{#responseComments}}/// <returns>{{{.}}}</returns>
+            {{/responseComments}}
+public {{{returnType}}} {{{method}}}({{{parameters}}}) 
             {
-                {{returnKeyword}}_httpClient.Execute("{{Url}}", 
-                    HttpClient.Verb.{{Method}}, 
+                {{{returnKeyword}}}_httpClient.Execute("{{{url}}}", 
+                    Verb.{{{method}}}, 
                     new Dictionary<string, object> { {{{urlArguments}}} }, 
-                    new Dictionary<string, object> { {{{querystringArguments}}} });
+                    new Dictionary<string, object> { {{{querystringArguments}}} },
+                    {{{requestArgument}}},
+                    {{{responseArgument}}});
             }
         {{/endpoints}}
 }
     }   
-    {{#endpoints}}
-    
-    namespace {{namespace}}.{{Method}}
-    {
-        public class Request 
-        {
-        }
-
-        public class Response 
-        {
-        }
-    }
-        {{/endpoints}}
-
     {{/modules}}
 
+    {{#types}}
+namespace {{{namespace}}}
+    {
+        {{#comments}}
+        /// {{{.}}}
+        {{/comments}}
+        public class {{{name}}}
+        {
+        {{#members}}
+        /// <summary>{{{comments}}}</summary> 
+        public {{{type}}} {{{name}}} { get; set; }
+        {{/members}}
+
+        {{#enums}}
+        public enum {{{name}}} 
+        {
+            {{#values}}
+            /// <summary>{{{comments}}}</summary> 
+            {{{value}}},
+            {{/values}}
+        }
+        {{/enums}}
+    }
+    }
+
+    {{/types}}
 }

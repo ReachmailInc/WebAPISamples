@@ -1,6 +1,7 @@
 require "albacore"
 require_relative "path"
 require_relative "gallio-task"
+require_relative "csharp-wrapper-task"
 
 version = ENV['BUILD_NUMBER']
 reportsPath = 'reports'
@@ -18,7 +19,13 @@ assemblyinfo :assemblyInfo do |asm|
     asm.output_file = "dotnet/Reachmail/Properties/AssemblyInfo.cs"
 end
 
-msbuild :buildLibrary => :assemblyInfo do |msb|
+csharpwrapper :generateWrapper => :assemblyInfo do |options|
+    options.spec_path = 'apispec.json'
+    options.template_path = 'dotnet/Reachmail/Reachmail.Template.cs'
+    options.output_path = 'dotnet/Reachmail/Reachmail.cs'
+end
+
+msbuild :buildLibrary => :generateWrapper do |msb|
     msb.properties :configuration => :Release
     msb.targets :Clean, :Build
     msb.solution = "dotnet/Reachmail/Reachmail.csproj"
