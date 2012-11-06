@@ -18,7 +18,7 @@ namespace ReachmailApi
             string accountKey, 
             string username, 
             string password, 
-            string baseUrl = "https://services.reachmail.net", 
+            string baseUrl = "{{{url}}}", 
             bool allowSelfSignedCerts = false,
             IWebProxy proxy = null)
         {
@@ -40,7 +40,7 @@ namespace {{namespace}}
         {
             private readonly IHttpClient _httpClient;
 
-            internal ApiModule(IHttpClient httpClient) 
+            public ApiModule(IHttpClient httpClient) 
             {
                 _httpClient = httpClient;
     {{#modules}}
