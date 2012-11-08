@@ -105,28 +105,31 @@ class CSharpWrapper
     	spec['Modules'].map{|x| x['Resources'].map {|y|  y['Endpoints']}}.flatten().each {|sourceEndpoint|
 
             currentModule = add_modules(modules, sourceEndpoint)
+            
+            urlParameters = sourceEndpoint['UrlParameters'] != nil ? sourceEndpoint['UrlParameters'] : []
+            querystringParameters = sourceEndpoint['QuerystringParameters'] != nil ? sourceEndpoint['QuerystringParameters'] : []
 
             endpoint = Hash.new
     		endpoint['method'] = sourceEndpoint['Method'].capitalize
             endpoint['comments'] = sourceEndpoint['Comments']
             endpoint['url'] = sourceEndpoint['Url'].split(/\?/)[0]
-            endpoint['urlArguments'] = sourceEndpoint['UrlParameters'] != nil ? sourceEndpoint['UrlParameters'].map{|x| "{\"#{x['Name']}\", #{x['Name']}}"}.join(', ') : nil
-            endpoint['querystringArguments'] = sourceEndpoint['QuerystringParameters'] != nil ? sourceEndpoint['QuerystringParameters'].map{|x| "{\"#{x['Name']}\", #{x['Name']}}"}.join(', ') : nil
+            endpoint['urlArguments'] = urlParameters.map{|x| "{\"#{x['Name']}\", #{x['Name']}}"}.join(', ')
+            endpoint['querystringArguments'] = querystringParameters.map{|x| "{\"#{x['Name']}\", #{x['Name']}}"}.join(', ')
 
             requestType = get_endpoint_data_type(spec, sourceEndpoint, 'Request')
             endpoint['requestArgument'] = sourceEndpoint['Request'] != nil ? 'request' : 'null'
 
             parameterComments = Array.new
-            parameterComments.concat(sourceEndpoint['UrlParameters'] != nil ? sourceEndpoint['UrlParameters'].map{|x| Hash['name' => x['Name'], 'comments' => x['Comments']]} : [])
+            parameterComments.concat(urlParameters.map{|x| Hash['name' => x['Name'], 'comments' => x['Comments']]})
             if sourceEndpoint['Request'] != nil then parameterComments.push Hash['name' => 'request', 'comments' => sourceEndpoint['Request']['comments']] end
-            parameterComments.concat(sourceEndpoint['QuerystringParameters'] != nil ? sourceEndpoint['QuerystringParameters'].map{|x| Hash['name' => x['Name'], 'comments' => x['Comments']]} : [])
+            parameterComments.concat(querystringParameters.map{|x| Hash['name' => x['Name'], 'comments' => x['Comments']]})
             endpoint['parameterComments'] = parameterComments
 
             parameters = Array.new
-            parameters.concat(sourceEndpoint['UrlParameters'].select{|x| x['Name'].downcase != 'accountid'}.map{|x| get_data_type(x['Type'], true) + ' ' + x['Name']})
+            parameters.concat(urlParameters.select{|x| x['Name'].downcase != 'accountid'}.map{|x| get_data_type(x['Type'], true) + ' ' + x['Name']})
             if sourceEndpoint['Request'] != nil then parameters.concat([requestType + ' request']) end
-            parameters.concat(sourceEndpoint['QuerystringParameters'].map{|x| get_data_type(x['Type'], x['Required']) + ' ' + x['Name'] + (x['Required'] ? '' : ' = null')})
-            parameters.concat(sourceEndpoint['UrlParameters'].select{|x| x['Name'].downcase == 'accountid'}.map{|x| get_data_type(x['Type'], false) + ' ' + x['Name'] + ' = null'})
+            parameters.concat(querystringParameters.map{|x| get_data_type(x['Type'], x['Required']) + ' ' + x['Name'] + (x['Required'] ? '' : ' = null')})
+            parameters.concat(urlParameters.select{|x| x['Name'].downcase == 'accountid'}.map{|x| get_data_type(x['Type'], false) + ' ' + x['Name'] + ' = null'})
             endpoint['parameters'] = parameters.join(', ')
             
             responseType = get_endpoint_data_type(spec, sourceEndpoint, 'Response')
