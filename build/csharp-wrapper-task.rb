@@ -110,8 +110,8 @@ class CSharpWrapper
     		endpoint['method'] = sourceEndpoint['Method'].capitalize
             endpoint['comments'] = sourceEndpoint['Comments']
             endpoint['url'] = sourceEndpoint['Url'].split(/\?/)[0]
-            endpoint['urlArguments'] = sourceEndpoint['UrlParameters'].map{|x| "{\"#{x['Name']}\", #{x['Name']}}"}.join(', ')
-            endpoint['querystringArguments'] = sourceEndpoint['QuerystringParameters'].map{|x| "{\"#{x['Name']}\", #{x['Name']}}"}.join(', ')
+            endpoint['urlArguments'] = sourceEndpoint['UrlParameters'] != nil ? sourceEndpoint['UrlParameters'].map{|x| "{\"#{x['Name']}\", #{x['Name']}}"}.join(', ') : nil
+            endpoint['querystringArguments'] = sourceEndpoint['QuerystringParameters'] != nil ? sourceEndpoint['QuerystringParameters'].map{|x| "{\"#{x['Name']}\", #{x['Name']}}"}.join(', ') : nil
 
             requestType = get_endpoint_data_type(spec, sourceEndpoint, 'Request')
             endpoint['requestArgument'] = sourceEndpoint['Request'] != nil ? 'request' : 'null'
