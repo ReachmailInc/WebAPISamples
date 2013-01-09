@@ -27,11 +27,12 @@ namespace ReachmailApi
         private readonly string _username;
         private readonly string _password;
         private readonly IWebProxy _proxy;
+        private readonly int _timeout;
 
         private readonly Dictionary<string, object> _defaultValues = 
             new Dictionary<string, object>();  
 
-        public HttpClient(string baseUrl, string username, string password, bool allowSelfSignedCerts, IWebProxy proxy)
+        public HttpClient(string baseUrl, string username, string password, bool allowSelfSignedCerts, IWebProxy proxy, int timeout = 30)
         {
             if (allowSelfSignedCerts)
                 ServicePointManager.ServerCertificateValidationCallback =
@@ -41,6 +42,7 @@ namespace ReachmailApi
             _username = username;
             _password = password;
             _proxy = proxy;
+            _timeout = timeout;
         }
 
         public void AddParameterDefault(string name, object value)
@@ -61,6 +63,7 @@ namespace ReachmailApi
                     querystringParameters.EmptyWhenNull(), 
                     _defaultValues);
             var httpRequest = (HttpWebRequest)WebRequest.Create(url);
+            httpRequest.Timeout = _timeout * 1000;
             httpRequest.Method = verb.ToString().ToUpper();
             httpRequest.Credentials = new NetworkCredential(_username, _password);
             httpRequest.ContentType = request is Stream ? BinaryContentType : JsonContentType;

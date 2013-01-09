@@ -20,9 +20,10 @@ namespace ReachmailApi
             string password, 
             string baseUrl = "{{{url}}}", 
             bool allowSelfSignedCerts = false,
-            IWebProxy proxy = null)
+            IWebProxy proxy = null,
+            int timeout = 30)
         {
-            var httpClient = new HttpClient(baseUrl, accountKey + @"\" + username, password, allowSelfSignedCerts, proxy);
+            var httpClient = new HttpClient(baseUrl, accountKey + @"\" + username, password, allowSelfSignedCerts, proxy, timeout);
             var reachmail = new Reachmail(httpClient);
             httpClient.AddParameterDefault("accountId", reachmail.Administration.Users.Current.Get().AccountId);
             return reachmail;
