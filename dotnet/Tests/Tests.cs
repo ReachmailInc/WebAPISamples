@@ -23,7 +23,7 @@ namespace Tests
         [SetUp]
         public void Setup()
         {
-            _reachmail = Reachmail.Create(_accountKey, _username, _password, allowSelfSignedCerts: true, timeout: 60);
+            _reachmail = Reachmail.Create(_accountKey, _username, _password, allowSelfSignedCerts: true, timeout: 120);
         }
 
         [Test]
