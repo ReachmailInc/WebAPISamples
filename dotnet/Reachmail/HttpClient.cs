@@ -64,6 +64,7 @@ namespace ReachmailApi
                     _defaultValues);
             var httpRequest = (HttpWebRequest)WebRequest.Create(url);
             httpRequest.Timeout = _timeout * 1000;
+            httpRequest.ReadWriteTimeout = _timeout * 1000;
             httpRequest.Method = verb.ToString().ToUpper();
             httpRequest.Credentials = new NetworkCredential(_username, _password);
             httpRequest.ContentType = request is Stream ? BinaryContentType : JsonContentType;
