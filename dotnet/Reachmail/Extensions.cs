@@ -31,7 +31,7 @@ namespace ReachmailApi
 
         public static object FromJson(this string json, Type type)
         {
-            return new JavaScriptSerializer().Deserialize(json, type);
+            return new JavaScriptSerializer { MaxJsonLength = int.MaxValue }.Deserialize(json, type);
         }
 
         public static string GetResponseText(this HttpWebResponse response)
