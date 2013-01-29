@@ -39,5 +39,11 @@ namespace ReachmailApi
             using (var responseStream = response.GetResponseStream())
                 return response.ContentLength != 0 ? new StreamReader(responseStream).ReadToEnd() : "";
         }
+
+        public static HttpWebRequest SetBasicAuthCredentials(this HttpWebRequest request, string username, string password)
+        {
+            request.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes(username + ":" + password)));
+            return request;
+        }
     }
 }
