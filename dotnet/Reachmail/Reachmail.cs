@@ -1,6 +1,6 @@
 namespace ReachmailApi
 {
-    public class Reachmail
+    public partial class Reachmail
     {
     }    
 }

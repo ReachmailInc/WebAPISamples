@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ReachmailApi
 {
-    public class Reachmail
+    public partial class Reachmail
     {
         public Reachmail(IHttpClient httpClient) 
         {

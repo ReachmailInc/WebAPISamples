@@ -7,6 +7,8 @@ using NUnit.Framework;
 using ReachmailApi;
 using ReachmailApi.Contacts.Lists.Post.Request;
 using ReachmailApi.Contacts.Lists.Query.Post.Request;
+using ReachmailApi.Reports.Details.Mailings.Bounces.ByMailingId.Post.Request;
+using ReachmailApi.Reports.Mailings.Query.Post.Request;
 using Should;
 
 namespace Tests
@@ -81,6 +83,14 @@ namespace Tests
         {
             var data = _reachmail.Data.Post(new MemoryStream(Encoding.ASCII.GetBytes("oh hai")));
             new StreamReader(_reachmail.Data.ById.Get(data.Id.Value)).ReadToEnd().ShouldEqual("oh hai");
+        }
+
+        [Test]
+        public void should_interact_with_reports()
+        {
+            _reachmail.Reports.Mailings.Query.Post( new MailingReportFilter {
+                    ScheduledDeliveryOnOrBefore = DateTime.Now.AddDays(-1)
+                }).ShouldNotBeNull();
         }
     }
 }
