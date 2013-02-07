@@ -9,7 +9,7 @@ using System.Web.Script.Serialization;
 
 namespace ReachmailApi
 {
-    public static class Extensions
+    internal static class Extensions
     {
         public static IDictionary<TKey, TValue> EmptyWhenNull<TKey, TValue>(this IDictionary<TKey, TValue> source)
         {
@@ -24,14 +24,31 @@ namespace ReachmailApi
                     Regex.Replace(input, replacement.Key, replacement.Value.ToString(), RegexOptions.IgnoreCase));
         }
 
+        private static readonly Lazy<JavaScriptSerializer> Serializer = new Lazy<JavaScriptSerializer>(()=> 
+            new JavaScriptSerializer()
+                .AddConverters(x => x
+                    .Add<DateTime>(y => y.ToString("o")) //.ToUniversalTime()
+                    .Add<Enum>(y => y.ToString())));
+
         public static Stream ToJsonStream(this object source)
         {
-            return new MemoryStream(Encoding.UTF8.GetBytes(new JavaScriptSerializer().Serialize(source)));
+            return new MemoryStream(Encoding.UTF8.GetBytes(Serializer.Value.Serialize(source)));
         }
+
+        public static JavaScriptSerializer AddConverters(this JavaScriptSerializer serializer, Action<JsonConverter> config)
+        {
+            var converter = new JsonConverter();
+            config(converter);
+            serializer.RegisterConverters(new [] { converter});
+            return serializer;
+        }
+
+        private static readonly Lazy<JavaScriptSerializer> Deserializer = new Lazy<JavaScriptSerializer>(() => 
+            new JavaScriptSerializer { MaxJsonLength = int.MaxValue }); 
 
         public static object FromJson(this string json, Type type)
         {
-            return new JavaScriptSerializer { MaxJsonLength = int.MaxValue }.Deserialize(json, type);
+            return Deserializer.Value.Deserialize(json, type);
         }
 
         public static string GetResponseText(this HttpWebResponse response)
@@ -44,6 +61,13 @@ namespace ReachmailApi
         {
             request.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes(username + ":" + password)));
             return request;
+        }
+
+        public static bool IsNullableEnum(this Type type)
+        {
+            return type.IsGenericType && 
+                type.GetGenericTypeDefinition() == typeof(Nullable<>) && 
+                Nullable.GetUnderlyingType(type).IsEnum;
         }
     }
 }
