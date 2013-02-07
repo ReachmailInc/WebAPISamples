@@ -61,3 +61,17 @@ reachmail.Contacts.Lists.Recipients.ByListId.Post(listId, new RecipientPropertie
 ```csharp
 reachmail.Contacts.Lists.Recipients.Query.Delete.ByListId.Post(listId, new RecipientFilter());
 ```
+
+### Tracked link reports:
+
+```csharp
+var summary = reachmail.Reports.Mailings.Trackedlinks.Summary.ByMailingId.Get(mailingId);
+
+var details = reachmail.Reports.Mailings.Trackedlinks.Detail.ByMailingId.Post(
+    mailingId, new Filter 
+        {
+            StartDate = DateTime.Now.AddDays(-1),
+            EndDate = DateTime.Now.AddDays(+1)
+        });
+```
+
