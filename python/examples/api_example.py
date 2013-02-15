@@ -1,24 +1,19 @@
 # Example script for reachmailapi
 """api_example.py [-k account key] [-u username]"""
-from reachmailapi import administration, contact, credentials, mailing, report
-from xml.dom import minidom
+from reachmailapi import administration, credentials
+import json
+import sys
 import getpass, getopt
 
 class Options:
-	pass
+	def __init__(self):
+		self.acct_key = None
+		self.username = None
 
 def get_account_id(user):
 	response = administration.get_current_user(user)
-	account_id = parse_response(response, 'AccountId')[0].firstChild.nodeValue
+	account_id = json.loads(response)["AccountId"] 
 	return account_id
-
-def parse_response(response, node):
-	try:
-		xmldom = minidom.parseString(response)
-		node_list = xmldom.getElementsByTagName(node)
-	except Exception, e:
-		node_list = None
-	return None
 
 def parse_args():
 	try:
@@ -51,7 +46,7 @@ def run():
 		options.username = raw_input('Username: ')
 	password = getpass.getpass('Password: ')
 	user = credentials.Login(options.acct_key, options.username, password)
-	print "Account Id: %s" % get_account_id(user)
+	print "Your account id is: %s" % get_account_id(user)
 	
 if __name__ == '__main__':
 	run()
