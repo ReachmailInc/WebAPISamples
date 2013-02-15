@@ -67,8 +67,8 @@ def get_tracked_link_report_by_mailing_list_id(credentials, acct_id,
 
 def enumerate_easysmtp_mailings(credentials, acct_id, end_date, start_date):
 	service = request.ReportService.EnumerateEasySMTPMailings
-	service_uri = service['uri'] % (str(acct_id), str(end_date), 
-		str(start_date))
+	service_uri = service['uri'] % (str(acct_id), 
+		str(end_date), str(start_date))
 	response = request.call(service_uri, service['method'],
 		credentials.api_user, credentials.password)
 	return response
