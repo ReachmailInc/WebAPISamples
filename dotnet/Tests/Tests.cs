@@ -91,6 +91,9 @@ namespace Tests
             _reachmail.Reports.Mailings.Query.Post( new MailingReportFilter {
                     ScheduledDeliveryOnOrBefore = DateTime.Now.AddDays(-1)
                 }).ShouldNotBeNull();
+
+            _reachmail.Reports.Mailings.Trackedlinks.Summary.ByMailingId.Get(
+                 Guid.Empty).ShouldBeEmpty();
         }
     }
 }
