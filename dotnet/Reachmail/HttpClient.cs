@@ -67,7 +67,8 @@ namespace ReachmailApi
             httpRequest.ReadWriteTimeout = _timeout * 1000;
             httpRequest.Method = verb.ToString().ToUpper();
             httpRequest.SetBasicAuthCredentials(_username, _password);
-            httpRequest.ContentType = request is Stream ? BinaryContentType : JsonContentType;
+            if (verb == Verb.Post || verb == Verb.Put)
+                httpRequest.ContentType = request is Stream ? BinaryContentType : JsonContentType;
             httpRequest.Accept = responseType == typeof(Stream) ? BinaryContentType : JsonContentType;
             if (_proxy != null) httpRequest.Proxy = _proxy;
 
