@@ -25,7 +25,7 @@ namespace Tests
         [SetUp]
         public void Setup()
         {
-            _reachmail = Reachmail.Create(_accountKey, _username, _password, allowSelfSignedCerts: true, timeout: 600);
+            _reachmail = Reachmail.Create(_accountKey, _username, _password, allowSelfSignedCerts: true, timeout: 1200);
         }
 
         [Test]
