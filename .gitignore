@@ -7,3 +7,4 @@ _ReSharper.*
 *.log
 aspnet_client
 .DS_Store
+*.userprefs

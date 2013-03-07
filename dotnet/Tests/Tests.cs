@@ -74,7 +74,7 @@ namespace Tests
 
             // Delete
             _reachmail.Contacts.Lists.ByListId.Delete(postList.Id.Value);
-            _reachmail.Contacts.Lists.Query.Post(new ListFilter())
+			_reachmail.Contacts.Lists.Query.Post(new ListFilter { NewerThan = DateTime.Now.AddMinutes(-10) })
                 .Any(x => x.Id == postList.Id).ShouldBeFalse();
         }
 
