@@ -7,8 +7,7 @@ using NUnit.Framework;
 using ReachmailApi;
 using ReachmailApi.Contacts.Lists.Post.Request;
 using ReachmailApi.Contacts.Lists.Query.Post.Request;
-using ReachmailApi.Reports.Details.Mailings.Bounces.ByMailingId.Post.Request;
-using ReachmailApi.Reports.Mailings.Query.Post.Request;
+using ReachmailApi.Reports.Mailings.Detail.Post.Request;
 using Should;
 
 namespace Tests
@@ -88,7 +87,7 @@ namespace Tests
         [Test]
         public void should_interact_with_reports()
         {
-            _reachmail.Reports.Mailings.Query.Post( new MailingReportFilter {
+            _reachmail.Reports.Mailings.Detail.Post( new MailingReportFilter {
                     ScheduledDeliveryOnOrBefore = DateTime.Now.AddDays(-1)
                 }).ShouldNotBeNull();
 
