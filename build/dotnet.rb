@@ -61,10 +61,10 @@ packageFilePath = File.join(deployPath, "reachmail.#{version}.nupkg")
 
 task :prepPackage => :unitTests do
   Path.DeleteDirectory(deployPath)
-  
   Path.EnsurePath(packageLibPath)
   Path.CopyFiles(File.join(binPath, "Reachmail.dll"), packageLibPath)
   Path.CopyFiles(File.join(binPath, "Reachmail.pdb"), packageLibPath)
+  Path.CopyFiles(File.join(binPath, "Reachmail.xml"), packageLibPath)
 end
 
 nuspec :createSpec => :prepPackage do |nuspec|

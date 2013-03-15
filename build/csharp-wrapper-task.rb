@@ -120,9 +120,9 @@ class CSharpWrapper
             endpoint['requestArgument'] = sourceEndpoint['Request'] != nil ? 'request' : 'null'
 
             parameterComments = Array.new
-            parameterComments.concat(urlParameters.map{|x| Hash['name' => x['Name'], 'comments' => x['Comments']]})
+            parameterComments.concat(urlParameters.map{|x| Hash['name' => x['Name'][0, 1].downcase + self[1..-1], 'comments' => x['Comments']]})
             if sourceEndpoint['Request'] != nil then parameterComments.push Hash['name' => 'request', 'comments' => sourceEndpoint['Request']['comments']] end
-            parameterComments.concat(querystringParameters.map{|x| Hash['name' => x['Name'], 'comments' => x['Comments']]})
+            parameterComments.concat(querystringParameters.map{|x| Hash['name' => x['Name'][0, 1].downcase + self[1..-1], 'comments' => x['Comments']]})
             endpoint['parameterComments'] = parameterComments
 
             parameters = Array.new
