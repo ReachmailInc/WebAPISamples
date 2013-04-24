@@ -57,7 +57,12 @@ class CSharpWrapper
         when 'guid' then 'Guid' + (required ? '' : '?')
         when 'char' then 'Char' + (required ? '' : '?')
         when 'base64Binary' then 'byte[]'
-        else type.start_with?('ArrayOf') ? "List<#{get_data_type(type.gsub(/ArrayOf/, ''))}>" : 'object'
+        else 
+			if type.start_with?('ArrayOf') 
+				"List<#{get_data_type(type.gsub(/ArrayOf/, ''))}>"
+			else
+				raise "Invalid type #{required? 'required' : 'optional'} #{type}."
+			end
         end
     end
 
