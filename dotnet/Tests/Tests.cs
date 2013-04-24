@@ -42,7 +42,7 @@ namespace Tests
             var listName = "TestList-" + Guid.NewGuid().ToString("N");
 
             // Post
-            var postList = _reachmail.Contacts.Lists.Post(new ListProperties
+            var postList = _reachmail.Lists.Post(new ListProperties
             {
                 Name = listName,
                 Fields = new List<string> { "Zip" },
@@ -50,30 +50,30 @@ namespace Tests
             });
 
             // Get
-            var getList = _reachmail.Contacts.Lists.ByListId.Get(postList.Id.Value);
+            var getList = _reachmail.Lists.ByListId.Get(postList.Id.Value);
             getList.Id.ShouldEqual(postList.Id.Value);
             getList.Name.ShouldEqual(listName);
-            getList.Type.ShouldEqual(ReachmailApi.Contacts.Lists.ByListId.Get.Response.List.TypeOptions.Recipient);
+            getList.Type.ShouldEqual(ReachmailApi.Lists.ByListId.Get.Response.List.TypeOptions.Recipient);
 
             // Get many
-            var queryLists = _reachmail.Contacts.Lists.Query.Post(new ListFilter { NewerThan = DateTime.Now.AddDays(-1) });
+            var queryLists = _reachmail.Lists.Query.Post(new ListFilter { NewerThan = DateTime.Now.AddDays(-1) });
             var queryList = queryLists.FirstOrDefault(x => x.Id == postList.Id.Value);
             queryList.ShouldNotBeNull();
             queryList.Id.ShouldEqual(postList.Id.Value);
             queryList.Name.ShouldEqual(listName);
-            queryList.Type.ShouldEqual(ReachmailApi.Contacts.Lists.Query.Post.Response.List.TypeOptions.Recipient);
+            queryList.Type.ShouldEqual(ReachmailApi.Lists.Query.Post.Response.List.TypeOptions.Recipient);
 
             // Put
-            _reachmail.Contacts.Lists.ByListId.Put(postList.Id.Value,
-                new ReachmailApi.Contacts.Lists.ByListId.Put.Request.ListProperties { Name = "New" + listName });
-            getList = _reachmail.Contacts.Lists.ByListId.Get(postList.Id.Value);
+            _reachmail.Lists.ByListId.Put(postList.Id.Value,
+                new ReachmailApi.Lists.ByListId.Put.Request.ListProperties { Name = "New" + listName });
+            getList = _reachmail.Lists.ByListId.Get(postList.Id.Value);
             getList.Id.ShouldEqual(postList.Id.Value);
             getList.Name.ShouldEqual("New" + listName);
-            getList.Type.ShouldEqual(ReachmailApi.Contacts.Lists.ByListId.Get.Response.List.TypeOptions.Recipient);
+            getList.Type.ShouldEqual(ReachmailApi.Lists.ByListId.Get.Response.List.TypeOptions.Recipient);
 
             // Delete
-            _reachmail.Contacts.Lists.ByListId.Delete(postList.Id.Value);
-			_reachmail.Contacts.Lists.Query.Post(new ListFilter { NewerThan = DateTime.Now.AddMinutes(-10) })
+            _reachmail.Lists.ByListId.Delete(postList.Id.Value);
+			_reachmail.Lists.Query.Post(new ListFilter { NewerThan = DateTime.Now.AddMinutes(-10) })
                 .Any(x => x.Id == postList.Id).ShouldBeFalse();
         }
 
