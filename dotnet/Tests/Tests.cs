@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using ReachmailApi;
-using ReachmailApi.Contacts.Lists.Post.Request;
-using ReachmailApi.Contacts.Lists.Query.Post.Request;
+using ReachmailApi.Lists.Post.Request;
+using ReachmailApi.Lists.Query.Post.Request;
 using ReachmailApi.Reports.Mailings.Detail.Post.Request;
 using Should;
 
