@@ -61,7 +61,7 @@ class CSharpWrapper
 			if type.start_with?('ArrayOf') 
 				"List<#{get_data_type(type.gsub(/ArrayOf/, ''))}>"
 			else
-				raise "Invalid type #{required? 'required' : 'optional'} #{type}."
+				raise "Invalid type #{if required then 'required' else 'optional' end} #{type}."
 			end
         end
     end
