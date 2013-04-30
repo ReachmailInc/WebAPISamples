@@ -61,7 +61,7 @@ namespace Tests
             queryList.ShouldNotBeNull();
             queryList.Id.ShouldEqual(postList.Id.Value);
             queryList.Name.ShouldEqual(listName);
-            queryList.Type.ShouldEqual(ReachmailApi.Lists.Query.Post.Response.List.TypeOptions.Recipient);
+            queryList.Type.ShouldEqual(ReachmailApi.Lists.Filtered.Post.Response.List.TypeOptions.Recipient);
 
             // Put
             _reachmail.Lists.ByListId.Put(postList.Id.Value,
@@ -73,7 +73,7 @@ namespace Tests
 
             // Delete
             _reachmail.Lists.ByListId.Delete(postList.Id.Value);
-			_reachmail.Lists.Query.Post(new ListFilter { NewerThan = DateTime.Now.AddMinutes(-10) })
+			_reachmail.Lists.Filtered.Post(new ListFilter { NewerThan = DateTime.Now.AddMinutes(-10) })
                 .Any(x => x.Id == postList.Id).ShouldBeFalse();
         }
 
