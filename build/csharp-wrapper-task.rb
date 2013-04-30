@@ -131,10 +131,10 @@ class CSharpWrapper
             endpoint['parameterComments'] = parameterComments
 
             parameters = Array.new
-            parameters.concat(urlParameters.select{|x| x['Name'].downcase != 'accountid'}.map{|x| get_data_type(x['Type'], true) + ' ' + x['Name']})
+            parameters.concat(urlParameters.select{|x| x['Name'].downcase != 'accountid'}.map{|x| get_data_type(x['Type'], true) + ' ' + x['Name'][0, 1].downcase + x['Name'][1..-1]})
             if sourceEndpoint['Request'] != nil then parameters.concat([requestType + ' request']) end
-            parameters.concat(querystringParameters.map{|x| get_data_type(x['Type'], x['Required']) + ' ' + x['Name'] + (x['Required'] ? '' : ' = null')})
-            parameters.concat(urlParameters.select{|x| x['Name'].downcase == 'accountid'}.map{|x| get_data_type(x['Type'], false) + ' ' + x['Name'] + ' = null'})
+            parameters.concat(querystringParameters.map{|x| get_data_type(x['Type'], x['Required']) + ' ' + x['Name'][0, 1].downcase + x['Name'][1..-1] + (x['Required'] ? '' : ' = null')})
+            parameters.concat(urlParameters.select{|x| x['Name'].downcase == 'accountid'}.map{|x| get_data_type(x['Type'], false) + ' ' + x['Name'][0, 1].downcase + x['Name'][1..-1] + ' = null'})
             endpoint['parameters'] = parameters.join(', ')
             
             responseType = get_endpoint_data_type(spec, sourceEndpoint, 'Response')
