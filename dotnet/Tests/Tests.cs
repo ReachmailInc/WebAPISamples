@@ -56,7 +56,7 @@ namespace Tests
             getList.Type.ShouldEqual(ReachmailApi.Lists.ByListId.Get.Response.List.TypeOptions.Recipient);
 
             // Get many
-            var queryLists = _reachmail.Lists.Query.Post(new ListFilter { NewerThan = DateTime.Now.AddDays(-1) });
+            var queryLists = _reachmail.Lists.Filtered.Post(new ListFilter { NewerThan = DateTime.Now.AddDays(-1) });
             var queryList = queryLists.FirstOrDefault(x => x.Id == postList.Id.Value);
             queryList.ShouldNotBeNull();
             queryList.Id.ShouldEqual(postList.Id.Value);
