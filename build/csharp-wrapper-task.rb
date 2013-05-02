@@ -96,7 +96,7 @@ class CSharpWrapper
     def get_endpoint_data_type(spec, endpoint, direction)
         if endpoint[direction] != nil
             namespace = endpoint['Method'].capitalize + '.' + direction + '.'
-            if endpoint[direction]['Collection'] 
+            if endpoint[direction]['Array'] 
                 modelType = spec['Types'].select{|x| x['Id'] == endpoint[direction]['Type']}[0]
                 return "List<#{namespace}#{modelType != nil ? modelType['Name'] : get_data_type(endpoint[direction]['Type'], true)}>" 
             else 
@@ -160,7 +160,7 @@ class CSharpWrapper
 
     def get_member_data_type(spec, member)
         modelType = spec['Types'].select{|x| x['Id'] == member['Type']}[0]
-        if member['Collection'] 
+        if member['Array'] 
             return "List<#{modelType != nil ? modelType['Name'] : get_data_type(member['Type'], true)}>" 
         else 
             return modelType != nil ? modelType['Name'] : get_data_type(member['Type'], member['Required'])
