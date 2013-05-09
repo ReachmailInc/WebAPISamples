@@ -88,7 +88,7 @@ namespace Tests
         public void should_interact_with_reports()
         {
             _reachmail.Reports.Mailings.Detail.Post( new MailingReportFilter {
-                    ScheduledDeliveryOnOrBefore = DateTime.Now.AddDays(-1)
+                    ScheduledDeliveryOnOrAfter = DateTime.Now.AddDays(-1)
                 }).ShouldNotBeNull();
 
             _reachmail.Reports.Mailings.Trackedlinks.Summary.ByMailingId.Get(
