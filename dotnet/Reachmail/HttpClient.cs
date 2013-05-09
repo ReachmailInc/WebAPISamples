@@ -2,6 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Net;
+using System.Reflection;
 
 namespace ReachmailApi
 {
@@ -67,6 +68,7 @@ namespace ReachmailApi
             httpRequest.ReadWriteTimeout = _timeout * 1000;
             httpRequest.Method = verb.ToString().ToUpper();
             httpRequest.SetBasicAuthCredentials(_username, _password);
+            httpRequest.UserAgent += "/Reachmail API Wrapper v" + Assembly.GetExecutingAssembly().GetName().Version;
             if (verb == Verb.Post || verb == Verb.Put)
                 httpRequest.ContentType = request is Stream ? BinaryContentType : JsonContentType;
             httpRequest.Accept = responseType == typeof(Stream) ? BinaryContentType : JsonContentType;
@@ -109,10 +111,14 @@ namespace ReachmailApi
             : base(string.Format("Request failed: {0} - {1}", response.StatusCode, response.StatusDescription))
         {
             Response = response;
+            HttpStatus = response.StatusCode;
+            HttpStatusDescription = response.StatusDescription;
             ResponseText = response.GetResponseText();
         }
 
         public HttpWebResponse Response { get; private set; }
+        public HttpStatusCode HttpStatus { get; set; }
+        public string HttpStatusDescription { get; set; }
         public string ResponseText { get; set; }
     }
 }
