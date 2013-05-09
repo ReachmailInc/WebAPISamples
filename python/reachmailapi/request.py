@@ -344,22 +344,26 @@ def call(service_uri, method, api_user, password, request_body=None):
 		if method == 'GET':
 			request = urllib2.Request(service_uri)
 			request.add_header('Accept', 'application/json')
+			request.add_header('User-Agent', 'Reachmail Python API Wrapper')
 			response = urllib2.urlopen(request).read()
 		elif method == 'POST':
 			request = urllib2.Request(service_uri, request_body)
 			request.add_header('Content-Type', 'application/json')
 			request.add_header('Accept', 'application/json')
+			request.add_header('User-Agent', 'Reachmail Python API Wrapper')
 			response = urllib2.urlopen(request).read()
 		elif method == 'PUT':
 			request = urllib2.Request(service_uri, request_body)
 			request.add_header('Content-Type', 'application/json')
 			request.add_header('Accept', 'application/json')
+			request.add_header('User-Agent', 'Reachmail Python API Wrapper')
 			request.get_method = lambda: 'PUT'
 			response = urllib2.urlopen(request).read()
 		elif method == 'DELETE':
 			request = urllib2.Request(service_uri, request_body)
 			request.add_header('Content-Type', 'application/json')
 			request.add_header('Accept', 'application/json')
+			request.add_header('User-Agent', 'Reachmail Python API Wrapper')
 			request.get_method = lambda: 'DELETE'
 			response = urllib2.urlopen(request).read()
 	except urllib2.HTTPError, e:
