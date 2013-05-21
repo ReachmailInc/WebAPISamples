@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using ReachmailApi;
+using ReachmailApi.Mailings.Filtered.Post.Request;
+using ReachmailApi.Mailings.Post.Request;
 using ReachmailApi.Lists.Post.Request;
 using ReachmailApi.Lists.Filtered.Post.Request;
 using ReachmailApi.Reports.Mailings.Detail.Post.Request;
@@ -34,6 +36,46 @@ namespace Tests
             currentUser.AccountId.ShouldNotEqual(Guid.Empty);
             currentUser.AccountKey.ShouldEqual(_accountKey);
             currentUser.Username.ShouldEqual(_username);
+        }
+
+        [Test]
+        public void should_interact_with_mailing_api()
+        {
+            var mailingName = "TestMailing-" + Guid.NewGuid().ToString("N");
+
+            // Post
+            var postMailing = _reachmail.Mailings.Post(new MailingProperties
+            {
+                Name = mailingName,
+                MailingFormat = MailingProperties.MailingFormatOptions.TextAndHtml
+            });
+
+            // Get
+            var getMailing = _reachmail.Mailings.ByMailingId.Get(postMailing.Id.Value);
+            getMailing.Id.ShouldEqual(postMailing.Id.Value);
+            getMailing.Name.ShouldEqual(mailingName);
+            getMailing.MailingFormat.Value.ShouldEqual(ReachmailApi.Mailings.ByMailingId.Get.Response.Mailing.MailingFormatOptions.TextAndHtml);
+
+            // Get many
+            var queryLists = _reachmail.Mailings.Filtered.Post(new MailingFilter { NewerThan = DateTime.Now.AddDays(-1) });
+            var queryList = queryLists.FirstOrDefault(x => x.Id == postMailing.Id.Value);
+            queryList.ShouldNotBeNull();
+            queryList.Id.ShouldEqual(postMailing.Id.Value);
+            queryList.Name.ShouldEqual(mailingName);
+            queryList.MailingFormat.ShouldEqual(ReachmailApi.Mailings.Filtered.Post.Response.Mailing.MailingFormatOptions.TextAndHtml);
+
+            // Put
+            _reachmail.Mailings.ByMailingId.Put(postMailing.Id.Value,
+                new ReachmailApi.Mailings.ByMailingId.Put.Request.MailingProperties { Name = "New" + mailingName });
+            getMailing = _reachmail.Mailings.ByMailingId.Get(postMailing.Id.Value);
+            getMailing.Id.ShouldEqual(postMailing.Id.Value);
+            getMailing.Name.ShouldEqual("New" + mailingName);
+            getMailing.MailingFormat.ShouldEqual(ReachmailApi.Mailings.ByMailingId.Get.Response.Mailing.MailingFormatOptions.TextAndHtml);
+
+            // Delete
+            _reachmail.Mailings.ByMailingId.Delete(postMailing.Id.Value);
+            _reachmail.Mailings.Filtered.Post(new MailingFilter { NewerThan = DateTime.Now.AddMinutes(-10) })
+                .Any(x => x.Id == postMailing.Id).ShouldBeFalse();
         }
 
         [Test]
