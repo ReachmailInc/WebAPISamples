@@ -59,7 +59,7 @@ namespace Tests
 
             // Get many
             var queryLists = _reachmail.Mailings.Filtered.Post(new MailingFilter { NewerThan = DateTime.Now.AddDays(-1) });
-            var queryList = queryLists.FirstOrDefault(x => x.Id == postMailing.Id.Value);
+            var queryList = queryLists.FirstOrDefault(x => x.Id == postMailing.Id);
             queryList.ShouldNotBeNull();
             queryList.Id.ShouldEqual(postMailing.Id);
             queryList.Name.ShouldEqual(mailingName);
