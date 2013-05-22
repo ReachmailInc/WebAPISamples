@@ -52,29 +52,29 @@ namespace Tests
             });
 
             // Get
-            var getMailing = _reachmail.Mailings.ByMailingId.Get(postMailing.Id.Value);
-            getMailing.Id.ShouldEqual(postMailing.Id.Value);
+            var getMailing = _reachmail.Mailings.ByMailingId.Get(postMailing.Id);
+            getMailing.Id.ShouldEqual(postMailing.Id);
             getMailing.Name.ShouldEqual(mailingName);
-            getMailing.MailingFormat.Value.ShouldEqual(ReachmailApi.Mailings.ByMailingId.Get.Response.Mailing.MailingFormatOptions.TextAndHtml);
+            getMailing.MailingFormat.ShouldEqual(ReachmailApi.Mailings.ByMailingId.Get.Response.Mailing.MailingFormatOptions.TextAndHtml);
 
             // Get many
             var queryLists = _reachmail.Mailings.Filtered.Post(new MailingFilter { NewerThan = DateTime.Now.AddDays(-1) });
             var queryList = queryLists.FirstOrDefault(x => x.Id == postMailing.Id.Value);
             queryList.ShouldNotBeNull();
-            queryList.Id.ShouldEqual(postMailing.Id.Value);
+            queryList.Id.ShouldEqual(postMailing.Id);
             queryList.Name.ShouldEqual(mailingName);
             queryList.MailingFormat.ShouldEqual(ReachmailApi.Mailings.Filtered.Post.Response.Mailing.MailingFormatOptions.TextAndHtml);
 
             // Put
-            _reachmail.Mailings.ByMailingId.Put(postMailing.Id.Value,
+            _reachmail.Mailings.ByMailingId.Put(postMailing.Id,
                 new ReachmailApi.Mailings.ByMailingId.Put.Request.MailingProperties { Name = "New" + mailingName });
-            getMailing = _reachmail.Mailings.ByMailingId.Get(postMailing.Id.Value);
-            getMailing.Id.ShouldEqual(postMailing.Id.Value);
+            getMailing = _reachmail.Mailings.ByMailingId.Get(postMailing.Id);
+            getMailing.Id.ShouldEqual(postMailing.Id);
             getMailing.Name.ShouldEqual("New" + mailingName);
             getMailing.MailingFormat.ShouldEqual(ReachmailApi.Mailings.ByMailingId.Get.Response.Mailing.MailingFormatOptions.TextAndHtml);
 
             // Delete
-            _reachmail.Mailings.ByMailingId.Delete(postMailing.Id.Value);
+            _reachmail.Mailings.ByMailingId.Delete(postMailing.Id);
             _reachmail.Mailings.Filtered.Post(new MailingFilter { NewerThan = DateTime.Now.AddMinutes(-10) })
                 .Any(x => x.Id == postMailing.Id).ShouldBeFalse();
         }
@@ -93,35 +93,35 @@ namespace Tests
             });
 
             // Get
-            var getList = _reachmail.Lists.ByListId.Get(postList.Id.Value);
-            getList.Id.ShouldEqual(postList.Id.Value);
+            var getList = _reachmail.Lists.ByListId.Get(postList.Id);
+            getList.Id.ShouldEqual(postList.Id);
             getList.Name.ShouldEqual(listName);
             getList.Type.ShouldEqual(ReachmailApi.Lists.ByListId.Get.Response.List.TypeOptions.Recipient);
 
             // Get many
             var queryLists = _reachmail.Lists.Filtered.Post(new ListFilter { NewerThan = DateTime.Now.AddDays(-1) });
-            var queryList = queryLists.FirstOrDefault(x => x.Id == postList.Id.Value);
+            var queryList = queryLists.FirstOrDefault(x => x.Id == postList.Id);
             queryList.ShouldNotBeNull();
-            queryList.Id.ShouldEqual(postList.Id.Value);
+            queryList.Id.ShouldEqual(postList.Id);
             queryList.Name.ShouldEqual(listName);
             queryList.Type.ShouldEqual(ReachmailApi.Lists.Filtered.Post.Response.List.TypeOptions.Recipient);
 
             // Put
-            _reachmail.Lists.ByListId.Put(postList.Id.Value,
+            _reachmail.Lists.ByListId.Put(postList.Id,
                 new ReachmailApi.Lists.ByListId.Put.Request.ListProperties { Name = "New" + listName });
-            getList = _reachmail.Lists.ByListId.Get(postList.Id.Value);
-            getList.Id.ShouldEqual(postList.Id.Value);
+            getList = _reachmail.Lists.ByListId.Get(postList.Id);
+            getList.Id.ShouldEqual(postList.Id);
             getList.Name.ShouldEqual("New" + listName);
             getList.Type.ShouldEqual(ReachmailApi.Lists.ByListId.Get.Response.List.TypeOptions.Recipient);
 
             // Add recipient
-            _reachmail.Lists.Recipients.ByListId.Post(postList.Id.Value, new RecipientProperties { Email = "test@test.com" });
+            _reachmail.Lists.Recipients.ByListId.Post(postList.Id, new RecipientProperties { Email = "test@test.com" });
 
             // Delete recipients
-            _reachmail.Lists.Recipients.Filtered.Delete.ByListId.Post(postList.Id.Value, new ReachmailApi.Lists.Recipients.Filtered.Delete.ByListId.Post.Request.RecipientFilter());
+            _reachmail.Lists.Recipients.Filtered.Delete.ByListId.Post(postList.Id, new ReachmailApi.Lists.Recipients.Filtered.Delete.ByListId.Post.Request.RecipientFilter());
 
             // Delete
-            _reachmail.Lists.ByListId.Delete(postList.Id.Value);
+            _reachmail.Lists.ByListId.Delete(postList.Id);
 			_reachmail.Lists.Filtered.Post(new ListFilter { NewerThan = DateTime.Now.AddMinutes(-10) })
                 .Any(x => x.Id == postList.Id).ShouldBeFalse();
         }
@@ -130,7 +130,7 @@ namespace Tests
         public void should_interact_with_data_api()
         {
             var data = _reachmail.Data.Post(new MemoryStream(Encoding.ASCII.GetBytes("oh hai")));
-            new StreamReader(_reachmail.Data.ByDataId.Get(data.Id.Value)).ReadToEnd().ShouldEqual("oh hai");
+            new StreamReader(_reachmail.Data.ByDataId.Get(data.Id)).ReadToEnd().ShouldEqual("oh hai");
         }
 
         [Test]
