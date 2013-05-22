@@ -10,6 +10,7 @@ using ReachmailApi.Mailings.Post.Request;
 using ReachmailApi.Lists.Post.Request;
 using ReachmailApi.Lists.Filtered.Post.Request;
 using ReachmailApi.Reports.Mailings.Detail.Post.Request;
+using ReachmailApi.Lists.Recipients.ByListId.Post.Request;
 using Should;
 
 namespace Tests
@@ -112,6 +113,12 @@ namespace Tests
             getList.Id.ShouldEqual(postList.Id.Value);
             getList.Name.ShouldEqual("New" + listName);
             getList.Type.ShouldEqual(ReachmailApi.Lists.ByListId.Get.Response.List.TypeOptions.Recipient);
+
+            // Add recipient
+            _reachmail.Lists.Recipients.ByListId.Post(postList.Id.Value, new RecipientProperties { Email = "test@test.com" });
+
+            // Delete recipients
+            _reachmail.Lists.Recipients.Filtered.Delete.ByListId.Post(postList.Id.Value, new ReachmailApi.Lists.Recipients.Filtered.Delete.ByListId.Post.Request.RecipientFilter());
 
             // Delete
             _reachmail.Lists.ByListId.Delete(postList.Id.Value);
