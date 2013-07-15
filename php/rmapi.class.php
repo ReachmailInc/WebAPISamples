@@ -75,7 +75,7 @@ class RMAPI{
  * 
 **/
 function rm_getUser() {
-	$get_user_url =  'https://services.reachmail.net/Rest/Administration/v1.svc/users/current';
+	$get_user_url =  'https://services.reachmail.net/Rest/Administration/v1/users/current';
 	$id_request = curl_init();
 	$curl_options = array(
 		CURLOPT_URL => $get_user_url,
