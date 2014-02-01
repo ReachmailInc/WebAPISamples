@@ -25,10 +25,10 @@ For more information, refer to these instructions on [creating a token](http://r
 
 ### Function parameters:
 
-get (service_url, callback())
-post (service_url, post_body, callback())
-put (service_url, post_body, callback())
-delete (service_url, callback())
+- get (service_url, callback())
+- post (service_url, post_body, callback())
+- put (service_url, post_body, callback())
+- delete (service_url, callback())
 
         api.get('/administration/users/current', 
                 function (http_code, response) {
