@@ -36,5 +36,5 @@ For more information, refer to these instructions on [creating a token](http://r
             console.log(response);
         });
 
-Questions regarding use of this software should be referr to
+Questions regarding use of this software should be refer to
 support@reachmail.com
