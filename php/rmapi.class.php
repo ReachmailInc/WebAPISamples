@@ -2,27 +2,22 @@
 /*
 Name: ReachMail API Library
 Description: Provides a base file which you can use to interact with ReachMail.
-Author: aalegarbes@reachmail.com | http://www.reachmail.com/support
-Version: 0.5
+Author: Dan Nielsen | support@reachmail.com 
+Version: 1.0 
 Requirements: PHP 5 or higher and the Curl Extension
 
 This file holds all functions that we provide through our API. Usage is simple,
-add this file to your scripts or a directory on your site or wherever you plan to use this.
-In order to use this, all your PHP scripts must have: 
+save this file to your site or application and include it whenever acces to
+the ReachMail API is needed
 
-<?php
+include_once('rmapi.class.php'); 
 
+This, of course, may vary depending on the actual filesystem location to
+which you save rmapi.class.php
 
-include_once('rmapi.class.php'); //This will depend on the directory you add it into and where your main scripts are. Change the file path accordingly.
-
-?>
-
-In order to access the functions below.
-
-Please consult the notes above each function. All functions only output the requested XML in a simple format.
+Please consult the notes above each function for more information on usage.
+All functions return JSON data.
 */
-
-
 
 /*
 Ensure Curl is installed
@@ -33,66 +28,100 @@ if(!extension_loaded("curl")) {
 }
 
 /**
- * RMAPI class is a required class that's needed to access all services.
- * Example usage:
+RMAPI class is a required class that's needed to access all services.
+Example usage:
 
- * $RMAPI = new RMAPI('ACME','admin','password');
- * Once this command has been added to your PHP script, you'll be able to use services like this:
+$RMAPI = new RMAPI('ACME','admin','password');
+Once this command has been added to your PHP script, 
+you'll be able to use services like this:
 
- * $RMAPI->rm_functionName(requested parameters)	
- * Requested parameters could be anything from account ids, list ids, or whatever you plan on accessing.
+$RMAPI->rm_functionName(requested parameters)	
 
- * All sample commands assume that the class file is included in your script.	
-
+* Note that any service requiring request parameters (any POST or PUT service)
+will only accept those parameters in JSON format.
 
 **/
+
 class RMAPI{
 	private $_account_key;
 	private $_username;
 	private $_password;
+    private $_httpa;
 
-	function __construct($_account_key = NULL, $_username = NULL, $_password = NULL) {
+	function __construct($_account_key = NULL, $_username = NULL, 
+            $_password = NULL) {
 		$this->_account_key = $_account_key;
 		$this->_username = $_username;
 		$this->_password = $_password;
+        $this->_httpa = "$_account_key\\$_username:$_password";
+        $this->svcbase = "https://services.reachmail.net";
 	}
+
+    function requestBase($uri, $request_body, $request_method) {
+        
+        $url = $this->svcbase . $uri;
+        $curl_headers = array("Content-Type: application/json",
+                "Accept: application/json");
+
+        // Defaults
+        $curl_defaults = array(
+            CURLOPT_URL => $url,
+            CURLOPT_HEADER => false,
+            CURLOPT_USERPWD => "$this->_httpa",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => $curl_headers
+        );
+        $request = curl_init();
+
+        switch($request_method) {
+            
+            case "GET":
+                $curl_options = $curl_defaults;
+                break;
+
+            case "POST":
+                $curl_options = $curl_defaults;
+                $curl_options["CURLOPT_POSTFIELDS"] = $request_body;
+                $curl_options["CURLOPT_POST"] = true;
+                break;
+
+            case "PUT":
+                $curl_options = $curl_defaults;
+                $curl_options["CURLOPT_POSTFIELDS"] = $request_body;
+                $curl_options["CURLOPT_CUSTOMREQUEST"] = $method;
+                break;
+
+            case "DELETE":
+                $curl_options = $curl_defaults;
+                $curl_options["CURLOPT_POSTFIELDS"] = $request_body;
+                $curl_options["CURLOPT_CUSTOMREQUEST"] = $method;
+                break;
+        }
+
+        curl_setopt_array($request, $curl_options);
+        $response = curl_exec($request);
+        $http_status = curl_getinfo($request, CURLINFO_HTTP_CODE);
+        curl_close($request);
+
+        return array(
+            "http_status" => $http_status,
+            "service_response" => $response
+        );
+    }
+
 /*Adminitration Service*/
 
+// rm_administrationUsersCurrent()
+function rm_administrationUsersCurrent() {
+    
+    // Required for nearly all other operations, this function 
+    // returns the account id validated with your credentials
+    $uri = "/administration/users/current";
 
+    return $this->requestBase($uri, null, "GET"); 
+}
 
-
-/**GetCurrentUser Function*/
-
-/**
- * Get Current User will return the API account ID which is needed for all other services. 
- * 
- * Sample: $RMAPI->rm_getUser();	
- * Sample Output
-
-    [AccountId] => 11111111-1111-1111-111111111111
-    [AccountKey] => ACME
-    [Username] => User
- * 
-**/
-function rm_getUser() {
-	$get_user_url =  'https://services.reachmail.net/Rest/Administration/v1/users/current';
-	$id_request = curl_init();
-	$curl_options = array(
-		CURLOPT_URL => $get_user_url,
-		CURLOPT_HEADER => false,
-		CURLOPT_USERPWD => "$this->_account_key\\$this->_username:$this->_password",
-		CURLOPT_RETURNTRANSFER => true
-		);
-	curl_setopt_array($id_request, $curl_options);
-	$response = curl_exec($id_request);
-	$xml = simplexml_load_string($response);
-	$account_id = $xml->AccountId;
-
-	curl_close ($id_request);
-	print_r($xml);
-	}
-
-
+/****** STOPPED working here - dn ******/
 
 /**Enumerate Addresses Function
 
