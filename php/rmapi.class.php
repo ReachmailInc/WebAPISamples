@@ -81,13 +81,15 @@ class RMAPI{
 
             case "POST":
                 $curl_options = $curl_defaults;
-                $curl_options["CURLOPT_POSTFIELDS"] = $request_body;
+                $curl_options["CURLOPT_POSTFIELDS"] = json_encode(
+                        $request_body);
                 $curl_options["CURLOPT_POST"] = true;
                 break;
 
             case "PUT":
                 $curl_options = $curl_defaults;
-                $curl_options["CURLOPT_POSTFIELDS"] = $request_body;
+                $curl_options["CURLOPT_POSTFIELDS"] = json_encode(
+                        $request_body);
                 $curl_options["CURLOPT_CUSTOMREQUEST"] = $method;
                 break;
 
