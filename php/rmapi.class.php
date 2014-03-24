@@ -101,7 +101,7 @@ class RMAPI{
         }
 
         curl_setopt_array($request, $curl_options);
-        $response = curl_exec($request);
+        $response = json_encode(curl_exec($request));
         $http_status = curl_getinfo($request, CURLINFO_HTTP_CODE);
         curl_close($request);
 
