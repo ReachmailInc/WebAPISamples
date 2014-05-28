@@ -50,20 +50,24 @@ RequestBody. URI parameter names match the names detailed in the service
 documentation.
 
 For example, the [campaigns service](http://services.reachmail.net/documentation#Campaigns@/campaigns) used to schedule mailings requires the URI
-parameter AccountId and a RequestBody. The service would be called as follows.
+parameter AccountId and a RequestBody. The RequestBody variable should be a
+PHP object capabale of being converted to JSON via json_encode.
+The service would be called as follows.
 
-        $campaign = $rmapi->rm_campaigns(AccountId='id',
-                RequestBody='request_json');
+        $campaign = $rmapi->rm_campaigns($AccountId=$id,
+                $RequestBody=$request_json);
 
 All functions return the HTTP status code and the service response in an array.
-The service response will be a JSON encoded string. Note that some services
-will not return a response, success or failure is indicated by the status
-code alone.
+The service response will be a PHP object derived from the JSON response using
+json_decode.
 
         Array
         (
             [http_status] => 200
-            [service_response] => "{}"
+            [service_response] => stdClass Object
+                (
+                    [Id] => "xxxxxxx-xxx-xxx-xxxx-xxxxxxxxx"
+                )
         )
 
 Questions regarding use of this software should be refered to

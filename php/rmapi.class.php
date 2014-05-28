@@ -72,27 +72,27 @@ class RMAPI{
 
             case "POST":
                 $curl_options = $curl_defaults;
-                $curl_options["CURLOPT_POSTFIELDS"] = json_encode(
+                $curl_options[CURLOPT_POSTFIELDS] = json_encode(
                         $RequestBody);
-                $curl_options["CURLOPT_POST"] = true;
+                $curl_options[CURLOPT_POST] = true;
                 break;
 
             case "PUT":
                 $curl_options = $curl_defaults;
-                $curl_options["CURLOPT_POSTFIELDS"] = json_encode(
+                $curl_options[CURLOPT_POSTFIELDS] = json_encode(
                         $RequestBody);
-                $curl_options["CURLOPT_CUSTOMREQUEST"] = $method;
+                $curl_options[CURLOPT_CUSTOMREQUEST] = $method;
                 break;
 
             case "DELETE":
                 $curl_options = $curl_defaults;
-                $curl_options["CURLOPT_POSTFIELDS"] = $RequestBody;
-                $curl_options["CURLOPT_CUSTOMREQUEST"] = $method;
+                $curl_options[CURLOPT_POSTFIELDS] = $RequestBody;
+                $curl_options[CURLOPT_CUSTOMREQUEST] = $method;
                 break;
         }
 
         curl_setopt_array($request, $curl_options);
-        $response = json_encode(curl_exec($request));
+        $response = json_decode(curl_exec($request));
         $http_status = curl_getinfo($request, CURLINFO_HTTP_CODE);
         curl_close($request);
 
@@ -426,7 +426,7 @@ class RMAPI{
 
         // Modifies the specified group
         $uri = sprintf("/mailings/groups/%s/%s", $AccountId, $GroupId);
-        return $this->requestBase($uri, $request_nody, "PUT");
+        return $this->requestBase($uri, $RequestBody, "PUT");
     }
 
     function rm_mailingsGroupsDelete($AccountId=null, $GroupId=null) {
