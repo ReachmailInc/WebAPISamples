@@ -1,6 +1,6 @@
 require "albacore"
 require_relative "path"
-require_relative "gallio-task"
+require_relative "nunit-task"
 require_relative "csharp-wrapper-task"
 
 version = ENV['BUILD_NUMBER']
@@ -41,13 +41,9 @@ task :unitTestInit do
 	Path.EnsurePath(reportsPath)
 end
 
-gallio :unitTests => [:buildTests, :unitTestInit] do |runner|
-	runner.echo_command_line = true
-	runner.add_test_assembly("dotnet/Tests/bin/Release/Tests.dll")
-	runner.verbosity = 'Normal'
-	runner.report_directory = reportsPath
-	runner.report_name_format = 'tests'
-	runner.add_report_type('Html')
+nunit :unitTests => [:buildTests, :unitTestInit] do |runner|
+  runner.test_assembly_path = "dotnet/Tests/bin/Release/Tests.dll"
+  runner.output(reportsPath, "output.xml")
 end
 
 nugetApiKey = ENV["NUGET_API_KEY"]
