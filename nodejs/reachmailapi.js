@@ -206,3 +206,10 @@ ReachMail.prototype.delete = function (url, callback) {
 ReachMail.prototype.AdministrationUsersCurrent = function (callback) {
     this.get('/administration/users/current', callback);
 }
+
+/*
+** EasySmtpDelivery services
+*/
+ReachMail.prototype.easySmtpDelivery = function (accountId, body, callback) {
+    this.post ("/delivery/" + accountId, body, callback);
+}

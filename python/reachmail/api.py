@@ -37,6 +37,10 @@ class ReachMail(object):
         return base.Data(request_func=self.request)
         
     @property
+    def easysmtp(self):
+        return base.EasySmtp(request_func=self.request)
+
+    @property
     def lists(self):
         return base.Lists(request_func=self.request)
 

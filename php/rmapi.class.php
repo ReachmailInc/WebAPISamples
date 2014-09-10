@@ -158,6 +158,11 @@ class RMAPI{
         return $this->requestBase($uri, null, "GET");
     }
 
+    function rm_easySmtpDelivery($AccountId=null, $RequestBody=null) {
+        $uri = sprintf("/delivery/%s", $AccountId);
+        return $this->requestBase($uri, $RequestBody, "POST");
+    }
+
     function rm_listsCreate($AccountId=null, $RequestBody=null) {
 
         // Creates a new, empty list
