@@ -211,5 +211,5 @@ ReachMail.prototype.AdministrationUsersCurrent = function (callback) {
 ** EasySmtpDelivery services
 */
 ReachMail.prototype.easySmtpDelivery = function (accountId, body, callback) {
-    this.post ("/delivery/" + accountId, body, callback);
+    this.post ("/easysmtp/" + accountId, body, callback);
 }

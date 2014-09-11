@@ -73,7 +73,7 @@ class Data(BaseResource):
 class EasySmtp(BaseResource):
 
     def delivery(self, **kwargs):
-        self.uri = BASEURL + "/delivery/%(AccountId)s" % kwargs
+        self.uri = BASEURL + "/easysmtp/%(AccountId)s" % kwargs
         return self.request("POST", data=kwargs["Data"])
 
 class Lists(BaseResource):
