@@ -159,7 +159,7 @@ class RMAPI{
     }
 
     function rm_easySmtpDelivery($AccountId=null, $RequestBody=null) {
-        $uri = sprintf("/delivery/%s", $AccountId);
+        $uri = sprintf("/easysmtp/%s", $AccountId);
         return $this->requestBase($uri, $RequestBody, "POST");
     }
 
