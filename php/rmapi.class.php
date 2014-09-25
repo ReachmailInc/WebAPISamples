@@ -528,5 +528,19 @@ class RMAPI{
                 $AccountId, $enddate, $startdate);
         return $this->requestBase($uri, null, "GET");
     }
+
+    function rm_reportsEasySMTPBounces($AccountId=null, $startdate=null,
+            $enddate=null) {
+        $uri = sprintf("/reports/easysmtp/bounces/%s/?enddate=%s&startdate=%s",
+                $AccountId, $enddate, $startdate);
+        return $this->requestBase($uri, null, "GET");
+    }
+
+    function rm_reportsEasySMTPOptouts($AccountId=null, $startdate=null,
+            $enddate=null) {
+        $uri = sprintf("/reports/easysmtp/optouts/%s/?enddate=%s&startdate=%s",
+                $AccountId, $enddate, $startdate);
+        return $this->requestBase($uri, null, "GET");
+    }
 }
 ?>

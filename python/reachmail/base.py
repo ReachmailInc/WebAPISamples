@@ -253,7 +253,19 @@ class Reports(BaseResource):
 
     def easysmtp_mailings(self, **kwargs):
         self.uri = (BASEURL 
-            + "/reports/easysmtp/mailings/%(AccountId)s"
+            + "/reports/easysmtp/%(AccountId)s"
+            + "?enddate=%(enddate)s&startdate=%(startdate)s" % kwargs)
+        return self.request("GET")
+
+    def easysmtp_bounces(self, **kwargs):
+        self.uri = (BASEURL 
+            + "/reports/easysmtp/bounces/%(AccountId)s"
+            + "?enddate=%(enddate)s&startdate=%(startdate)s" % kwargs)
+        return self.request("GET")
+
+    def easysmtp_optouts(self, **kwargs):
+        self.uri = (BASEURL 
+            + "/reports/easysmtp/optouts/%(AccountId)s"
             + "?enddate=%(enddate)s&startdate=%(startdate)s" % kwargs)
         return self.request("GET")
 

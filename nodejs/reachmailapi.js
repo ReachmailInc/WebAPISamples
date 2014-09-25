@@ -50,7 +50,8 @@ support@reachmail.com
 
 */
 var VERSION = '0.7.1',
-    https = require('https');
+    https   = require('https'),
+    util    = require('util');
 
 function merge (def, opt) {
     defaults = def || {};
@@ -212,4 +213,28 @@ ReachMail.prototype.AdministrationUsersCurrent = function (callback) {
 */
 ReachMail.prototype.easySmtpDelivery = function (accountId, body, callback) {
     this.post ("/easysmtp/" + accountId, body, callback);
+}
+
+/*
+ * Reporting services
+ */
+ReachMail.prototype.reportsEasySmtp = function (accountId, startDate, endDate,
+        callback) {
+    var u = util.format("/reports/easysmtp/%s?startdate=%s&enddate=%s", 
+        accountId, startDate, endDate);
+    this.get (u, callback);
+}
+
+ReachMail.prototype.reportsEasySmtpBounces = function (accountId, startDate,
+        endDate, callback) {
+    var u = util.format("/reports/easysmtp/bounces/%s?startdate=%s&enddate=%s", 
+        accountId, startDate, endDate);
+    this.get (u, callback);
+}
+
+ReachMail.prototype.reportsEasySmtpOptouts = function (accountId, startDate,
+        endDate, callback) {
+    var u = util.format("/reports/easysmtp/optouts/%s?startdate=%s&enddate=%s", 
+        accountId, startDate, endDate);
+    this.get (u, callback);
 }
