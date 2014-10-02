@@ -524,7 +524,7 @@ class RMAPI{
             $enddate=null) {
 
         // Returns details of easysmtp mailings
-        $uri = sprintf("/reports/easysmtp/mailings/%s/?enddate=%s&startdate=%s",
+        $uri = sprintf("/reports/easysmtp/%s/?enddate=%s&startdate=%s",
                 $AccountId, $enddate, $startdate);
         return $this->requestBase($uri, null, "GET");
     }
