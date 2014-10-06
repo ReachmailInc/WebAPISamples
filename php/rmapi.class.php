@@ -542,5 +542,20 @@ class RMAPI{
                 $AccountId, $enddate, $startdate);
         return $this->requestBase($uri, null, "GET");
     }
+
+    function rm_reportsEasySMTPOpens($AccountId=null, $startdate=null,
+            $enddate=null) {
+        $uri = sprintf("/reports/easysmtp/opens/%s/?enddate=%s&startdate=%s",
+                $AccountId, $enddate, $startdate);
+        return $this->requestBase($uri, null, "GET");
+    }
+
+    function rm_reportsEasySMTPClicks($AccountId=null, $startdate=null,
+            $enddate=null) {
+        $uri = sprintf("/reports/easysmtp/clicks/%s/?enddate=%s&startdate=%s",
+                $AccountId, $enddate, $startdate);
+        return $this->requestBase($uri, null, "GET");
+    }
+
 }
 ?>
