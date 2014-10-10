@@ -238,3 +238,17 @@ ReachMail.prototype.reportsEasySmtpOptouts = function (accountId, startDate,
         accountId, startDate, endDate);
     this.get (u, callback);
 }
+
+ReachMail.prototype.reportsEasySmtpOpens = function (accountId, startDate,
+        endDate, callback) {
+    var u = util.format("/reports/easysmtp/opens/%s?startdate=%s&enddate=%s", 
+        accountId, startDate, endDate);
+    this.get (u, callback);
+}
+
+ReachMail.prototype.reportsEasySmtpClicks = function (accountId, startDate,
+        endDate, callback) {
+    var u = util.format("/reports/easysmtp/clicks/%s?startdate=%s&enddate=%s", 
+        accountId, startDate, endDate);
+    this.get (u, callback);
+}
