@@ -6,20 +6,20 @@ var api = new reachmail({token: 'YoUrSeCr3tTokenG03sH3rE'});
 
 //The following builds the content of the message
 var body={
-	FromAddress: 'billing@reachmail.com',
+	FromAddress: 'from@domain.tld',
 	Recipients: [
 	{
-		Address: 'mmarshall@reachmail.com'
+		Address: 'rcpt@domain.tld'
         },
 	{
-		Address: 'nmitchell@reachmail.com'
+		Address: 'rcpt2@domain.tld'
 	}
 	],
   	Headers: { 
 		Subject: 'Test Subject Goes Here' , 
-		From: 'ReachMail Billing <billing@reachmail.com>', 
+		From: 'From Name <from@domain.tld>', 
 		'X-Company': 'Company Name', 
-		'X-Location': 'Chicago' 
+		'X-Location': 'Your Location Header' 
 	}, 
 	BodyText: 'this is the text version of the ES API test',
 	BodyHtml: 'this is the <a href=\"http://www.google.com\">HTML</a> version of the ES API test', 
