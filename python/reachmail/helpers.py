@@ -35,7 +35,7 @@ def request(method, url, token, data=None):
             "User-Agent":"ReachMail Python API wrapper " + VER_S,
             "Authorization": "token " + token}
 
-    response, content = httplib2.Http(timeout=10).request(url,
+    response, content = httplib2.Http(timeout=45).request(url,
             method=method.upper(), body=data, headers=headers)
 
     return Response(response.status, content)
