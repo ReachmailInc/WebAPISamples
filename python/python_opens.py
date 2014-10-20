@@ -14,10 +14,10 @@ def getAccountGuid(api):
 		exit(1)
 
 #this function gets the report and returns the response for correctly executed calls
-def getDeliveryReport(api, AccountId):
+def getOpensReport(api, AccountId):
 	startdate = '2014-10-13T00:00:00.000Z'
 	enddate = '2014-10-14T00:00:00.000Z'
-	report = api.reports.easysmtp_mailings(AccountId=AccountId, startdate=startdate, enddate=enddate)
+	report = api.reports.easysmtp_opens(AccountId=AccountId, startdate=startdate, enddate=enddate)
 	if report[0] == 200:
 		return report[1] 
 	else:
@@ -28,7 +28,7 @@ def run():
 
 	api = reachmail.ReachMail("YoUrSeCr3tTokenG03sH3rE")
 	AccountId=getAccountGuid(api)
-	res=getDeliveryReport(api, AccountId)
+	res=getOpensReport(api, AccountId)
 	print "Report Retrieved. \nResponse: %s" % res 
 	
 

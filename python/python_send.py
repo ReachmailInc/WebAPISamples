@@ -44,7 +44,7 @@ def sendEmail(api, AccountId):
 	
 def run():
 
-	api = reachmail.ReachMail("WeTzk0oPRtsdEFNvlo4FyDeo4VS34KSMqVGqJDrA0opU_CGM6fECMS6OMAMGedQ2")
+	api = reachmail.ReachMail("YoUrSeCr3tTokenG03sH3rE")
 	AccountId=getAccountGuid(api)
 	send=sendEmail(api, AccountId)
 	print "Messgae Sent. \nResponse: %s" % send
