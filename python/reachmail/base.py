@@ -253,21 +253,34 @@ class Reports(BaseResource):
 
     def easysmtp_mailings(self, **kwargs):
         self.uri = (BASEURL 
-            + "/reports/easysmtp/%(AccountId)s"
+            + "/reports/easysmtp/%(AccountId)s" % kwargs
             + "?enddate=%(enddate)s&startdate=%(startdate)s" % kwargs)
         return self.request("GET")
 
     def easysmtp_bounces(self, **kwargs):
         self.uri = (BASEURL 
-            + "/reports/easysmtp/bounces/%(AccountId)s"
+            + "/reports/easysmtp/bounces/%(AccountId)s" % kwargs
             + "?enddate=%(enddate)s&startdate=%(startdate)s" % kwargs)
         return self.request("GET")
 
     def easysmtp_optouts(self, **kwargs):
         self.uri = (BASEURL 
-            + "/reports/easysmtp/optouts/%(AccountId)s"
+            + "/reports/easysmtp/optouts/%(AccountId)s" % kwargs
             + "?enddate=%(enddate)s&startdate=%(startdate)s" % kwargs)
         return self.request("GET")
+
+    def easysmtp_opens(self, **kwargs):
+        self.uri = (BASEURL 
+            + "/reports/easysmtp/opens/%(AccountId)s" % kwargs
+            + "?enddate=%(enddate)s&startdate=%(startdate)s" % kwargs)
+        return self.request("GET")
+
+    def easysmtp_clicks(self, **kwargs):
+        self.uri = (BASEURL 
+            + "/reports/easysmtp/clicks/%(AccountId)s" % kwargs
+            + "?enddate=%(enddate)s&startdate=%(startdate)s" % kwargs)
+        return self.request("GET")
+
 
     def mailings_bounces_detail(self, **kwargs):
         self.uri = (BASEURL
