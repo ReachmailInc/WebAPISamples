@@ -1,0 +1,8 @@
+{
+  "name": "WebAPISamples",
+  "version": "0.0.0",
+  "description": "Reachmail API Samples",
+  "devDependencies": {
+    "gulp": "~3.8.10"
+  }
+}

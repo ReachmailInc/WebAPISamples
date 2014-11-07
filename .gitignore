@@ -8,3 +8,4 @@ _ReSharper.*
 aspnet_client
 .DS_Store
 *.userprefs
+node_modules
