@@ -1,7 +1,7 @@
 <?php
 
 #include the api wrapper
-include_once('rmapi.class.php');
+include_once('/path_to_wrapper/rmapi.class.php');
 
 #initialize the rmapi class
 $rmapi = new RMAPI('YoUrSeCr3tTokenG03sH3rE');
