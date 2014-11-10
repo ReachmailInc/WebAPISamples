@@ -1,0 +1,31 @@
+curl -X POST -v \
+    -u accountid\\username:password \
+    -H "Accept: application/json" \
+    -H "Content-Type: application/json" \
+    --data-binary \
+       '{
+           "FromAddress": "",
+           "Recipients": [
+               {
+                   "Address": ""
+               }
+           ],
+           "Subject": "",
+           "BodyText": "",
+           "BodyHtml": "",
+           "Headers": {
+               "[key]": ""
+           },
+           "Attachments": [
+               {
+                   "Filename": "",
+                   "Data": "",
+                   "ContentDisposition": "",
+                   "Cid": ""
+               }
+           ],
+           "Tracking": false,
+           "FooterAddress": "",
+           "SignatureDomain": ""
+        }' \
+    https://services.reachmail.net/easysmtp/{AccountId}
