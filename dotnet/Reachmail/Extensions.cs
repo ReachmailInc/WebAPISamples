@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
 
-namespace ReachmailApi
+namespace Reachmail
 {
     internal static class Extensions
     {
@@ -60,6 +60,12 @@ namespace ReachmailApi
         public static HttpWebRequest SetBasicAuthCredentials(this HttpWebRequest request, string username, string password)
         {
             request.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes(username + ":" + password)));
+            return request;
+        }
+
+        public static HttpWebRequest SetTokenAuthenticationHeader(this HttpWebRequest request, string token)
+        {
+            request.Headers.Add("Authorization", string.Format("{0} {1}", "token", token));
             return request;
         }
 

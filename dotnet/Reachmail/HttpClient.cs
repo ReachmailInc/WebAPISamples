@@ -1,10 +1,10 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Reflection;
 
-namespace ReachmailApi
+namespace Reachmail
 {
     public enum Verb { Get, Post, Put, Delete }
 
@@ -13,10 +13,11 @@ namespace ReachmailApi
         object Execute(
             string relativeUrl,
             Verb verb,
-            Dictionary<string, object> urlParameters,
-            Dictionary<string, object> querystringParameters,
+            Dictionary<string, object> parameters,
             object request,
             Type responseType);
+
+        void AddParameterDefault(string name, object value);
     }
 
     public class HttpClient : IHttpClient
@@ -27,11 +28,24 @@ namespace ReachmailApi
         private readonly string _baseUrl;
         private readonly string _username;
         private readonly string _password;
+        private readonly string _token;
         private readonly IWebProxy _proxy;
         private readonly int _timeout;
 
-        private readonly Dictionary<string, object> _defaultValues = 
-            new Dictionary<string, object>();  
+        private readonly Dictionary<string, object> _defaultValues =
+            new Dictionary<string, object>();
+
+        public HttpClient(string baseUrl, string token, bool allowSelfSignedCerts, IWebProxy proxy, int timeout = 30)
+        {
+            if (allowSelfSignedCerts)
+                ServicePointManager.ServerCertificateValidationCallback =
+                    ((sender, certificate, chain, sslPolicyErrors) => true);
+
+            _baseUrl = baseUrl;
+            _token = token;
+            _proxy = proxy;
+            _timeout = timeout;
+        }
 
         public HttpClient(string baseUrl, string username, string password, bool allowSelfSignedCerts, IWebProxy proxy, int timeout = 30)
         {
@@ -54,24 +68,28 @@ namespace ReachmailApi
         public object Execute(
             string relativeUrl,
             Verb verb,
-            Dictionary<string, object> urlParameters,
-            Dictionary<string, object> querystringParameters,
+            Dictionary<string, object> parameters,
             object request,
             Type responseType)
         {
-            var url = (_baseUrl + relativeUrl).ReplaceAll(
-                    urlParameters.EmptyWhenNull(), 
-                    querystringParameters.EmptyWhenNull(), 
-                    _defaultValues);
+            var url = (_baseUrl + relativeUrl).ReplaceAll(parameters.EmptyWhenNull(), _defaultValues);
+
             var httpRequest = (HttpWebRequest)WebRequest.Create(url);
+
             httpRequest.Timeout = _timeout * 1000;
             httpRequest.ReadWriteTimeout = _timeout * 1000;
             httpRequest.Method = verb.ToString().ToUpper();
-            httpRequest.SetBasicAuthCredentials(_username, _password);
+
+            if (_token != null) httpRequest.SetTokenAuthenticationHeader(_token);
+            else if (_username != null && _password != null) httpRequest.SetBasicAuthCredentials(_username, _password);
+            else throw new Exception("No credentials specified.");
+            
             httpRequest.UserAgent = "Reachmail .NET API Wrapper v" + Assembly.GetExecutingAssembly().GetName().Version;
+
             if (verb == Verb.Post || verb == Verb.Put)
                 httpRequest.ContentType = request is Stream ? BinaryContentType : JsonContentType;
             httpRequest.Accept = responseType == typeof(Stream) ? BinaryContentType : JsonContentType;
+
             if (_proxy != null) httpRequest.Proxy = _proxy;
 
             if (request != null)

@@ -1,1 +1,1 @@
-var gulp = require('gulp');gulp.task('ci', function() {    console.log('Running CI yay!');});gulp.task('deploy', function() {    console.log('Running deploy yay!');});
+var gulp = require('gulp'),    http = require('http');    fs = require('fs'),    hub = require('gulp-hub');var request = http.get('http://' + process.env.API_HOST + '/spec', function(response) {  response.pipe(fs.createWriteStream("spec.json"));  hub('./*/gulpfile.js');});

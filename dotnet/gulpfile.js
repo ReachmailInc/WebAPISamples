@@ -1,0 +1,1 @@
+var gulp = require('gulp');gulp.task('ci', ['schema'], function() {    console.log('Running CI yay!');});gulp.task('deploy', ['schema'], function() {    console.log('Running deploy yay!');});

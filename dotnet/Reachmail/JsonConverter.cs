@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Web.Script.Serialization;
 
-namespace ReachmailApi
+namespace Reachmail
 {
     internal class JsonConverter : JavaScriptConverter
     {
