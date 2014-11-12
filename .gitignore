@@ -9,3 +9,4 @@ aspnet_client
 .DS_Store
 *.userprefs
 node_modules
+spec.json

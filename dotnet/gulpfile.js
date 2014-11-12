@@ -1,1 +1,1 @@
-var gulp = require('gulp');gulp.task('ci', ['schema'], function() {    console.log('Running CI yay!');});gulp.task('deploy', ['schema'], function() {    console.log('Running deploy yay!');});
+var gulp = require('gulp'),    fs = require('fs');gulp.task('ci', function() {    console.log('Running CI yay!');    console.log('File exists: ' + fs.existsSync("../spec.json"));});gulp.task('deploy', ['spec'], function() {    console.log('Running deploy yay!');});

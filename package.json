@@ -6,6 +6,6 @@
     "gulp": "~3.8.10"
   },
   "dependencies": {
-    "gulp-hub": "^0.6.1"
+    "gulp-chug": "^0.3.1"
   }
 }
