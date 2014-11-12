@@ -11,7 +11,6 @@
     "handlebars": "^2.0.0",
     "html-to-text": "^1.1.0",
     "pluralize": "^1.0.3",
-    "strip-bom": "^1.0.0",
     "underscore": "^1.7.0"
   }
 }

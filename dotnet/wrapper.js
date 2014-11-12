@@ -2,8 +2,7 @@ var fs = require('fs'),
     _ = require('underscore'),
     Handlebars = require('handlebars'),
     htmlToText = require('html-to-text'),
-    pluralize = require('pluralize'),
-    stripBom = require('strip-bom');
+    pluralize = require('pluralize');
 
 // Extensions
 
@@ -243,7 +242,7 @@ Handlebars.registerHelper('simpleClrType', function (name, optional, isEnum) {
 // Module
 
 module.exports = function(jsonPath, templatePath, outputPath) {
-    var json = JSON.parse(stripBom(fs.readFileSync(jsonPath, { encoding: 'UTF8' })));
-    var template = Handlebars.compile(templatePath, { encoding: 'UTF8' });
+    var json = JSON.parse(fs.readFileSync(jsonPath, { encoding: 'UTF8' }));
+    var template = Handlebars.compile(fs.readFileSync(templatePath, { encoding: 'UTF8' }));
     fs.writeFileSync(outputPath, template(json));
 }
