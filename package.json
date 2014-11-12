@@ -7,6 +7,10 @@
   },
   "dependencies": {
     "gulp-chug": "^0.3.1",
-    "gulp-dotnet-assembly-info": "^0.1.9"
+    "gulp-dotnet-assembly-info": "^0.1.9",
+    "handlebars": "^2.0.0",
+    "html-to-text": "^1.1.0",
+    "pluralize": "^1.0.3",
+    "underscore": "^1.7.0"
   }
 }
