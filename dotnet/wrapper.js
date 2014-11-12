@@ -242,7 +242,7 @@ Handlebars.registerHelper('simpleClrType', function (name, optional, isEnum) {
 // Module
 
 modeule.exports = function(jsonPath, templatePath, outputPath) {
-    var json = JSON.parse(fs.readFileSync(json, { encoding: 'UTF8' });
+    var json = JSON.parse(fs.readFileSync(json, { encoding: 'UTF8' }));
     var template = Handlebars.compile(template, { encoding: 'UTF8' });
     fs.writeFileSync(outputPath, tempate(json));
 }
