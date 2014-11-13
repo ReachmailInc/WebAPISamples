@@ -1,8 +1,8 @@
 var execFile = require('child_process').execFile,
-	gutil = require('gulp-util'),
+	gutil = require('../../node_modules/gulp_nuget/node_modules/gulp-util'),
 	log = require('./log'),
-	File = require('vinyl'),
-	fs = require('fs-extra'),
+	File = require('../../node_modules/gulp_nuget/node_modules/vinyl'),
+	fs = require('../../node_modules/gulp_nuget/node_modules/fs-extra'),
 	path = require('path');
 
 function createArgs(options) {
