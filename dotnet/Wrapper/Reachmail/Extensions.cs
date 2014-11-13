@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace Reachmail
 {
@@ -20,35 +20,28 @@ namespace Reachmail
         {
             return replacements.SelectMany(x => x)
                 .Where(x => x.Value != null)
-                .Aggregate(source, (input, replacement) => 
+                .Aggregate(source, (input, replacement) =>
                     Regex.Replace(input, replacement.Key, replacement.Value.ToString(), RegexOptions.IgnoreCase));
         }
 
-        private static readonly Lazy<JavaScriptSerializer> Serializer = new Lazy<JavaScriptSerializer>(()=> 
-            new JavaScriptSerializer()
-                .AddConverters(x => x
-                    .Add<DateTime>(y => y.ToString("o")) //.ToUniversalTime()
-                    .Add<Enum>(y => y.ToString())));
+        private static readonly JsonSerializerSettings SerializationSettings =
+            new JsonSerializerSettings
+            {
+                Converters = new List<JsonConverter>
+                {
+                    new Newtonsoft.Json.Converters.StringEnumConverter()
+                }
+            };
 
         public static Stream ToJsonStream(this object source)
         {
-            return new MemoryStream(Encoding.UTF8.GetBytes(Serializer.Value.Serialize(source)));
+            return new MemoryStream(Encoding.UTF8.GetBytes(JsonConvert
+                .SerializeObject(source, Formatting.None, SerializationSettings)));
         }
-
-        public static JavaScriptSerializer AddConverters(this JavaScriptSerializer serializer, Action<JsonConverter> config)
-        {
-            var converter = new JsonConverter();
-            config(converter);
-            serializer.RegisterConverters(new [] { converter});
-            return serializer;
-        }
-
-        private static readonly Lazy<JavaScriptSerializer> Deserializer = new Lazy<JavaScriptSerializer>(() => 
-            new JavaScriptSerializer { MaxJsonLength = int.MaxValue }); 
 
         public static object FromJson(this string json, Type type)
         {
-            return Deserializer.Value.Deserialize(json, type);
+            return JsonConvert.DeserializeObject(json, type);
         }
 
         public static string GetResponseText(this HttpWebResponse response)
@@ -71,8 +64,8 @@ namespace Reachmail
 
         public static bool IsNullableEnum(this Type type)
         {
-            return type.IsGenericType && 
-                type.GetGenericTypeDefinition() == typeof(Nullable<>) && 
+            return type.IsGenericType &&
+                type.GetGenericTypeDefinition() == typeof(Nullable<>) &&
                 Nullable.GetUnderlyingType(type).IsEnum;
         }
     }
