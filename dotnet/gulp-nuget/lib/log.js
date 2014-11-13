@@ -1,4 +1,4 @@
-var gutil = require('../../node_modules/gulp_nuget/node_modules/gulp-util');
+var gutil = require('../../../node_modules/gulp_nuget/node_modules/gulp-util');
 
 module.exports = function() {
 	if(!arguments) {

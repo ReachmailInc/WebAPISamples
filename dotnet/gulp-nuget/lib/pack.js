@@ -1,7 +1,7 @@
-var fs = require('../../node_modules/gulp_nuget/node_modules/fs-extra'),
+var fs = require('../../../node_modules/gulp_nuget/node_modules/fs-extra'),
 	Transform = require('stream').Transform,
 	util = require('util'),
-	PluginError = require('../../node_modules/gulp_nuget/node_modules/gulp-util').PluginError,
+	PluginError = require('../../../node_modules/gulp_nuget/node_modules/gulp-util').PluginError,
 	path = require('path'),
 	log = require('./log'),
 	packcmd = require('./pack-cmd');

@@ -1,5 +1,5 @@
 var execFile = require('child_process').execFile,
-	PluginError = require('../../node_modules/gulp_nuget/node_modules/gulp-util').PluginError,
+	PluginError = require('../../../node_modules/gulp_nuget/node_modules/gulp-util').PluginError,
 	log = require('./log');
 
 function createArgs(nugetPkgFilePath, options) {
