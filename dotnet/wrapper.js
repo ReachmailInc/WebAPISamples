@@ -181,7 +181,7 @@ Handlebars.registerHelper('hasRequest', function (options) {
 });
 
 Handlebars.registerHelper('hasResponse', function (options) {
-    if (supportsStream(this.Response)) return options.fn(_.extend({ stream: true }, this));
+    if (supportsStream(this.Response)) return options.fn(_.extend(this, { stream: true }));
     if (this.Response.Body.Type) return options.fn(_.extend({ stream: false }, this));
     return options.inverse();
 });
