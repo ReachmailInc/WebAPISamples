@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+   <metadata>
+      <id>reachmail</id>
+      <version>0.0.0.0</version>
+      <language>en-US</language>
+      <title>ReachMail API Wrapper</title>
+      <authors>ReachMail, Inc.</authors>
+      <owners>Reachmail, Inc.</owners>
+      <description>This library allows you to easily interact with the Reachmail API.</description>
+      <summary>This library allows you to easily interact with the Reachmail API.</summary>
+      <copyright>Copyright © 2014 ReachMail, Inc</copyright>
+      <licenseUrl>https://raw.github.com/ReachmailInc/WebAPISamples/master/LICENSE</licenseUrl>
+      <projectUrl>https://github.com/ReachmailInc/WebAPISamples/tree/master/dotnet</projectUrl>
+      <iconUrl>https://raw.github.com/ReachmailInc/WebAPISamples/master/dotnet/logo.png</iconUrl>
+      <tags>reachmail email esp</tags>
+      <dependencies>
+         <dependency id="Newtonsoft.Json" />
+      </dependencies>
+   </metadata>
+</package>
