@@ -175,8 +175,8 @@ Handlebars.registerHelper('endpointName', function () {
 });
 
 Handlebars.registerHelper('hasRequest', function (options) {
-    if (supportsStream(this.Request)) return options.fn(_.extend(this, { stream: true }));
-    if (this.Request.Body.Type) return options.fn(_.extend(this, { stream: false }));
+    if (supportsStream(this.Request)) return options.fn(_.extend({ stream: true }, this));
+    if (this.Request.Body.Type) return options.fn(_.extend({ stream: false }, this));
     return options.inverse();
 });
 
