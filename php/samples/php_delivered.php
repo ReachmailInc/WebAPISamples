@@ -9,7 +9,8 @@ $rmapi = new RMAPI('YoUrSeCr3tTokenG03sH3rE');
 #retrieve account information array 
 $account_info = $rmapi->rm_administrationUsersCurrent();
 
-#parse array and access the account id stdClass object value.  returns just the the account GUID as a string
+#parse array and access the account id stdClass object value.  
+#returns just the the account GUID as a string
 $AccountId = $account_info['service_response']->AccountId;
 
 #Dates are in UTC format and must be set as strings
