@@ -34,7 +34,7 @@ directory:
 
 ### Configuring the API
 
-        var reachmail = require('/path/to/reachmailapi.js');
+        var reachmail = require('reachmailapi');
 
         var api = new reachmail({token: 'your_token_here'});
 
