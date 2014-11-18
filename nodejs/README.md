@@ -10,9 +10,17 @@ reachmailnj aims to provide a simple client library for interacing with the
 
 ## Getting started
 
-This is the preliminary version of the client library for node.js and as such
-has limited convenience functions and expects an at least intermediate 
-level of familiarity with node.js
+This wrapper provides a number of convenience functions for working with
+various API services. Each convenience function is named after the section and
+service it accesses, e.g. administrationAddresses() accesses 
+/administration/addresses. Convenience functions will require at least a 
+callback function and in most cases, parameters representing your account
+information and service request details. 
+
+Alternatively, the basic functions for 'GET', 'POST', 'PUT', and 'DELETE' have
+been provided if you would like to access the services directly. Refer to the
+"Function parameters" section below for an example. Documentation on the
+required parameters for each service can be found in the [ReachMail API documentation](https://services.reachmail.net).
 
 Note that at this time the client library supports only token authentication.
 For more information, refer to these instructions on [creating a token](http://reachmail.zendesk.com/entries/26267216-Setting-authorization-tokens).
@@ -51,5 +59,5 @@ directory:
             console.log(response);
         });
 
-Questions regarding use of this software should be refer to
+Questions regarding use of this software should be refered to
 support@reachmail.com

@@ -3,7 +3,7 @@
   "name": "reachmailapi",
   "description": "NodeJS wrapper for the ReachMail API",
   "keywords": ["reachmail"],
-  "version": "0.1.2",
+  "version": "0.2.3",
   "homepage": "https://github.com/ReachmailInc/WebAPISamples/tree/master/nodejs",
   "repository": {
     "type": "git",
