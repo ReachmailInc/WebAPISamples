@@ -13,6 +13,7 @@
     "gulp-nunit-runner": "^0.4.0",
     "handlebars": "^2.0.0",
     "html-to-text": "^1.1.0",
+    "nuget-runner": "^0.1.0",
     "pluralize": "^1.0.3",
     "underscore": "^1.7.0"
   }
