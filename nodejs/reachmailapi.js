@@ -68,11 +68,11 @@ function merge (def, opt) {
 
 var request_options = function (host, path, method, headers, body) {
     this.hostname = host;
-    this.port = 443;
-    this.path = path;
-    this.method = method;
-    this.headers = headers;
-    this.body = body;
+    this.port     = 443;
+    this.path     = path;
+    this.method   = method;
+    this.headers  = headers;
+    this.body     = body;
 
     if (body !== null) {
         this.headers['Content-Length'] = body.length;
@@ -91,9 +91,9 @@ function call_service (options, callback) {
         response.on('end', function () {
             try {
                 var json = JSON.parse(body);
-                callback (status_code, json);
+                callback(status_code, json);
             } catch (err) {
-                callback (status_code, err);
+                callback(status_code, err);
             }
         });
     });
@@ -114,16 +114,16 @@ function ReachMail (options) {
     if (!(this instanceof ReachMail)) return new ReachMail(options);
 
     var defaults = {
-        token: null,
+        token     : null,
 
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'User-Agent': 'reachmail-node-' + VERSION,
-            'Authorization': 'token '
+        headers   : {
+            'Accept'        : 'application/json',
+            'Content-Type'  : 'application/json',
+            'User-Agent'    : 'reachmail-node-' + VERSION,
+            'Authorization' : 'token '
         },
 
-        base_url: 'services.reachmail.net'
+        base_url  : 'services.reachmail.net'
     };
 
     this.options = merge(defaults, options);
@@ -140,10 +140,10 @@ ReachMail.prototype.get = function (url, callback) {
         return this;
     }
 
-    var opts = new request_options (this.options.base_url, url, "GET",
+    var opts = new request_options(this.options.base_url, url, "GET",
             this.options.headers, null);
 
-    call_service (opts, callback);
+    call_service(opts, callback);
 }
 
 /*
@@ -160,10 +160,10 @@ ReachMail.prototype.post = function (url, content, callback) {
         return this;
     }
 
-    var opts = new request_options (this.options.base_url, url, 'POST',
+    var opts = new request_options(this.options.base_url, url, 'POST',
             this.options.headers, content);
 
-    call_service (opts, callback);
+    call_service(opts, callback);
 }
 
 /*
@@ -180,10 +180,10 @@ ReachMail.prototype.put = function (url, content, callback) {
         return this;
     }
 
-    var opts = new request_options (this.options.base_url, url, 'PUT',
+    var opts = new request_options(this.options.base_url, url, 'PUT',
             this.options.headers, content);
 
-    call_service (opts, callback);
+    call_service(opts, callback);
 }
 
 /*
@@ -195,17 +195,43 @@ ReachMail.prototype.delete = function (url, callback) {
         return this;
     }
 
-    var opts = new request_options (this.options.base_url, url, 'DELETE',
+    var opts = new request_options(this.options.base_url, url, 'DELETE',
             this.options.headers, null);
 
-    call_service (opts, callback);
+    call_service(opts, callback);
 }
 
 /*
  * Administration services
  */
-ReachMail.prototype.AdministrationUsersCurrent = function (callback) {
+ReachMail.prototype.administrationUsersCurrent = function (callback) {
     this.get('/administration/users/current', callback);
+}
+
+ReachMail.prototype.administrationAddresses = function (accountid, callback) {
+  this.get('/administration/addresses/' + accountid, callback);
+}
+
+/*
+ * Campaign Services
+ */
+ReachMail.prototype.campaigns = function (accountid, callback) {
+  this.post('/campaigns/' + accountid, body, callback);
+}
+
+ReachMail.prototype.campaignsMessageTesting = function (accountid, callback) {
+  this.post('/campaigns/messagetesting/' + accountid, body, callback);
+}
+
+/* 
+ * Data services
+ */
+ReachMail.prototype.dataUpload = function (body, callback) {
+  this.post('/data/', body, callback);
+}
+
+ReachMail.prototype.dataDownload = function (dataid, callback) {
+  this.get('/data/' + dataid, callback);
 }
 
 /*
@@ -215,9 +241,255 @@ ReachMail.prototype.easySmtpDelivery = function (accountId, body, callback) {
     this.post ("/easysmtp/" + accountId, body, callback);
 }
 
+/* 
+ * List services
+ */
+ReachMail.prototype.listCreate = function (accountid, body, callback) {
+  this.post('/lists/' + accountid, body, callback);
+}
+
+ReachMail.prototype.listInformation = function (accountid, listid, callback) {
+  var u = util.format('/lists/%s/%s', accountid, listid);
+  this.get(u, callback);
+}
+
+ReachMail.prototype.listModify = function (accountid, listid, body, callback) {
+  var u = util.format('/lists/%s/%s', accountid, listid);
+  this.put(u, body, callback);
+}
+
+ReachMail.prototype.listDelete = function (accountid, listid, callback) {
+  var u = util.format('/lists/%s/%s', accountid, listid);
+  this.delete(u, callback);
+}
+
+ReachMail.prototype.listExport = function (accountid, listid, body, callback) {
+  var u = util.format('/lists/export/%s/%s', accountid, listid);
+  this.post(u, body, callback);
+}
+
+ReachMail.prototype.listExportStatus = function (accountid, exportid, cb) {
+  var u = util.format('/lists/export/status/%s/%s', accountid, exportid);
+  this.get(u, cb);
+}
+
+ReachMail.prototype.listFields = function (accoutid, callback) {
+  this.get('/lists/' + accountid, callback);
+}
+
+ReachMail.prototype.listFiltered = function (accountid, body, callback) {
+  this.post('/lists/filtered/' + accountid, body, callback);
+}
+
+ReachMail.prototype.listGroupCreate = function (accountid, body, callback) {
+  this.post('/lists/groups/' + accountid, body, callback);
+}
+
+ReachMail.prototype.listGroupInformation = function (accountid, groupid, cb) {
+  var u = util.format('/lists/groups/%s/%s', accountid, groupid);
+  this.get(u, callback);
+}
+
+ReachMail.prototype.listGroupModify = function (accountid, groupid, body, cb) {
+  var u = util.format('/lists/groups/%s/%s', accountid, groupid);
+  this.post(u, body, cb);
+}
+
+ReachMail.prototype.listGroupDelete = function (accountid, groupid, callback) {
+  var u = util.format('/lists/groups/%s/%s', accountid, groupid);
+  this.delete(u, callback);
+}
+
+ReachMail.prototype.listImport = function (accountid, listid, body, callback) {
+  var u = util.format('/lists/import/%s/%s', accountid, listid);
+  this.post(u, body, callback);
+}
+
+ReachMail.prototype.listImportStatus = function (accountid, importid, cb) {
+  var u = util.format('/lists/import/%s/%s', accountid, importid);
+  this.get(u, callback);
+}
+
+ReachMail.prototype.listOptOut = function (accountid, listid, body, callback) {
+  var u = util.format('/lists/optout/%s/%s', accountid, listid);
+  this.post(u, body, callback);
+}
+
+ReachMail.prototype.listRecipientsCreate = function (accountid, listid, body, 
+    callback) {
+  var u = util.format('/lists/recipients/%s/%s', accountid, listid);
+  this.post(u, body, callback);
+}
+
+ReachMail.prototype.listRecipientsInformation = function (accountid, listid,
+    email, callback) {
+  var u = util.format('/lists/recipients/%s/%s/%s', accountid, listid, email);
+  this.get(u, callback);
+}
+
+ReachMail.prototype.listRecipientsDelete = function (accountid, listid, email,
+    callback) {
+  var u = util.format('/lists/recipients/%s/%s/%s', accountid, listid, email);
+  this.delete(u, callback);
+}
+
+ReachMail.prototype.listRecipientsModify = function (accountid, listid, email,
+    body, callback) {
+  var u = util.format('/lists/recipients/%s/%s/%s', accountid, listid, email);
+  this.put(u, body, callback);
+}
+
+ReachMail.prototype.listRecipientsFiltered = function (accountid, listid,
+    body, callback) {
+  var u = util.format('/lists/recipients/filtered/%s/%s', accountid, listid);
+  this.post(u, body, callback);
+}
+
+ReachMail.prototype.listRecipientsFilteredDelete = function (accountid, listid,
+    body, callback) {
+  var u = util.format('/lists/recipients/filtered/delete/%s/%s', accountid,
+      listid);
+  this.post(u, body, callback);
+}
+
+ReachMail.prototype.listRecipientsFilteredModify = function (accountid, listid, 
+    body, callback) {
+  var u = util.format('/lists/recipients/filtered/modify/%s/%s', accountid,
+      listid);
+  this.post(u, body, callback);
+}
+
+ReachMail.prototype.listRecipientsFilteredSubscribe = function (accountid,
+    listid, body. callback) {
+  var u = util.format('/lists/recipients/filtered/subscribe/%s/%s', accountid,
+      listid);
+  this.post(u, body, callback);
+}
+
+ReachMail.prototype.listSubscriptionForm = function (accountid, formid, cb) {
+  var u = util.format('/lists/subscriptionform/%s/%s', accountid, formid);
+  this.get(u, callback);
+}
+
+ReachMail.prototype.listSubscriptionFormFiltered = function (accountid, cb) {
+  var u = util.format('/lists/subscriptionform/%s', accountid);
+  this.get(u, callback);
+}
+
+/* 
+ * Mailing services
+ */
+ReachMail.prototype.mailingCreate = function (accountid, body, callback) {
+  this.post('/mailings/' + accountid, body, callback);
+}
+
+ReachMail.prototype.mailingInformation = function (accountid, mailingid, cb) {
+  var u = util.format('/mailings/%s/%s', accountid, mailingid);
+  this.get(u, callback);
+}
+
+ReachMail.prototype.mailingModify = function (accountid, mailingid, body, cb) {
+  var u = util.format('/mailings/%s/%s', accountid, mailingid);
+  this.post(u, body, callback);
+}
+
+ReachMail.prototype.mailingDelete = function (accountid, mailingid, cb) {
+  var u = util.format('/mailings/%s/%s', accountid, mailingid);
+  this.delete(u, cb);
+}
+
+ReachMail.prototype.mailingFiltered = function (accountid, body, callback) {
+  this.post('/mailings/' + accountid, body, callback);
+}
+
+ReachMail.prototype.mailingGroups = function (accountid, callback) {
+  this.get('/mailings/groups/' + accountid, callback);
+}
+
+ReachMail.prototype.mailingGroupsCreate = function (accountid, body, callback) {
+  this.post('/mailings/groups/' + accountid, body, callback);
+}
+
+ReachMail.prototype.mailingGroupsInformation = function (accountid, groupid,
+    callback) {
+  var u = util.format('/mailings/groups/%s/%s', accountid, groupid);
+  this.get(u, callback);
+}
+
+ReachMail.prototype.mailingGroupsModify = function (accountid, groupid, body,
+    callback) {
+  var u = util.format('/mailings/groups/%s/%s', accountid, groupid);
+  this.put(u, body, callback);
+}
+
+ReachMail.prototype.mailingGroupsDelete = function (accountid, groupid,
+    callback) {
+  var u = util.format('/mailings/groups/%s/%s', accountid, groupid);
+  this.delete(u, callback);
+}
+
 /*
  * Reporting services
  */
+ReachMail.prototype.reportsMailingsBouncesDetail = function (accountid,
+    mailingid, body, callback) {
+  var u = util.format('/reports/mailings/bounces/detail/%s/%s', accountid,
+      mailingid);
+  this.post(u, body, callback);
+}
+
+ReachMail.prototype.reportsMailingsDetail = function (accountid, mailingid, 
+    body, callback) {
+  var u = util.format('/reports/mailings/detail/%s/', accountid);
+  this.post(u, body, callback);
+}
+
+ReachMail.prototype.reportsMailingsDetailInformation = function (accountid,
+    mailingid, callback) {
+  var u = util.format('/reports/mailings/detail/%s/%s', accountid, mailingid);
+  this.get(u, callback);
+}
+
+ReachMail.prototype.reportsMailingsMessageTesting = function (accountid, 
+    body, callback) {
+  this.post('/reports/mailings/messagetesting/%s' + accountid, body, callback);
+}
+
+ReachMail.prototype.reportsMailingsOpensDetail = function (accountid,
+    mailingid, body, callback) {
+  var u = util.format('/reports/mailings/opens/detail/%s/%s', accountid, 
+      mailingid);
+  this.post(u, body, callback);
+}
+
+ReachMail.prototype.reportsMailingsOptOutsDetail = function (accountid,
+    mailingid, body, callback) {
+  var u = util.format('/reports/mailings/optouts/detail/%s/%s', accountid, 
+      mailingid);
+  this.post(u, body, callback);
+}
+  
+ReachMail.prototype.reportsMailingsTrackedLinksDetail = function (accountid,
+    mailingid, body, callback) {
+  var u = util.format('/reports/mailings/trackedlinks/detail/%s/%s', accountid, 
+      mailingid);
+  this.post(u, body, callback);
+}
+
+ReachMail.prototype.reportsMailingsTrackedLinksSummary = function (accountid,
+    mailingid, callback) {
+  var u = util.format('/reports/mailings/trackedlinks/summary/%s/%s', 
+      accountid, mailingid);
+  this.get(u, callback);
+}
+
+ReachMail.prototype.reportsMailingsTrackedLinksSummaryList = function(accountid,
+    mailingid, listid, callback) {
+  var u = util.format('/reports/mailings/trackedlinks/summary/%s/%s/%s', 
+      accountid, mailingid, listid);
+  this.get(u, callback);
+}
+
 ReachMail.prototype.reportsEasySmtp = function (accountId, startDate, endDate,
         callback) {
     var u = util.format("/reports/easysmtp/%s?startdate=%s&enddate=%s", 

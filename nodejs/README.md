@@ -17,9 +17,24 @@ level of familiarity with node.js
 Note that at this time the client library supports only token authentication.
 For more information, refer to these instructions on [creating a token](http://reachmail.zendesk.com/entries/26267216-Setting-authorization-tokens).
 
-### Configure API
+### Installing the wrapper
 
-        var reachmail = require('/path/to/reachmailapi');
+To install the wrapper via npm:
+
+        $mkdir MyApplication
+        $cd MyApplication
+        $npm install reachmailapi
+
+Or clone the full repository and copy the NodeJS wrapper to your application 
+directory:
+
+        $git clone git@github.com:ReachmailInc/WebAPISamples.git
+        $mkdir MyApplication
+        $cp WebAPISamples/nodejs/reachmailapi.js MyApplication
+
+### Configuring the API
+
+        var reachmail = require('/path/to/reachmailapi.js');
 
         var api = new reachmail({token: 'your_token_here'});
 

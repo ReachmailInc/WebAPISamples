@@ -1,0 +1,21 @@
+{
+  "author": "Dan Nielsen / ReachMail, Inc. <support@reachmail.com> (http://www.reachmail.net)",
+  "name": "reachmailapi",
+  "description": "NodeJS wrapper for the ReachMail API",
+  "keywords": ["reachmail"],
+  "version": "0.1.0",
+  "homepage": "https://github.com/ReachmailInc/WebAPISamples/tree/master/nodejs",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ReachmailInc/WebAPISamples.git"
+  },
+  "main": "reachmailapi.js",
+  "licenses": [ {
+    "type": "GNU GPLv3",
+    "url": "https://github.com/ReachmailInc/WebAPISamples/blob/master/nodejs/LICENSE"
+  } ],
+  "bugs": {
+    "mail": "support@reachmail.com",
+    "url": "https://github.com/ReachmailInc/WebAPISamples/issues"
+  }
+}
