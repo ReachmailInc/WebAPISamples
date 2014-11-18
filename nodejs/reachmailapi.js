@@ -360,7 +360,7 @@ ReachMail.prototype.listRecipientsFilteredModify = function (accountid, listid,
 }
 
 ReachMail.prototype.listRecipientsFilteredSubscribe = function (accountid,
-    listid, body. callback) {
+    listid, body, callback) {
   var u = util.format('/lists/recipients/filtered/subscribe/%s/%s', accountid,
       listid);
   this.post(u, body, callback);
