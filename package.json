@@ -11,6 +11,7 @@
     "gulp-msbuild": "^0.2.4",
     "gulp-nuget": "0.0.3",
     "gulp-nunit-runner": "^0.4.0",
+    "gulp-xmlpoke": "^0.1.0",
     "handlebars": "^2.0.0",
     "html-to-text": "^1.1.0",
     "nuget-runner": "^0.1.0",

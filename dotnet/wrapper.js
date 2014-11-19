@@ -1,4 +1,5 @@
 var fs = require('fs'),
+    args = require('yargs').argv,
     _ = require('underscore'),
     Handlebars = require('handlebars'),
     htmlToText = require('html-to-text'),
@@ -103,8 +104,8 @@ Handlebars.registerHelper('split', function (context, options) {
     return result;
 });
 
-Handlebars.registerHelper('env', function(name) {
-    return process.env[name];
+Handlebars.registerHelper('args', function(name) {
+    return args[name];
 });
 
 Handlebars.registerHelper('pathAsTree', function (items, field, delimiter, start, options) {
