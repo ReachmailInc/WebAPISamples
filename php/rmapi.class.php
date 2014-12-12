@@ -3,7 +3,7 @@
 Name: ReachMail API Library
 Description: ReachMail API client library 
 Author: Dan Nielsen | support@reachmail.com 
-Version: 1.1 
+Version: 1.2 
 Requirements: PHP 5 or higher and the Curl Extension
 
 Usage:
