@@ -49,7 +49,7 @@ Questions regarding use of this software should be referred to
 support@reachmail.com
 
 */
-var VERSION = '0.7.1',
+var VERSION = '0.2.4',
     https   = require('https'),
     util    = require('util');
 
