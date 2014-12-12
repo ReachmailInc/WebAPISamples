@@ -7,7 +7,7 @@ namespace Reachmail
 {
     public partial class Api
     {
-        private const string Host = "https://{{env 'API_HOST'}}";
+        private const string Host = "https://{{args 'apiHost'}}";
         private readonly IHttpClient _client;
 
         public Api(IHttpClient client)

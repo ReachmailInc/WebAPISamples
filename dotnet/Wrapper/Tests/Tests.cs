@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -17,16 +18,12 @@ namespace Tests
     [TestFixture]
     public class Tests
     {
-        private readonly string _accountKey = Environment.GetEnvironmentVariable("RM_TEST_ACCTKEY");
-        private readonly string _username = Environment.GetEnvironmentVariable("RM_TEST_USERNAME");
-        private readonly string _password = Environment.GetEnvironmentVariable("RM_TEST_PASSWORD");
-
         private Api _reachmail;
 
         [SetUp]
         public void Setup()
         {
-            _reachmail = Api.Connect(_accountKey, _username, _password, allowSelfSignedCerts: true, timeout: 1200);
+            _reachmail = Api.Connect(ConfigurationManager.AppSettings["Token"], allowSelfSignedCerts: true, timeout: 1200);
         }
 
         [Test]
@@ -34,8 +31,8 @@ namespace Tests
         {
             var currentUser = _reachmail.Administration.Users.Current.Get();
             currentUser.AccountId.ShouldNotEqual(Guid.Empty);
-            currentUser.AccountKey.ShouldEqual(_accountKey);
-            currentUser.Username.ShouldEqual(_username);
+            currentUser.AccountKey.ShouldNotBeEmpty();
+            currentUser.Username.ShouldNotBeEmpty();
         }
 
         [Test]

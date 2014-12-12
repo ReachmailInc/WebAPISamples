@@ -3,7 +3,7 @@
 Name: ReachMail API Library
 Description: ReachMail API client library 
 Author: Dan Nielsen | support@reachmail.com 
-Version: 1.1 
+Version: 1.2 
 Requirements: PHP 5 or higher and the Curl Extension
 
 Usage:
@@ -81,16 +81,16 @@ class RMAPI{
                 $curl_options = $curl_defaults;
                 $curl_options[CURLOPT_POSTFIELDS] = json_encode(
                         $RequestBody);
-                $curl_options[CURLOPT_CUSTOMREQUEST] = $method;
+                $curl_options[CURLOPT_CUSTOMREQUEST] = $request_method;
                 break;
 
             case "DELETE":
                 $curl_options = $curl_defaults;
                 $curl_options[CURLOPT_POSTFIELDS] = $RequestBody;
-                $curl_options[CURLOPT_CUSTOMREQUEST] = $method;
+                $curl_options[CURLOPT_CUSTOMREQUEST] = $request_method;
                 break;
         }
-
+	
         curl_setopt_array($request, $curl_options);
         $response = json_decode(curl_exec($request));
         $http_status = curl_getinfo($request, CURLINFO_HTTP_CODE);
@@ -278,7 +278,7 @@ class RMAPI{
 
         // Opt-out a recipient from a list
         $uri = sprintf("/lists/optout/%s/%s", $AccountId, $ListId);
-        return $this->requestBody($uri, $RequestBody, "POST");
+        return $this->requestBase($uri, $RequestBody, "POST");
     }
 
     function rm_listsRecipientsCreate($AccountId=null, $ListId=null,
@@ -286,7 +286,7 @@ class RMAPI{
 
         // Add recipients to the specified list
         $uri = sprintf("/lists/recipients/%s/%s", $AccountId, $ListId);
-        return $this->requestBody($uri, $RequestBody, "POST");
+        return $this->requestBase($uri, $RequestBody, "POST");
     }
 
     function rm_listsRecipientsInformation($AccountId=null, $ListId=null,
@@ -313,7 +313,7 @@ class RMAPI{
         // Modifies the specified recipient, list specific
         $uri = sprintf("/lists/recipients/%s/%s/%s", $AccountId, $ListId,
                 $Email);
-        return $this->requestBody($uri, $RequestBody, "PUT");
+        return $this->requestBase($uri, $RequestBody, "PUT");
     }
 
     function rm_listsRecipientsFiltered($AccountId=null, $ListId=null,
