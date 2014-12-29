@@ -13,7 +13,7 @@ This library is distributed via [NuGet](http://nuget.org/packages/reachmail).
 Usage
 ------------
 
-Using the library is as easy as creating aa `Api` object:
+Using the library is as easy as creating an `Api` object:
 
 ```csharp
 var reachmail = Reachmail.Api.Create("token");
