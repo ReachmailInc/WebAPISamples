@@ -3,7 +3,7 @@ using Reachmail.Easysmtp.Post.Request;
 
 public void Main() 
 {
-    var reachmail = Reachmail.Api.Connect("<API Token>");
+    var reachmail = Reachmail.Api.Create("<API Token>");
 
     var request = new DeliveryRequest { 
         FromAddress = "from@from.com",

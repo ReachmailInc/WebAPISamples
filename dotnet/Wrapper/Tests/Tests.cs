@@ -23,7 +23,7 @@ namespace Tests
         [SetUp]
         public void Setup()
         {
-            _reachmail = Api.Connect(ConfigurationManager.AppSettings["Token"], allowSelfSignedCerts: true, timeout: 1200);
+            _reachmail = Api.Create(ConfigurationManager.AppSettings["Token"], allowSelfSignedCerts: true, timeout: 1200);
         }
 
         [Test]
