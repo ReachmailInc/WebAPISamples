@@ -16,7 +16,7 @@ namespace Reachmail
             _client.AddParameterDefault("accountId", Administration.Users.Current.Get().AccountId);
         }
 
-        public static Api Connect(
+        public static Api Create(
             string accountKey, 
             string username, 
             string password, 
@@ -25,20 +25,20 @@ namespace Reachmail
             IWebProxy proxy = null,
             int timeout = 30)
         {
-            return Connect(new HttpClient(baseUrl, accountKey + @"\" + username, password, allowSelfSignedCerts, proxy, timeout));
+            return Create(new HttpClient(baseUrl, accountKey + @"\" + username, password, allowSelfSignedCerts, proxy, timeout));
         }
 
-        public static Api Connect(
+        public static Api Create(
             string token, 
             string baseUrl = Host, 
             bool allowSelfSignedCerts = false,
             IWebProxy proxy = null,
             int timeout = 30)
         {
-            return Connect(new HttpClient(baseUrl, token, allowSelfSignedCerts, proxy, timeout));
+            return Create(new HttpClient(baseUrl, token, allowSelfSignedCerts, proxy, timeout));
         }
         
-        private static Api Connect(HttpClient client)
+        private static Api Create(HttpClient client)
         {
             return new Api(client);
         }
