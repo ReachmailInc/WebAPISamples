@@ -4,6 +4,8 @@
 include_once('./rmapi.class.php');
 
 // Initialize the rmapi class
+// your token can be generated from the User Interface at https://go.reachmail.net
+// log in, got to the Account Tab -> Tokens to generate your access token
 $rmapi = new RMAPI('YoUrSeCr3tTokenG03sH3rE');
 
 
@@ -18,10 +20,10 @@ $AccountId = $account_info['service_response']->AccountId;
 // their own single record array
 $request = array (
 	"FromAddress"   => "sender@domain.tld",
-	"Recipients"    =>  [
+	"Recipients"    =>  array(
                             array("Address" => "email@domain.tld"), 
                             array("Address" => "email2@domain.tld")
-                        ],
+                        ),
 
     // Use the `Headers` parameter to set the message headers
     // Note that here, the `From` header is used to create a more friendly
