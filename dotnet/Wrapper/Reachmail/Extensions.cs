@@ -21,7 +21,7 @@ namespace Reachmail
             return replacements.SelectMany(x => x)
                 .Where(x => x.Value != null)
                 .Aggregate(source, (input, replacement) =>
-                    Regex.Replace(input, replacement.Key, replacement.Value.ToString(), RegexOptions.IgnoreCase));
+					Regex.Replace(input, string.Format("{{{0}}}", replacement.Key), replacement.Value.ToString(), RegexOptions.IgnoreCase));
         }
 
         private static readonly JsonSerializerSettings SerializationSettings =
