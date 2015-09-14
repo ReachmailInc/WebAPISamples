@@ -84,19 +84,19 @@ class Lists(BaseResource):
         return self.request("POST", data=kwargs["ListProperties"])
 
     def information(self, **kwargs):
-        self.uri = BASEURL + "/lists/%(AccountId)s/%(ListId)" % kwargs
+        self.uri = BASEURL + "/lists/%(AccountId)s/%(ListId)s" % kwargs
         return self.request("GET")
 
     def modify(self, **kwargs):
-        self.uri = BASEURL + "/lists/%(AccountId)s/%(ListId)" % kwargs
+        self.uri = BASEURL + "/lists/%(AccountId)s/%(ListId)s" % kwargs
         return self.request("PUT", data=kwargs["ListProperties"])
 
     def delete(self, **kwargs):
-        self.uri = BASEURL + "/lists/%(AccountId)s/%(ListId)" % kwargs
+        self.uri = BASEURL + "/lists/%(AccountId)s/%(ListId)s" % kwargs
         return self.request("DELETE")
 
     def export(self, **kwargs):
-        self.uri = BASEURL + "/lists/export/%(AccountId)s/%(ListId)" % kwargs
+        self.uri = BASEURL + "/lists/export/%(AccountId)s/%(ListId)s" % kwargs
         return self.request("POST", data=kwargs["ExportParameters"])
 
     def export_status(self, **kwargs):
