@@ -22,7 +22,7 @@ var reachmail = Reachmail.Api.Create("token");
 A timeout can be set when instantiating an API or HttpClient object, ex:
 ```csharp
 
-var api = Api.Create("my_secret_toke", allowSelfSignedCerts: true, timeout: 1200)
+var api = Reachmail.Api.Create("my_secret_toke", allowSelfSignedCerts: true, timeout: 1200)
 ```
 or 
 ```charp
