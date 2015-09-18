@@ -19,6 +19,17 @@ Using the library is as easy as creating an `Api` object:
 var reachmail = Reachmail.Api.Create("token");
 ```
 
+A timeout can be set when instantiating an API or HttpClient object, ex:
+```csharp
+
+var api = Api.Create("my_secret_toke", allowSelfSignedCerts: true, timeout: 1200)
+```
+or 
+```charp
+var httpClient = new HttpClient(baseUrl, accountKey + @"\" + username, password, allowSelfSignedCerts, proxy, timeout);
+```
+Default timeout is 30 seconds. It may be necessary to increase this for large imports/exports
+
 From there you can navigate the hierarchy using intellisense:
 
 ```csharp
