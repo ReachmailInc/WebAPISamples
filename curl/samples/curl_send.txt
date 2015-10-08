@@ -1,5 +1,5 @@
 curl -X POST -v \
-    -u accountid\\username:password \
+    -u accountKey\\username:password \
     -H "Accept: application/json" \
     -H "Content-Type: application/json" \
     --data-binary \
