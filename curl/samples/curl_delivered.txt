@@ -1,4 +1,4 @@
 curl -X GET -v \
-    -u accountid\\username:password \
+    -u accountKey\\username:password \
     -H "Accept: application/json" \
     https://services.reachmail.net/reports/easysmtp/{AccountId}?enddate={enddate}&startdate={startdate}
