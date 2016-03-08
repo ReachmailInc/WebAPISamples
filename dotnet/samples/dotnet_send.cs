@@ -14,7 +14,7 @@ public void Main()
         },
         Subject = "Subject",
         BodyText = "Text",
-        BodyHtml = "<p>html</p>",
+        BodyHtml = "html",
         Headers = new Headers { 
             { "name", "value" }
         },
