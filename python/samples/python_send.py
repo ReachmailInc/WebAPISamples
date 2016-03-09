@@ -25,8 +25,8 @@ def sendEmail(api, AccountId):
 		'Address': 'rcpt2@domain.tld'
 	}
 	],
+	'Subject': 'Test Subject Goes Here' ,
   	'Headers': { 
-		'Subject': 'Test Subject Goes Here' , 
 		'From': 'From Name <from@domain.tld>', 
 		'X-Company': 'Company Name', 
 		'X-Location': 'Your Location Header' 
