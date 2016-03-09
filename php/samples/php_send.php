@@ -24,13 +24,12 @@ $request = array (
                             array("Address" => "email@domain.tld"), 
                             array("Address" => "email2@domain.tld")
                         ),
-
+        "Subject" => "Test Subject",
     // Use the `Headers` parameter to set the message headers
     // Note that here, the `From` header is used to create a more friendly
     // sender alias. 
 	"Headers"       => array( 
-                        "Subject" => "Test Subject",
-		                "From" => "FromName <sender@domain.tld>", 
+		        "From" => "FromName <sender@domain.tld>", 
                         "X-Company" => "ReachMail"
                         ),
 
