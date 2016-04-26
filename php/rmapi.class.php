@@ -391,14 +391,14 @@ class RMAPI{
         return $this->requestBase($uri, $RequestBody, "POST");
     }
     function rm_reportsMailingsSummary($AccountId=null, $RequestBody=null) {
-      //Returns Summary data for campaogns
+      //Returns Summary data for all campaigns macthed in the provided filters
       $uri = sprintf("/reports/mailings/summary/%s", $AccountId);
-      return $this->requestBase($uri, $RequestBody, "POST")
+      return $this->requestBase($uri, $RequestBody, "POST");
     }
     function rm_reportsMailingSummary($AccountId=null, $MailingId=null) {
-      //Returns Summary data for campaogns
+      //Returns Summary data for a single campaign
       $uri = sprintf("/reports/mailings/summary/%s/%s", $AccountId, $MailingId);
-      return $this->requestBase($uri, null, "GET")
+      return $this->requestBase($uri, null, "GET");
     }
     function rm_reportsMailingsTrackedLinksDetail($AccountId=null,
             $MailingId=null, $RequestBody=null) {
