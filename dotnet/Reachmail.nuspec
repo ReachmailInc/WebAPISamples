@@ -15,7 +15,7 @@
       <iconUrl>https://raw.github.com/ReachmailInc/WebAPISamples/master/dotnet/logo.png</iconUrl>
       <tags>reachmail email esp</tags>
       <dependencies>
-         <dependency id="Newtonsoft.Json" />
+         <dependency id="Newtonsoft.Json" version="6.0.6" />
       </dependencies>
    </metadata>
 </package>
