@@ -23,7 +23,7 @@ namespace Tests
         [SetUp]
         public void Setup()
         {
-            _reachmail = Api.Create(ConfigurationManager.AppSettings["Token"], allowSelfSignedCerts: true, timeout: 1200);
+            _reachmail = Api.Create(ConfigurationManager.AppSettings["w3VtVGDkCCNCaoobWrWd28sutEpCYxmPCVIRiXX800WCsVo6Ej0SPnqbrAPRVvA2"], allowSelfSignedCerts: true, timeout: 1200);
         }
 
         [Test]
@@ -39,12 +39,18 @@ namespace Tests
         public void should_interact_with_mailing_api()
         {
             var mailingName = "TestMailing-" + Guid.NewGuid().ToString("N");
+            var subject = "TestMailingSubect-" + Guid.NewGuid().ToString("N");
+            var fromEmail = Guid.NewGuid().ToString("N") + "@reachmail.com";
+            var replyToEmail = Guid.NewGuid().ToString("N") + "@reachmail.com";
 
             // Post
             var postMailing = _reachmail.Mailings.Post(new MailingProperties
             {
                 Name = mailingName,
-                MailingFormat = MailingFormat.TextAndHtml
+                MailingFormat = MailingFormat.TextAndHtml,
+                Subject = subject,
+                FromEmail = fromEmail,
+                ReplyToEmail = replyToEmail
             });
 
             // Get
@@ -52,6 +58,9 @@ namespace Tests
             getMailing.Id.ShouldEqual(postMailing.Id);
             getMailing.Name.ShouldEqual(mailingName);
             getMailing.MailingFormat.ShouldEqual(Reachmail.Mailings.GetByMailingId.Response.MailingFormat.TextAndHtml);
+            getMailing.Subject.ShouldEqual(subject);
+            getMailing.FromEmail.ShouldEqual(fromEmail);
+            getMailing.ReplyToEmail.ShouldEqual(replyToEmail);
 
             // Get many
             var queryLists = _reachmail.Mailings.Filtered.Post(new MailingFilter { NewerThan = DateTime.Now.AddDays(-1) });
@@ -60,14 +69,26 @@ namespace Tests
             queryList.Id.ShouldEqual(postMailing.Id);
             queryList.Name.ShouldEqual(mailingName);
             queryList.MailingFormat.ShouldEqual(Reachmail.Mailings.Filtered.Post.Response.MailingFormat.TextAndHtml);
+            queryList.Subject.ShouldEqual(subject);
+            queryList.FromEmail.ShouldEqual(fromEmail);
+            queryList.ReplyToEmail.ShouldEqual(replyToEmail);
 
             // Put
             _reachmail.Mailings.Put(postMailing.Id,
-                new Reachmail.Mailings.PutByMailingId.Request.MailingProperties { Name = "New" + mailingName });
+                new Reachmail.Mailings.PutByMailingId.Request.MailingProperties
+                {
+                    Name = "New" + mailingName,
+                    Subject = "New" + subject,
+                    FromEmail = "New" + fromEmail,
+                    ReplyToEmail = "New" + replyToEmail
+                });
             getMailing = _reachmail.Mailings.Get(postMailing.Id);
             getMailing.Id.ShouldEqual(postMailing.Id);
             getMailing.Name.ShouldEqual("New" + mailingName);
             getMailing.MailingFormat.ShouldEqual(Reachmail.Mailings.GetByMailingId.Response.MailingFormat.TextAndHtml);
+            getMailing.Subject.ShouldEqual("New" + subject);
+            getMailing.FromEmail.ShouldEqual("New" + fromEmail);
+            getMailing.ReplyToEmail.ShouldEqual("New" + replyToEmail);
 
             // Delete
             _reachmail.Mailings.Delete(postMailing.Id);
