@@ -3,7 +3,7 @@ using Reachmail.Easysmtp.Post.Request;
 
 public void Main() 
 {
-    var reachmail = Reachmail.Api.Create("<API Token>");
+    var client = Reachmail.Api.Create("<API Token>");
 
     var request = new DeliveryRequest { 
         FromAddress = "from@from.com",
@@ -32,5 +32,6 @@ public void Main()
         SignatureDomain = "signature.net"
     };
 
-    var result = reachmail.Easysmtp.Post(request);
+    var accountId = client.Administration.Users.Current.Get();
+    var result = client.EasySmtp.Post(request, accountId);
 }
