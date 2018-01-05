@@ -5,7 +5,7 @@ public void Main()
 {
     var client = Reachmail.Api.Create("<API Token>");
 
-    var request = new DeliveryRequest { 
+    var request = new Reachmail.EasySmtp.Post.Message {
         FromAddress = "from@from.com",
         Recipients = new Recipients { 
             new Recipient { 
