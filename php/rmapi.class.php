@@ -299,6 +299,12 @@ class RMAPI{
         $uri = sprintf("/lists/subscriptionform/filtered/%s", $AccountId);
         return $this->requestBase($uri, $reuqest_body, "POST");
     }
+    function rm_listsSubscriptionFormSubscriber($SubscriptionFormId=null
+            $RequestBody=null) {
+        // Returns filtered set of subscription forms in the specified account
+        $uri = sprintf("/lists/subscriptionform/filtered/%s", $SubscriptionFormId);
+        return $this->requestBase($uri, $reuqest_body, "POST");
+    }
     function rm_mailingsCreate($AccountId=null, $RequestBody=null) {
         // Creates a mailing
         $uri = sprintf("/mailings/%s", $AccountId);
