@@ -143,6 +143,10 @@ class RMAPI{
         $uri = sprintf("/easysmtp/%s", $AccountId);
         return $this->requestBase($uri, $RequestBody, "POST");
     }
+    function rm_easySmtpAdvancedDelivery($AccountId=null, $RequestBody=null) {
+        $uri = sprintf("/easysmtp/advanced/%s", $AccountId);
+        return $this->requestBase($uri, $RequestBody, "POST");
+    }
     function rm_listsCreate($AccountId=null, $RequestBody=null) {
         // Creates a new, empty list
         $uri = sprintf("/lists/%s", $AccountId);
