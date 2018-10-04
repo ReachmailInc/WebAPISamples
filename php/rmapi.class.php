@@ -351,7 +351,7 @@ class RMAPI{
         return $this->requestBase($uri, null, "GET");
     }
     function rm_mailingsGroupsModify($AccountId=null, $GroupId=null,
-            $request_id=null) {
+            $RequestBody=null) {
         // Modifies the specified group
         $uri = sprintf("/mailings/groups/%s/%s", $AccountId, $GroupId);
         return $this->requestBase($uri, $RequestBody, "PUT");
