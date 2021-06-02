@@ -13,7 +13,7 @@ $AccountId = $account_info['service_response']->AccountId;
 # create List
 
 $list_request = array (
-    "Name" => "Test List MM",
+    "Name" => "Name of List here",
     "Type" => "Recipient",
     "Fields" => [
         "Email", "FirstName"
