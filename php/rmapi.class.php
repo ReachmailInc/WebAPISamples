@@ -40,17 +40,29 @@ class RMAPI{
     function requestBase($uri, $RequestBody, $request_method) {
         global $header;
         $url = $this->svcbase . $uri;
-        $curl_headers = array("Content-Type: application/json",
-                "Accept: application/json",
-                sprintf("Authorization: token %s", $this->_token));
-        // Defaults
+        
+        if ($uri === '/data') {
+            $content_type = "Content-Type: application/octet-stream";
+            $body = $RequestBody;
+        } else {
+            $content_type = "Content-Type: application/json";
+            $body = $body = json_encode($RequestBody);
+        }
+
+        $curl_headers = array(
+            $content_type,
+            "Accept: application/json",
+            sprintf("Authorization: token %s", $this->_token)
+        );
+
+        // defaults
         $curl_defaults = array(
             CURLOPT_URL => $url,
             CURLOPT_HEADER => false,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => $curl_headers,
-	    CURLOPT_HEADERFUNCTION => "HandleHeaderLine"
-        );
+            CURLOPT_HEADERFUNCTION => "HandleHeaderLine"
+        );        
 	
         $request = curl_init();
         switch($request_method) {
@@ -60,12 +72,12 @@ class RMAPI{
                 break;
             case "POST":
                 $curl_options = $curl_defaults;
-                $curl_options[CURLOPT_POSTFIELDS] = json_encode($RequestBody);
+                $curl_options[CURLOPT_POSTFIELDS] = $body;
                 $curl_options[CURLOPT_POST] = true;
                 break;
             case "PUT":
                 $curl_options = $curl_defaults;
-                $curl_options[CURLOPT_POSTFIELDS] = json_encode($RequestBody);
+                $curl_options[CURLOPT_POSTFIELDS] = $body;
                 $curl_options[CURLOPT_CUSTOMREQUEST] = $request_method;
                 break;
             case "DELETE":
@@ -92,7 +104,7 @@ class RMAPI{
         curl_close($request);
         return array(
             "http_status" => $http_status,
-	    "http_status_text" => $header,
+	        "http_status_text" => $header,
             "service_response" => $response
         );
     }
@@ -129,7 +141,8 @@ class RMAPI{
     function rm_dataUpload($RequestBody=null) {
         
         // Uploads data, i.e. a list file, image, etc. 
-        // In this function $RequestBody should be a byte-stream representation
+        // In this function $RequestBody should be a string representation
+        // use the file_get_contents() function. 
         // of the data to be uploaded
         $uri = "/data";
         return $this->requestBase($uri, $RequestBody, "POST");
@@ -218,7 +231,7 @@ class RMAPI{
         $uri = sprintf("/lists/groups/%s/%s", $AccountId, $GroupId);
         return $this->requestBase($uri, null, "DELETE");
     }
-    function rm_listsImport($AccountId=null, $ListId=null,
+    function  rm_listsImport($AccountId=null, $ListId=null,
             $RequestBody=null) {
         // Imports data into a list
         $uri = sprintf("/lists/import/%s/%s", $AccountId, $ListId);
