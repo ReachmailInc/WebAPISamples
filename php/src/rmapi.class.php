@@ -1,9 +1,11 @@
 <?php 
+namespace ReachMail;
+
 /*
 Name: ReachMail API Library
 Description: ReachMail API client library 
-Author: Dan Nielsen | support@reachmail.com 
-Version: 1.2 
+Author: ReachMail Holdings, LLC. | support@reachmail.com 
+Version: 1.3 
 Requirements: PHP 5 or higher and the Curl Extension
 Usage:
     include_once('rmapi.class.php'); 
@@ -14,7 +16,7 @@ and a JSON encoded string of the request response. Any service which requires
 a request body will accept that body only in as a JSON encoded string.
 Please consult the notes in each function for more information on usage and
 their specific use.
-Copyright (C) 2013 ReachMail, Inc. / Dan Nielsen
+Copyright (C) ReachMail Holdings, LLC.
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,11 +28,13 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
+
 if(!extension_loaded("curl")) {
 	throw(new Exception("The cURL extension for PHP is required."));
 }
+
 $header = "";
-class RMAPI{
+class RMAPI {
 	private $_token;
     private $_httpa;
 	function __construct($_token=null) {
@@ -61,7 +65,7 @@ class RMAPI{
             CURLOPT_HEADER => false,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => $curl_headers,
-            CURLOPT_HEADERFUNCTION => "HandleHeaderLine"
+            CURLOPT_HEADERFUNCTION => "ReachMail\HandleHeaderLine"
         );        
 	
         $request = curl_init();
@@ -89,15 +93,16 @@ class RMAPI{
 	
         curl_setopt_array($request, $curl_options);
 
-	if (!function_exists('HandleHeaderLine')){	
-	function HandleHeaderLine( $request, $header_line ) {
-		global $header;
-		if (preg_match('/status-text/', $header_line)) {
-			$header .= substr($header_line, 13); // or do whatever
-			$header = str_replace(array("\r", "\n"), "", $header);
-		}
+	    if (!function_exists('ReachMail\HandleHeaderLine')){	
+	        function HandleHeaderLine( $request, $header_line ) {
+		        global $header;
+		        if (preg_match('/status-text/', $header_line)) {
+			        $header .= substr($header_line, 13); // or do whatever
+			        $header = str_replace(array("\r", "\n"), "", $header);
+		        }
                 return strlen($header_line);
-        }}
+            }
+        }
 	
         $response = json_decode(curl_exec($request));
         $http_status = curl_getinfo($request, CURLINFO_HTTP_CODE);
